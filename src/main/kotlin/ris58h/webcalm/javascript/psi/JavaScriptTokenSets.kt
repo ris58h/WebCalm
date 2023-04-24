@@ -5,7 +5,13 @@ import com.intellij.psi.tree.TokenSet
 object JavaScriptTokenSets {
     val WHITESPACE = TokenSet.create(JavaScriptTypes.WS, JavaScriptTypes.EOL)
     val COMMENTS = TokenSet.create(JavaScriptTypes.LINE_COMMENT, JavaScriptTypes.MULTILINE_COMMENT)
-    val STRINGS = TokenSet.create(JavaScriptTypes.STRING)
+    val STRINGS = TokenSet.create(
+        JavaScriptTypes.STRING,
+        JavaScriptTypes.BACKTICK,
+        JavaScriptTypes.TEMPLATE_STRING_ATOM,
+        JavaScriptTypes.TEMPLATE_STRING_START_EXPR,
+        JavaScriptTypes.TEMPLATE_STRING_END_EXPR,
+    )
     val BRACES = TokenSet.create(JavaScriptTypes.OPEN_BRACE, JavaScriptTypes.CLOSE_BRACE)
     val BRACKETS = TokenSet.create(JavaScriptTypes.OPEN_BRACKET, JavaScriptTypes.CLOSE_BRACKET)
     val PARENTHESES = TokenSet.create(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN)

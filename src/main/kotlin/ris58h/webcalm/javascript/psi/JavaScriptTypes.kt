@@ -17,6 +17,10 @@ object JavaScriptTypes {
     val LINE_COMMENT = TOKENS[JavaScriptLexer.SingleLineComment]!!
     val MULTILINE_COMMENT = TOKENS[JavaScriptLexer.MultiLineComment]!!
     val STRING = TOKENS[JavaScriptLexer.StringLiteral]!!
+    val BACKTICK = TOKENS[JavaScriptLexer.BackTick]!!
+    val TEMPLATE_STRING_ATOM = TOKENS[JavaScriptLexer.TemplateStringAtom]!!
+    val TEMPLATE_STRING_START_EXPR = TOKENS[JavaScriptLexer.TemplateStringStartExpression]!!
+    val TEMPLATE_STRING_END_EXPR = TOKENS[JavaScriptLexer.TemplateCloseBrace]!!
     val OPEN_BRACE = TOKENS[JavaScriptLexer.OpenBrace]!!
     val CLOSE_BRACE = TOKENS[JavaScriptLexer.CloseBrace]!!
     val OPEN_BRACKET = TOKENS[JavaScriptLexer.OpenBracket]!!
