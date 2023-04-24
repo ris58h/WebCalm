@@ -3,13 +3,16 @@ package ris58h.webcalm.javascript.psi
 import com.intellij.psi.tree.TokenSet
 
 object JavaScriptTokenSets {
-    val WHITESPACE: TokenSet = TokenSet.create(JavaScriptTypes.WS, JavaScriptTypes.EOL)
-    val COMMENTS: TokenSet = TokenSet.create(JavaScriptTypes.LINE_COMMENT, JavaScriptTypes.MULTILINE_COMMENT)
-    val STRINGS: TokenSet = TokenSet.create(JavaScriptTypes.STRING)
-    val BRACES: TokenSet = TokenSet.create(JavaScriptTypes.OPEN_BRACE, JavaScriptTypes.CLOSE_BRACE)
-    val BRACKETS: TokenSet = TokenSet.create(JavaScriptTypes.OPEN_BRACKET, JavaScriptTypes.CLOSE_BRACKET)
-    val PARENTHESES: TokenSet = TokenSet.create(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN)
-    val KEYWORDS: TokenSet = TokenSet.create(
+    val WHITESPACE = TokenSet.create(JavaScriptTypes.WS, JavaScriptTypes.EOL)
+    val COMMENTS = TokenSet.create(JavaScriptTypes.LINE_COMMENT, JavaScriptTypes.MULTILINE_COMMENT)
+    val STRINGS = TokenSet.create(JavaScriptTypes.STRING)
+    val BRACES = TokenSet.create(JavaScriptTypes.OPEN_BRACE, JavaScriptTypes.CLOSE_BRACE)
+    val BRACKETS = TokenSet.create(JavaScriptTypes.OPEN_BRACKET, JavaScriptTypes.CLOSE_BRACKET)
+    val PARENTHESES = TokenSet.create(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN)
+    val KEYWORDS = TokenSet.create(
+        JavaScriptTypes.ARROW,
+        JavaScriptTypes.NULL_LITERAL,
+        JavaScriptTypes.BOOLEAN_LITERAL,
         JavaScriptTypes.BREAK_KEYWORD,
         JavaScriptTypes.DO_KEYWORD,
         JavaScriptTypes.INSTANCEOF_KEYWORD,
@@ -58,7 +61,7 @@ object JavaScriptTokenSets {
         JavaScriptTypes.PROTECTED_KEYWORD,
         JavaScriptTypes.STATIC_KEYWORD,
     )
-    val OPERATIONS: TokenSet = TokenSet.create(
+    val OPERATIONS = TokenSet.create(
         JavaScriptTypes.PLUS_PLUS_OP,
         JavaScriptTypes.MENUS_MINUS_OP,
         JavaScriptTypes.PLUS_OP,
@@ -85,5 +88,17 @@ object JavaScriptTokenSets {
         JavaScriptTypes.BIT_OR_OP,
         JavaScriptTypes.AND_OP,
         JavaScriptTypes.OR_OP,
+    )
+    val NUMBER = TokenSet.create(
+        JavaScriptTypes.BOOLEAN_LITERAL,
+        JavaScriptTypes.DEC_INT_LITERAL,
+        JavaScriptTypes.HEX_INT_LITERAL,
+        JavaScriptTypes.OCT_INT_LITERAL,
+        JavaScriptTypes.OCT_INT_LITERAL2,
+        JavaScriptTypes.BIN_INT_LITERAL,
+        JavaScriptTypes.BIG_HEX_INT_LITERAL,
+        JavaScriptTypes.BIG_OCT_INT_LITERAL,
+        JavaScriptTypes.BIG_BIN_INT_LITERAL,
+        JavaScriptTypes.BIG_DEC_INT_LITERAL,
     )
 }

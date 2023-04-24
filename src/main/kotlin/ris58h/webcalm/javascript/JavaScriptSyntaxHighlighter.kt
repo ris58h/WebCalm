@@ -47,6 +47,9 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         if (JavaScriptTokenSets.OPERATIONS.contains(tokenType)) {
             return OPERATION_SIGN
         }
+        if (JavaScriptTokenSets.NUMBER.contains(tokenType)) {
+            return NUMBER
+        }
         if (JavaScriptTypes.IDENTIFIER == tokenType) {
             return IDENTIFIER
         }
@@ -63,5 +66,6 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
         private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
         private val IDENTIFIER = arrayOf(DefaultLanguageHighlighterColors.IDENTIFIER)
+        private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
     }
 }
