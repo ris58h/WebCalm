@@ -1,0 +1,28 @@
+<idea-plugin>
+    <id>ris58h.webcalm</id>
+    <name>WebCalm</name>
+    <vendor email="ris58h@gmail.com" url="https://github.com/ris58h">Ilya Rodionov</vendor>
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+  ]]></description>
+
+    <idea-version since-build="201"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- JavaScript -->
+        <fileType
+                name="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptFileType"
+                language="JavaScript"
+                extensions="js"/>
+        <lang.parserDefinition
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptParserDefinition"/>
+    </extensions>
+</idea-plugin>
