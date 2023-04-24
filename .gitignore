@@ -1,0 +1,9 @@
+.gradle
+build/
+
+### IntelliJ IDEA ###
+.idea
+.run
+
+### Mac OS ###
+.DS_Store
