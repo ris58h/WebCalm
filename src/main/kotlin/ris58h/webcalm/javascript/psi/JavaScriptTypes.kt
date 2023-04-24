@@ -1,7 +1,11 @@
 package ris58h.webcalm.javascript.psi
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IFileElementType
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
+import org.antlr.intellij.adaptor.lexer.RuleIElementType
+import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import ris58h.webcalm.javascript.JavaScriptLanguage
 
 object JavaScriptTypes {
@@ -10,7 +14,9 @@ object JavaScriptTypes {
             JavaScriptLanguage, JavaScriptParser.tokenNames, JavaScriptParser.ruleNames
         )
     }
+
     val FILE = IFileElementType(JavaScriptLanguage)
+
     private val TOKENS = PSIElementTypeFactory.getTokenIElementTypes(JavaScriptLanguage)
     val WS = TOKENS[JavaScriptLexer.WhiteSpaces]!!
     val EOL = TOKENS[JavaScriptLexer.LineTerminator]!!
@@ -126,4 +132,17 @@ object JavaScriptTypes {
     val PROTECTED_KEYWORD = TOKENS[JavaScriptLexer.Protected]!!
     val STATIC_KEYWORD = TOKENS[JavaScriptLexer.Static]!!
     val IDENTIFIER = TOKENS[JavaScriptLexer.Identifier]!!
+
+    private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
+    private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
+
+    object Factory {
+        fun createElement(node: ASTNode): PsiElement {
+            return when (node.elementType) {
+                FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
+                //TODO: other rules
+                else -> ANTLRPsiNode(node)
+            }
+        }
+    }
 }

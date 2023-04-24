@@ -15,7 +15,6 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
-import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
 import ris58h.webcalm.javascript.psi.*
@@ -33,7 +32,6 @@ class JavaScriptParserDefinition : ParserDefinition {
                 }
                 throw UnsupportedOperationException("Unsupported root: ${root.javaClass.name}")
             }
-
         }
     }
 
@@ -45,9 +43,7 @@ class JavaScriptParserDefinition : ParserDefinition {
 
     override fun getStringLiteralElements(): TokenSet = JavaScriptTokenSets.STRINGS
 
-    override fun createElement(node: ASTNode): PsiElement {
-        return ANTLRPsiNode(node)
-    }
+    override fun createElement(node: ASTNode): PsiElement = JavaScriptTypes.Factory.createElement(node)
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = JavaScriptFile(viewProvider)
 }
