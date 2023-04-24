@@ -14,12 +14,11 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
-import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import ris58h.webcalm.javascript.psi.JavaScriptFile
+import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptParserDefinition : ParserDefinition {
     override fun createLexer(project: Project?): Lexer {
@@ -38,31 +37,17 @@ class JavaScriptParserDefinition : ParserDefinition {
         }
     }
 
-    override fun getFileNodeType(): IFileElementType = FILE
+    override fun getFileNodeType(): IFileElementType = JavaScriptTypes.FILE
 
-    override fun getWhitespaceTokens(): TokenSet = WHITESPACE
+    override fun getWhitespaceTokens(): TokenSet = JavaScriptTokenSets.WHITESPACE
 
-    override fun getCommentTokens(): TokenSet = COMMENTS
+    override fun getCommentTokens(): TokenSet = JavaScriptTokenSets.COMMENTS
 
-    override fun getStringLiteralElements(): TokenSet = STRING
+    override fun getStringLiteralElements(): TokenSet = JavaScriptTokenSets.STRINGS
 
     override fun createElement(node: ASTNode): PsiElement {
         return ANTLRPsiNode(node)
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = JavaScriptFile(viewProvider)
-
-    companion object {
-        init {
-            PSIElementTypeFactory.defineLanguageIElementTypes(
-                JavaScriptLanguage, JavaScriptParser.tokenNames, JavaScriptParser.ruleNames
-            )
-        }
-        private val TOKENS = PSIElementTypeFactory.getTokenIElementTypes(JavaScriptLanguage)
-
-        val FILE = IFileElementType(JavaScriptLanguage)
-        val WHITESPACE: TokenSet = TokenSet.create(TOKENS[JavaScriptLexer.WhiteSpaces], TOKENS[JavaScriptLexer.LineTerminator])
-        val COMMENTS: TokenSet = TokenSet.create(TOKENS[JavaScriptLexer.SingleLineComment], TOKENS[JavaScriptLexer.MultiLineComment])
-        val STRING: TokenSet = TokenSet.create(TOKENS[JavaScriptLexer.StringLiteral])
-    }
 }

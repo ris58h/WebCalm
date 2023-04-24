@@ -24,5 +24,8 @@
         <lang.parserDefinition
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptSyntaxHighlighter$Factory"/>
     </extensions>
 </idea-plugin>
