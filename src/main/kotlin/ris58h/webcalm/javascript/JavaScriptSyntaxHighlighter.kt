@@ -44,6 +44,9 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         if (JavaScriptTokenSets.KEYWORDS.contains(tokenType)) {
             return KEYWORD
         }
+        if (JavaScriptTokenSets.OPERATIONS.contains(tokenType)) {
+            return OPERATION_SIGN
+        }
         if (JavaScriptTypes.IDENTIFIER == tokenType) {
             return IDENTIFIER
         }
@@ -58,6 +61,7 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         private val BRACKETS = arrayOf(DefaultLanguageHighlighterColors.BRACKETS)
         private val PARENTHESES = arrayOf(DefaultLanguageHighlighterColors.PARENTHESES)
         private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
+        private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
         private val IDENTIFIER = arrayOf(DefaultLanguageHighlighterColors.IDENTIFIER)
     }
 }
