@@ -29,5 +29,17 @@
         <lang.syntaxHighlighterFactory
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptSyntaxHighlighter$Factory"/>
+        <!-- CSS -->
+        <fileType
+                name="CSS"
+                implementationClass="ris58h.webcalm.css.CssFileType"
+                language="CSS"
+                extensions="css"/>
+        <lang.parserDefinition
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>
     </extensions>
 </idea-plugin>
