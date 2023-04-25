@@ -12,6 +12,7 @@ import com.intellij.psi.tree.IElementType
 import css3Lexer
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import ris58h.webcalm.css.psi.CssTokenSets
+import ris58h.webcalm.css.psi.CssTypes
 
 class CssSyntaxHighlighter : SyntaxHighlighterBase() {
     class Factory : SyntaxHighlighterFactory() {
@@ -45,14 +46,14 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
 //        if (CssTokenSets.OPERATIONS.contains(tokenType)) {
 //            return OPERATION_SIGN
 //        }
-//        if (CssTokenSets.NUMBERS.contains(tokenType)) {
-//            return NUMBER
-//        }
 //        if (CssTypes.IDENTIFIER == tokenType) {
 //            return IDENTIFIER
 //        }
         //TODO: other token types
-        return TextAttributesKey.EMPTY_ARRAY
+        return when (tokenType) {
+            CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> NUMBER
+            else -> TextAttributesKey.EMPTY_ARRAY
+        }
     }
 
     companion object {
@@ -64,6 +65,6 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
 //        private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
 //        private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
 //        private val IDENTIFIER = arrayOf(DefaultLanguageHighlighterColors.IDENTIFIER)
-//        private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
+        private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
     }
 }

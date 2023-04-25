@@ -20,6 +20,9 @@ object CssTypes {
     val WS = TOKENS[css3Lexer.Space]!!
     val COMMENT = TOKENS[css3Lexer.Comment]!!
     val STRING = TOKENS[css3Lexer.String_]!!
+    val NUMBER = TOKENS[css3Lexer.Number]!!
+    val DIMENSION = TOKENS[css3Lexer.Dimension]!!
+    val PERCENTAGE = TOKENS[css3Lexer.Percentage]!!
 
     object Factory {
         fun createElement(node: ASTNode): PsiElement {
