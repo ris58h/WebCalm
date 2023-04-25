@@ -19,3 +19,9 @@ tag {
 body a[target="_blank"] {
   background-color: #FF0011;
 }
+
+@media screen and (color) {
+    .lizard a[target^="https://"]{
+        background: no-repeat url("../../media/examples/lizard.png");
+    }
+}
