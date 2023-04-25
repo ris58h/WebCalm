@@ -47,7 +47,7 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         if (JavaScriptTokenSets.OPERATIONS.contains(tokenType)) {
             return OPERATION_SIGN
         }
-        if (JavaScriptTokenSets.NUMBER.contains(tokenType)) {
+        if (JavaScriptTokenSets.NUMBERS.contains(tokenType)) {
             return NUMBER
         }
         if (JavaScriptTypes.IDENTIFIER == tokenType) {

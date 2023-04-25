@@ -95,7 +95,7 @@ object JavaScriptTokenSets {
         JavaScriptTypes.AND_OP,
         JavaScriptTypes.OR_OP,
     )
-    val NUMBER = TokenSet.create(
+    val NUMBERS = TokenSet.create(
         JavaScriptTypes.BOOLEAN_LITERAL,
         JavaScriptTypes.DEC_INT_LITERAL,
         JavaScriptTypes.HEX_INT_LITERAL,

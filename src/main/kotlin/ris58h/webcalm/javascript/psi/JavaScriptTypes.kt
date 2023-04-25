@@ -11,7 +11,7 @@ import ris58h.webcalm.javascript.JavaScriptLanguage
 object JavaScriptTypes {
     init {
         PSIElementTypeFactory.defineLanguageIElementTypes(
-            JavaScriptLanguage, JavaScriptParser.tokenNames, JavaScriptParser.ruleNames
+            JavaScriptLanguage, JavaScriptLexer.tokenNames, JavaScriptParser.ruleNames
         )
     }
 
