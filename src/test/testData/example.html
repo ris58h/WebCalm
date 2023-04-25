@@ -1,23 +1,37 @@
 <html>
 <head>
     <style>
-        table {
-            width: 100%;
+        #counter {
+            text-align: center;
         }
 
-        .hidden {
-            display: none;
+        button {
+            margin-top: 16px;
+            padding: 16px;
+            width: 25%;
         }
+
+        .red { background-color: red; }
+        .green { background-color: #00FF00; }
+        .blue { background-color: rgb(0,0,255); }
     </style>
 </head>
 <body>
+    <div id="counter" class="green" style="width: 50%; height: 32px; padding: 16px 0;">0</div>
+    <button class="blue" onclick="increment()">Click</button>
+    <button class="red" onclick="setCount(0)">Reset</button>
     <script>
-        function foo(p) {
-            console.log(p)
+        function increment() {
+            const value = getCount()
+            setCount(value + 1)
         }
 
-        function bar() {
-            foo('baz')
+        const counter = document.querySelector('#counter')
+        function getCount() {
+            return parseInt(counter.textContent)
+        }
+        function setCount(value) {
+            counter.textContent = value
         }
     </script>
 </body>
