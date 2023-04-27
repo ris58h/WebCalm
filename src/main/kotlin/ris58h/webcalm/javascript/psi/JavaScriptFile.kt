@@ -8,4 +8,6 @@ import ris58h.webcalm.javascript.JavaScriptLanguage
 
 class JavaScriptFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, JavaScriptLanguage) {
     override fun getFileType(): FileType = JavaScriptFileType.INSTANCE
+
+    override fun toString(): String = "JavaScript file"
 }
