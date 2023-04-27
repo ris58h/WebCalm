@@ -1,0 +1,6 @@
+package ris58h.webcalm.javascript.psi
+
+import com.intellij.lang.ASTNode
+import org.antlr.intellij.adaptor.psi.IdentifierDefSubtree
+
+class JavaScriptParameter(node: ASTNode) : IdentifierDefSubtree(node, JavaScriptTypes.IDENTIFIER)

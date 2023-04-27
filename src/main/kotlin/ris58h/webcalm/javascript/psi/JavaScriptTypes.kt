@@ -136,12 +136,14 @@ object JavaScriptTypes {
     private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
     private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
     private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
+    private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
 
     object Factory {
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
+                PARAMETER -> JavaScriptParameter(node)
                 //TODO: other rules
                 else -> ANTLRPsiNode(node)
             }
