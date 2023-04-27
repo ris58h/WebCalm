@@ -136,17 +136,33 @@ object JavaScriptTypes {
     private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
     private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
     private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
+    private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
     private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
+    private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
+    private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
+    private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
 
     object Factory {
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
+                PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)
+                EXPRESSION -> createExpression(node)
+                ARGUMENTS -> JavaScriptArguments(node)
+                ARGUMENT -> JavaScriptArgument(node)
                 //TODO: other rules
                 else -> ANTLRPsiNode(node)
             }
+        }
+
+        private fun createExpression(node: ASTNode): PsiElement {
+            val children = node.getChildren(null)
+            if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
+                return JavaScriptCall(node)
+            }
+            return ANTLRPsiNode(node)
         }
     }
 }
