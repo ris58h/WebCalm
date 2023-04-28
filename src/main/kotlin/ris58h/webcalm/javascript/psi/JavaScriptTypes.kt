@@ -4,7 +4,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IFileElementType
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
-import org.antlr.intellij.adaptor.lexer.RuleIElementType
 import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import ris58h.webcalm.javascript.JavaScriptLanguage
 
@@ -133,22 +132,26 @@ object JavaScriptTypes {
     val STATIC_KEYWORD = TOKENS[JavaScriptLexer.Static]!!
     val IDENTIFIER = TOKENS[JavaScriptLexer.Identifier]!!
 
-    private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
-    private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
-    private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
-    private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
-    private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
-    private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
-    private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
-    private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
-
     object Factory {
+        private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
+        private val IDENTIFIER = RULES[JavaScriptParser.RULE_identifier]
+        private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
+        private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
+        private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
+        private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
+        private val ASSIGNABLE = RULES[JavaScriptParser.RULE_assignable]
+        private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
+        private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
+        private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
+
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
+                IDENTIFIER -> JavaScriptIdentifier(node)
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
                 PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)
+                ASSIGNABLE -> JavaScriptAssignable(node)
                 EXPRESSION -> createExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
@@ -160,9 +163,9 @@ object JavaScriptTypes {
         private fun createExpression(node: ASTNode): PsiElement {
             val children = node.getChildren(null)
             if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
-                return JavaScriptCall(node)
+                return JavaScriptCallExpression(node)
             }
-            return ANTLRPsiNode(node)
+            return JavaScriptExpression(node)
         }
     }
 }

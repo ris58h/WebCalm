@@ -1,6 +1,5 @@
 package ris58h.webcalm.javascript.psi
 
 import com.intellij.lang.ASTNode
-import org.antlr.intellij.adaptor.psi.IdentifierDefSubtree
 
-class JavaScriptFunctionDeclaration(node: ASTNode) : IdentifierDefSubtree(node, JavaScriptTypes.IDENTIFIER)
+class JavaScriptFunctionDeclaration(node: ASTNode) : JavaScriptIdentifierOwner(node)

@@ -1,6 +1,11 @@
 package ris58h.webcalm.javascript.psi
 
 import com.intellij.lang.ASTNode
-import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
+import com.intellij.psi.util.PsiTreeUtil
 
-class JavaScriptArgument(node: ASTNode) : ANTLRPsiNode(node)
+class JavaScriptArgument(node: ASTNode) : JavaScriptIdentifierOwner(node) {
+    override fun findJavaScriptIdentifier(): JavaScriptIdentifier? {
+        return PsiTreeUtil.findChildOfType(this, JavaScriptAssignable::class.java)
+            ?.findJavaScriptIdentifier()
+    }
+}
