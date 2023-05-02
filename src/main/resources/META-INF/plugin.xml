@@ -16,8 +16,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- HTML -->
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptLanguageInjector"/>
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleLanguageInjector"/>
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlAttributeJavaScriptInjector"/>
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptTagJavaScriptInjector"/>
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>
         <!-- JavaScript -->
         <fileType
                 name="JavaScript"
