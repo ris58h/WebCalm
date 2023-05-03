@@ -18,6 +18,7 @@
         <!-- HTML -->
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlAttributeJavaScriptInjector"/>
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptTagJavaScriptInjector"/>
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>
         <!-- JavaScript -->
         <fileType
