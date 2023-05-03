@@ -17,7 +17,7 @@ import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import ris58h.webcalm.antlr.SkipRuleParseTreeToPSIConverter
+import ris58h.webcalm.antlr.SkipRuleNodeParseTreeToPsiConverter
 import ris58h.webcalm.css.psi.CssFile
 import ris58h.webcalm.css.psi.CssTokenSets
 import ris58h.webcalm.css.psi.CssTypes
@@ -36,7 +36,7 @@ class CssParserDefinition : ParserDefinition {
 
             override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
                 val rulesToSkip = setOf(css3Parser.RULE_ws)
-                return SkipRuleParseTreeToPSIConverter(rulesToSkip, language, parser, builder)
+                return SkipRuleNodeParseTreeToPsiConverter(rulesToSkip, language, parser, builder)
             }
         }
     }

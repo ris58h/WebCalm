@@ -6,7 +6,7 @@ import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.ParserRuleContext
 
-class SkipRuleParseTreeToPSIConverter(private val rulesToSkip: Set<Int>, language: Language, parser: Parser, builder: PsiBuilder) : ANTLRParseTreeToPSIConverter(language, parser, builder) {
+class SkipRuleNodeParseTreeToPsiConverter(private val rulesToSkip: Set<Int>, language: Language, parser: Parser, builder: PsiBuilder) : ANTLRParseTreeToPSIConverter(language, parser, builder) {
     override fun enterEveryRule(ctx: ParserRuleContext) {
         if (rulesToSkip.contains(ctx.ruleIndex)) {
             // Just skip this node.

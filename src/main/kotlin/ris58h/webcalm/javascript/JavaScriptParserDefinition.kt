@@ -19,7 +19,7 @@ import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import ris58h.webcalm.antlr.SkipRuleParseTreeToPSIConverter
+import ris58h.webcalm.antlr.SkipRuleNodeParseTreeToPsiConverter
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptParserDefinition : ParserDefinition {
@@ -38,10 +38,11 @@ class JavaScriptParserDefinition : ParserDefinition {
 
             override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
                 val rulesToSkip = setOf(
+                    JavaScriptParser.RULE_sourceElements,
                     JavaScriptParser.RULE_sourceElement,
                     JavaScriptParser.RULE_statement,
                 )
-                return SkipRuleParseTreeToPSIConverter(rulesToSkip, language, parser, builder)
+                return SkipRuleNodeParseTreeToPsiConverter(rulesToSkip, language, parser, builder)
             }
         }
     }
