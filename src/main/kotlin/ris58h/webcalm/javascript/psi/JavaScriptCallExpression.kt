@@ -3,16 +3,12 @@ package ris58h.webcalm.javascript.psi
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiReference
 import com.intellij.psi.util.PsiTreeUtil
+import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 
-class JavaScriptCallExpression(node: ASTNode) : JavaScriptIdentifierOwner(node) {
-    override fun findJavaScriptIdentifier(): JavaScriptIdentifier? {
-        val expression = PsiTreeUtil.findChildOfType(this, JavaScriptExpression::class.java)
-        return PsiTreeUtil.findChildOfType(expression, JavaScriptIdentifier::class.java)
-    }
-
+class JavaScriptCallExpression(node: ASTNode) : ANTLRPsiNode(node) {
     override fun getReference(): PsiReference? {
-        val nameIdentifier = nameIdentifier ?: return null
-        val name = nameIdentifier.text
-        return JavaScriptFunctionReference(name, this, nameIdentifier.textRangeInParent)
+        val expression = PsiTreeUtil.findChildOfType(this, JavaScriptExpression::class.java)
+        val nameIdentifier = PsiTreeUtil.findChildOfType(expression, JavaScriptIdentifier::class.java) ?: return null
+        return JavaScriptFunctionReference(nameIdentifier.text, this, nameIdentifier.textRangeInParent)
     }
 }

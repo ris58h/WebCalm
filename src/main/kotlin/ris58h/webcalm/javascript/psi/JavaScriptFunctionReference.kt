@@ -9,7 +9,6 @@ class JavaScriptFunctionReference(private val name: String, element: PsiElement,
     override fun resolve(): PsiElement? {
         val containingFile = myElement.containingFile ?: return null
         return PsiTreeUtil.collectElementsOfType(containingFile, JavaScriptFunctionDeclaration::class.java)
-            .map { it.nameIdentifier }
-            .firstOrNull { it?.text == name }
+            .firstOrNull { it?.name == name }
     }
 }

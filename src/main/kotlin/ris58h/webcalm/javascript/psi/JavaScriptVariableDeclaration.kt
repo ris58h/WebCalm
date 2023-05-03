@@ -1,5 +1,6 @@
 package ris58h.webcalm.javascript.psi
 
 import com.intellij.lang.ASTNode
+import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 
-class JavaScriptVariableDeclaration(node: ASTNode) : JavaScriptIdentifierOwner(node)
+class JavaScriptVariableDeclaration(node: ASTNode) : ANTLRPsiNode(node)
