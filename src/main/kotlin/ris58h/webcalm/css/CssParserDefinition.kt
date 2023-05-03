@@ -2,6 +2,7 @@ package ris58h.webcalm.css
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
+import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
@@ -12,9 +13,11 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import css3Parser
+import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
+import ris58h.webcalm.antlr.SkipRuleParseTreeToPSIConverter
 import ris58h.webcalm.css.psi.CssFile
 import ris58h.webcalm.css.psi.CssTokenSets
 import ris58h.webcalm.css.psi.CssTypes
@@ -29,6 +32,11 @@ class CssParserDefinition : ParserDefinition {
                     return (parser as css3Parser).stylesheet()
                 }
                 throw UnsupportedOperationException("Unsupported root: ${root.javaClass.name}")
+            }
+
+            override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
+                val rulesToSkip = setOf(css3Parser.RULE_ws)
+                return SkipRuleParseTreeToPSIConverter(rulesToSkip, language, parser, builder)
             }
         }
     }
