@@ -1,10 +1,10 @@
 package ris58h.webcalm.css.psi
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IFileElementType
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
-import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import ris58h.webcalm.css.CssLanguage
 
 object CssTypes {
@@ -26,7 +26,7 @@ object CssTypes {
 
     object Factory {
         fun createElement(node: ASTNode): PsiElement {
-            return ANTLRPsiNode(node)
+            return ASTWrapperPsiElement(node)
         }
     }
 }

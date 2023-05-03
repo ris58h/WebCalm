@@ -1,6 +1,6 @@
 package ris58h.webcalm.javascript.psi
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 
-class JavaScriptAssignable(node: ASTNode) : ANTLRPsiNode(node)
+class JavaScriptAssignable(node: ASTNode) : ASTWrapperPsiElement(node)

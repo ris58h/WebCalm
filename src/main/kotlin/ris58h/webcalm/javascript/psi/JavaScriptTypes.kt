@@ -1,10 +1,10 @@
 package ris58h.webcalm.javascript.psi
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IFileElementType
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
-import org.antlr.intellij.adaptor.psi.ANTLRPsiNode
 import ris58h.webcalm.javascript.JavaScriptLanguage
 
 object JavaScriptTypes {
@@ -156,7 +156,7 @@ object JavaScriptTypes {
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
                 //TODO: other rules
-                else -> ANTLRPsiNode(node)
+                else -> ASTWrapperPsiElement(node)
             }
         }
 
