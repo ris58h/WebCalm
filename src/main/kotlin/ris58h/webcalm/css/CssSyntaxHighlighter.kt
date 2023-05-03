@@ -9,8 +9,6 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
-import css3Lexer
-import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import ris58h.webcalm.css.psi.CssTokenSets
 import ris58h.webcalm.css.psi.CssTypes
 
@@ -20,9 +18,7 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
             CssSyntaxHighlighter()
     }
 
-    override fun getHighlightingLexer(): Lexer {
-        return ANTLRLexerAdaptor(CssLanguage, css3Lexer(null))
-    }
+    override fun getHighlightingLexer(): Lexer = CssLexer()
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
         if (CssTokenSets.COMMENTS.contains(tokenType)) {
