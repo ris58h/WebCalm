@@ -162,6 +162,9 @@ object JavaScriptTypes {
 
         private fun createExpression(node: ASTNode): PsiElement {
             val children = node.getChildren(null)
+            if (children.size == 1 && children[0].elementType == IDENTIFIER) {
+                return JavaScriptIdentifierExpression(node)
+            }
             if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
                 return JavaScriptCallExpression(node)
             }
