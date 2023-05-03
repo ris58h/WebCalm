@@ -4,6 +4,7 @@ import JavaScriptLexer
 import JavaScriptParser
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
+import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
@@ -14,9 +15,11 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
+import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
+import ris58h.webcalm.antlr.SkipRuleParseTreeToPSIConverter
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptParserDefinition : ParserDefinition {
@@ -31,6 +34,14 @@ class JavaScriptParserDefinition : ParserDefinition {
                     return (parser as JavaScriptParser).program()
                 }
                 throw UnsupportedOperationException("Unsupported root: ${root.javaClass.name}")
+            }
+
+            override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
+                val rulesToSkip = setOf(
+                    JavaScriptParser.RULE_sourceElement,
+                    JavaScriptParser.RULE_statement,
+                )
+                return SkipRuleParseTreeToPSIConverter(rulesToSkip, language, parser, builder)
             }
         }
     }
