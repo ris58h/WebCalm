@@ -136,6 +136,7 @@ object JavaScriptTypes {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
         private val IDENTIFIER = RULES[JavaScriptParser.RULE_identifier]
         private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
+        private val FUNCTION_BODY = RULES[JavaScriptParser.RULE_functionBody]
         private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
         private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
@@ -148,6 +149,7 @@ object JavaScriptTypes {
             return when (node.elementType) {
                 IDENTIFIER -> JavaScriptIdentifier(node)
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
+                FUNCTION_BODY -> JavaScriptFunctionBody(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
                 PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)

@@ -38,6 +38,7 @@ class JavaScriptParserDefinition : ParserDefinition {
 
             override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
                 val rulesToSkip = setOf(
+                    JavaScriptParser.RULE_program,
                     JavaScriptParser.RULE_sourceElements,
                     JavaScriptParser.RULE_sourceElement,
                     JavaScriptParser.RULE_statement,
