@@ -30,7 +30,22 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             if (declaration != null) {
                 return declaration
             }
-            // TODO: search in function parameters
+        }
+        if (current is JavaScriptFunctionDeclaration) {
+            val declaration = findDeclarationInParameters(current)
+            if (declaration != null) {
+                return declaration
+            }
+        }
+        return null
+    }
+
+    private fun findDeclarationInParameters(functionDeclaration: JavaScriptFunctionDeclaration): PsiElement? {
+        functionDeclaration.parameters?.parameters?.forEach { parameter ->
+            val assignable = parameter.assignable
+            if (assignable?.name == name) {
+                return assignable
+            }
         }
         return null
     }
