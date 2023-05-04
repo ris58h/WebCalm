@@ -11,28 +11,35 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun findDeclaration(): PsiElement? {
+        var prev = element
         var current = element.parent
         while (current != null) {
-            val declaration = findDeclarationIter(current)
+            val declaration = findDeclarationIteration(current, prev)
             if (declaration != null) {
                 return declaration
             }
+            prev = current
             current = current.parent
         }
         return null
     }
 
-    private fun findDeclarationIter(current: PsiElement): PsiElement? {
-        if (current is JavaScriptStatementList) {
-            return findDeclarationInScope(current)
+    private fun findDeclarationIteration(current: PsiElement, prev: PsiElement): PsiElement? {
+        if (current is JavaScriptStatementsOwner && prev is JavaScriptStatement) {
+            val declaration = findDeclarationInScope(current, prev)
+            if (declaration != null) {
+                return declaration
+            }
+            // TODO: search in function parameters
         }
         return null
     }
 
-    private fun findDeclarationInScope(scope: JavaScriptStatementList): PsiElement? {
+    private fun findDeclarationInScope(scope: JavaScriptStatementsOwner, start: JavaScriptStatement): PsiElement? {
         val statements = scope.statements
-        //TODO: search for variable should start at some point - not from the last child
-        statements.forEachReversed { statement ->
+        val startIndex = statements.indexOfLast { it === start }
+        for (i in startIndex downTo 0) {
+            val statement = statements[i]
             if (statement is JavaScriptVariableStatement) {
                 statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
                     //TODO: support other types of a variable declaration
