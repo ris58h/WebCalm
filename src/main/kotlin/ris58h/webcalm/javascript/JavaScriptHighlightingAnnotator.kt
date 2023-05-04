@@ -101,6 +101,13 @@ class JavaScriptHighlightingAnnotator : Annotator {
             // Text processing
             "String",
             "Date",
+            // TODO: Indexed collections
+            // TODO: Keyed collections
+            // TODO: Structured data
+            // TODO: Managing memory
+            // TODO: Control abstraction objects
+            // TODO: Reflection
+            // TODO: Internationalization
         )
     }
 }
