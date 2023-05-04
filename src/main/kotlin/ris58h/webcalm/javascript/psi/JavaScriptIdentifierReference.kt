@@ -22,28 +22,17 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun findDeclarationIter(current: PsiElement): PsiElement? {
-        if (current is JavaScriptFunctionBody || current is JavaScriptFile) {
+        if (current is JavaScriptStatementList) {
             return findDeclarationInScope(current)
         }
         return null
     }
 
-    private fun findDeclarationInScope(scope: PsiElement): PsiElement? {
+    private fun findDeclarationInScope(scope: JavaScriptStatementList): PsiElement? {
         //TODO: variables
-        val functionDeclaration = findSiblingBackward(scope.lastChild) {
+        val functionDeclaration = scope.statements.findLast {
             it is JavaScriptFunctionDeclaration && it.name == name
         }
         return functionDeclaration
-    }
-
-    private fun findSiblingBackward(element: PsiElement, predicate: (PsiElement) -> Boolean): PsiElement? {
-        var current = element.prevSibling
-        while (current != null) {
-            if (predicate(current)) {
-                return current
-            }
-            current = current.prevSibling
-        }
-        return null
     }
 }
