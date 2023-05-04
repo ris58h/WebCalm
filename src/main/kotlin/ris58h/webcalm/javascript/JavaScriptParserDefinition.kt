@@ -41,6 +41,7 @@ class JavaScriptParserDefinition : ParserDefinition {
                     JavaScriptParser.RULE_program,
                     JavaScriptParser.RULE_sourceElements,
                     JavaScriptParser.RULE_sourceElement,
+                    JavaScriptParser.RULE_statementList,
                     JavaScriptParser.RULE_statement,
                     JavaScriptParser.RULE_eos,
                 )
