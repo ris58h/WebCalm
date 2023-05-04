@@ -21,9 +21,9 @@
     <button class="blue" onclick="increment()">Click</button>
     <button class="red" onclick="setCount(0)">Reset</button>
     <script>
-        function increment() {
+        function increment(step = 1) {
             const value = getCount()
-            setCount(value + 1)
+            setCount(value + step)
         }
 
         const counter = document.querySelector('#counter')
