@@ -15,9 +15,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         var current = element.parent
         while (current != null) {
             val declaration = findDeclarationIteration(current, prev)
-            if (declaration != null) {
-                return declaration
-            }
+            if (declaration != null) return declaration
             prev = current
             current = current.parent
         }
@@ -27,41 +25,35 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     private fun findDeclarationIteration(current: PsiElement, prev: PsiElement): PsiElement? {
         if (current is JavaScriptStatementsOwner && prev is JavaScriptStatement) {
             val declaration = findDeclarationInScope(current, prev)
-            if (declaration != null) {
-                return declaration
-            }
+            if (declaration != null) return declaration
         }
         if (current is JavaScriptFunctionDeclaration) {
             val declaration = findDeclarationInParameters(current)
-            if (declaration != null) {
-                return declaration
-            }
+            if (declaration != null) return declaration
         }
         return null
     }
 
     private fun findDeclarationInParameters(functionDeclaration: JavaScriptFunctionDeclaration): PsiElement? {
         functionDeclaration.parameters?.parameters?.forEach { parameter ->
+            //TODO: support other parameter types
             val assignable = parameter.assignable
-            if (assignable?.name == name) {
-                return assignable
-            }
+            if (assignable?.name == name) return assignable
         }
         return null
     }
 
     private fun findDeclarationInScope(scope: JavaScriptStatementsOwner, visited: JavaScriptStatement): PsiElement? {
         val statements = scope.statements
+
         val visitedIndex = statements.indexOfLast { it === visited }
         for (i in visitedIndex - 1 downTo 0) {
             val statement = statements[i]
             if (statement is JavaScriptVariableStatement) {
                 statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
-                    //TODO: support other types of a variable declaration
+                    //TODO: support other variable declaration types
                     val assignable = variableDeclaration.assignable
-                    if (assignable?.name == name) {
-                        return assignable
-                    }
+                    if (assignable?.name == name) return assignable
                 }
             }
         }
