@@ -32,6 +32,9 @@ object JavaScriptTypes {
     val CLOSE_BRACKET = TOKENS[JavaScriptLexer.CloseBracket]!!
     val OPEN_PAREN = TOKENS[JavaScriptLexer.OpenParen]!!
     val CLOSE_PAREN = TOKENS[JavaScriptLexer.CloseParen]!!
+    val DOT = TOKENS[JavaScriptLexer.Dot]!!
+    val SEMICOLON = TOKENS[JavaScriptLexer.SemiColon]!!
+    val COMMA = TOKENS[JavaScriptLexer.Comma]!!
     val PLUS_PLUS_OP = TOKENS[JavaScriptLexer.PlusPlus]!!
     val MENUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!
     val PLUS_OP = TOKENS[JavaScriptLexer.Plus]!!

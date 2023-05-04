@@ -50,11 +50,14 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         if (JavaScriptTokenSets.NUMBERS.contains(tokenType)) {
             return NUMBER
         }
-        if (JavaScriptTypes.IDENTIFIER == tokenType) {
-            return IDENTIFIER
-        }
         //TODO: other token types
-        return TextAttributesKey.EMPTY_ARRAY
+        when (tokenType) {
+            JavaScriptTypes.IDENTIFIER -> return IDENTIFIER
+            JavaScriptTypes.DOT -> return DOT
+            JavaScriptTypes.SEMICOLON -> return SEMICOLON
+            JavaScriptTypes.COMMA -> return COMMA
+            else -> return TextAttributesKey.EMPTY_ARRAY
+        }
     }
 
     companion object {
@@ -67,5 +70,8 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
         private val IDENTIFIER = arrayOf(DefaultLanguageHighlighterColors.IDENTIFIER)
         private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
+        private val DOT = arrayOf(DefaultLanguageHighlighterColors.DOT)
+        private val SEMICOLON = arrayOf(DefaultLanguageHighlighterColors.SEMICOLON)
+        private val COMMA = arrayOf(DefaultLanguageHighlighterColors.COMMA)
     }
 }
