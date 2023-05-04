@@ -42,6 +42,7 @@ class JavaScriptHighlightingAnnotator : Annotator {
                 when {
                     GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
                     GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                    GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
                     else -> null
                 }
             }
@@ -75,6 +76,31 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "encodeURIComponent",
             "escape",
             "unescape",
+        )
+        private val GLOBAL_OBJECTS = setOf(
+            // Fundamental objects
+            "Object",
+            "Function",
+            "Boolean",
+            "Symbol",
+            // Error objects
+            "Error",
+            "AggregateError",
+            "EvalError",
+            "RangeError",
+            "ReferenceError",
+            "SyntaxError",
+            "TypeError",
+            "URIError",
+            "InternalError",
+            // Numbers and dates
+            "Number",
+            "BigInt",
+            "Math", // TODO: is it namespace? Should we treat it differently?
+            "Date",
+            // Text processing
+            "String",
+            "Date",
         )
     }
 }
