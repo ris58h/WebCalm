@@ -38,8 +38,12 @@ class JavaScriptHighlightingAnnotator : Annotator {
 
             is JavaScriptIdentifierExpression -> {
                 // TODO: check for a param with the same name that can override predefined globals
-                if (GLOBAL_FUNCTIONS.contains(element.text)) DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
-                else null
+                val name = element.text
+                when {
+                    GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
+                    GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                    else -> null
+                }
             }
 
             else -> null
@@ -53,6 +57,12 @@ class JavaScriptHighlightingAnnotator : Annotator {
     }
 
     companion object {
+        private val GLOBAL_VALUES = setOf(
+            "globalThis",
+            "Infinity",
+            "NaN",
+            "undefined",
+        )
         private val GLOBAL_FUNCTIONS = setOf(
             "eval",
             "isFinite",
