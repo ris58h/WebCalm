@@ -138,6 +138,8 @@ object JavaScriptTypes {
         private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
         private val FUNCTION_BODY = RULES[JavaScriptParser.RULE_functionBody]
         private val BLOCK = RULES[JavaScriptParser.RULE_block]
+        private val VARIABLE_STATEMENT = RULES[JavaScriptParser.RULE_variableStatement]
+        private val VARIABLE_DECLARATION_LIST = RULES[JavaScriptParser.RULE_variableDeclarationList]
         private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
         private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
@@ -152,6 +154,8 @@ object JavaScriptTypes {
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
                 FUNCTION_BODY -> JavaScriptFunctionBody(node)
                 BLOCK -> JavaScriptBlock(node)
+                VARIABLE_STATEMENT -> JavaScriptVariableStatement(node)
+                VARIABLE_DECLARATION_LIST -> JavaScriptVariableDeclarationList(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
                 PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)

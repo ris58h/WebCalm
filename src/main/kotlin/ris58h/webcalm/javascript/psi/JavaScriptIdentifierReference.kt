@@ -2,6 +2,7 @@ package ris58h.webcalm.javascript.psi
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
+import com.jetbrains.rd.util.forEachReversed
 
 class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) : PsiReferenceBase<PsiElement>(element, rangeInElement) {
     override fun resolve(): PsiElement? {
@@ -29,10 +30,22 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun findDeclarationInScope(scope: JavaScriptStatementList): PsiElement? {
-        //TODO: variables
-        val functionDeclaration = scope.statements.findLast {
+        val statements = scope.statements
+        //TODO: search for variable should start at some point - not from the last child
+        statements.forEachReversed { statement ->
+            if (statement is JavaScriptVariableStatement) {
+                statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
+                    //TODO: support other types of a variable declaration
+                    val assignable = variableDeclaration.assignable
+                    if (assignable?.name == name) {
+                        return assignable
+                    }
+                }
+            }
+        }
+
+        return statements.findLast {
             it is JavaScriptFunctionDeclaration && it.name == name
         }
-        return functionDeclaration
     }
 }
