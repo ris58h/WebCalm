@@ -10,7 +10,7 @@
     <em>most HTML tags may be used</em>
   ]]></description>
 
-    <idea-version since-build="201"/>
+    <idea-version since-build="201.6668.113"/>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -32,6 +32,9 @@
         <lang.syntaxHighlighterFactory
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptSyntaxHighlighter$Factory"/>
+        <annotator
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptHighlightingAnnotator"/>
         <!-- CSS -->
         <fileType
                 name="CSS"
