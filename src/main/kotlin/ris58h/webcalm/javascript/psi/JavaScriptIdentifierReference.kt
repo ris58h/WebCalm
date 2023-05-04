@@ -50,10 +50,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         return null
     }
 
-    private fun findDeclarationInScope(scope: JavaScriptStatementsOwner, start: JavaScriptStatement): PsiElement? {
+    private fun findDeclarationInScope(scope: JavaScriptStatementsOwner, visited: JavaScriptStatement): PsiElement? {
         val statements = scope.statements
-        val startIndex = statements.indexOfLast { it === start }
-        for (i in startIndex downTo 0) {
+        val visitedIndex = statements.indexOfLast { it === visited }
+        for (i in visitedIndex - 1 downTo 0) {
             val statement = statements[i]
             if (statement is JavaScriptVariableStatement) {
                 statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
