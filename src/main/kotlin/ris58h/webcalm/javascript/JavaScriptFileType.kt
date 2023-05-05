@@ -6,7 +6,6 @@ import javax.swing.Icon
 
 class JavaScriptFileType : LanguageFileType(JavaScriptLanguage) {
     companion object {
-        @JvmField
         val INSTANCE = JavaScriptFileType()
     }
 
@@ -16,5 +15,5 @@ class JavaScriptFileType : LanguageFileType(JavaScriptLanguage) {
 
     override fun getDefaultExtension(): String = "js"
 
-    override fun getIcon(): Icon = AllIcons.FileTypes.Text
+    override fun getIcon(): Icon = AllIcons.FileTypes.JavaScript
 }

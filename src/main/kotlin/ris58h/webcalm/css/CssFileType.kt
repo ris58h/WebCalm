@@ -6,7 +6,6 @@ import javax.swing.Icon
 
 class CssFileType : LanguageFileType(CssLanguage) {
     companion object {
-        @JvmField
         val INSTANCE = CssFileType()
     }
 
@@ -16,5 +15,5 @@ class CssFileType : LanguageFileType(CssLanguage) {
 
     override fun getDefaultExtension(): String = "css"
 
-    override fun getIcon(): Icon = AllIcons.FileTypes.Text
+    override fun getIcon(): Icon = AllIcons.FileTypes.Css
 }
