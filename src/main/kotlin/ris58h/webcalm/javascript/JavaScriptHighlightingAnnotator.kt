@@ -137,7 +137,9 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "Generator",
             "AsyncGenerator",
             "AsyncFunction",
-            // TODO: Reflection
+            // Reflection
+            "Reflect",
+            "Proxy",
             // TODO: Internationalization
         )
     }
