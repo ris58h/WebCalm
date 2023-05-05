@@ -119,7 +119,12 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "Set",
             "WeakMap",
             "WeakSet",
-            // TODO: Structured data
+            // Structured data
+            "ArrayBuffer",
+            "SharedArrayBuffer",
+            "DataView",
+            "Atomics",
+            "JSON", // TODO: is it namespace? Should we treat it differently?
             // TODO: Managing memory
             // TODO: Control abstraction objects
             // TODO: Reflection
