@@ -101,7 +101,19 @@ class JavaScriptHighlightingAnnotator : Annotator {
             // Text processing
             "String",
             "Date",
-            // TODO: Indexed collections
+            // Indexed collections
+            "Array",
+            "Int8Array",
+            "Uint8Array",
+            "Uint8ClampedArray",
+            "Int16Array",
+            "UintArray",
+            "Int32Array",
+            "Uint32Array",
+            "BigInt64Array",
+            "BigUint64Array",
+            "Float32Array",
+            "Float64Array",
             // TODO: Keyed collections
             // TODO: Structured data
             // TODO: Managing memory
