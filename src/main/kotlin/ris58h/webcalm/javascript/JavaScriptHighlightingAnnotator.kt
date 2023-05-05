@@ -125,7 +125,9 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "DataView",
             "Atomics",
             "JSON", // TODO: is it namespace? Should we treat it differently?
-            // TODO: Managing memory
+            // Managing memory
+            "WeakRef",
+            "FinalizationRegistry",
             // TODO: Control abstraction objects
             // TODO: Reflection
             // TODO: Internationalization
