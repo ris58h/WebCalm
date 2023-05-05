@@ -43,6 +43,7 @@ class JavaScriptHighlightingAnnotator : Annotator {
                     GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
                     GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
                     GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
+                    GLOBAL_NAMESPACES.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
                     else -> null
                 }
             }
@@ -96,7 +97,6 @@ class JavaScriptHighlightingAnnotator : Annotator {
             // Numbers and dates
             "Number",
             "BigInt",
-            "Math", // TODO: is it namespace? Should we treat it differently?
             "Date",
             // Text processing
             "String",
@@ -123,8 +123,6 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "ArrayBuffer",
             "SharedArrayBuffer",
             "DataView",
-            "Atomics",
-            "JSON", // TODO: is it namespace? Should we treat it differently?
             // Managing memory
             "WeakRef",
             "FinalizationRegistry",
@@ -138,9 +136,13 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "AsyncGenerator",
             "AsyncFunction",
             // Reflection
-            "Reflect",
             "Proxy",
-            // Internationalization
+        )
+        private val GLOBAL_NAMESPACES = setOf(
+            "Math",
+            "Atomics",
+            "JSON",
+            "Reflect",
             "Intl",
         )
     }
