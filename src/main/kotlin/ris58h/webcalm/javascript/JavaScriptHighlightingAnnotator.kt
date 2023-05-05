@@ -128,7 +128,15 @@ class JavaScriptHighlightingAnnotator : Annotator {
             // Managing memory
             "WeakRef",
             "FinalizationRegistry",
-            // TODO: Control abstraction objects
+            // Control abstraction objects
+            "Iterator",
+            "AsyncIterator",
+            "Promise",
+            "GeneratorFunction",
+            "AsyncGeneratorFunction",
+            "Generator",
+            "AsyncGenerator",
+            "AsyncFunction",
             // TODO: Reflection
             // TODO: Internationalization
         )
