@@ -140,7 +140,8 @@ class JavaScriptHighlightingAnnotator : Annotator {
             // Reflection
             "Reflect",
             "Proxy",
-            // TODO: Internationalization
+            // Internationalization
+            "Intl",
         )
     }
 }
