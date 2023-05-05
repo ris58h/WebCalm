@@ -114,7 +114,11 @@ class JavaScriptHighlightingAnnotator : Annotator {
             "BigUint64Array",
             "Float32Array",
             "Float64Array",
-            // TODO: Keyed collections
+            // Keyed collections
+            "Map",
+            "Set",
+            "WeakMap",
+            "WeakSet",
             // TODO: Structured data
             // TODO: Managing memory
             // TODO: Control abstraction objects
