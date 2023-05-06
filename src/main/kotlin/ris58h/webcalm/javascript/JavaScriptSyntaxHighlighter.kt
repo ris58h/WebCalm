@@ -9,7 +9,6 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
-import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import ris58h.webcalm.javascript.psi.JavaScriptTokenSets
 import ris58h.webcalm.javascript.psi.JavaScriptTypes
 
@@ -48,12 +47,12 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             return NUMBER
         }
         //TODO: other token types
-        when (tokenType) {
-            JavaScriptTypes.IDENTIFIER -> return IDENTIFIER
-            JavaScriptTypes.DOT -> return DOT
-            JavaScriptTypes.SEMICOLON -> return SEMICOLON
-            JavaScriptTypes.COMMA -> return COMMA
-            else -> return TextAttributesKey.EMPTY_ARRAY
+        return when (tokenType) {
+            JavaScriptTypes.IDENTIFIER -> IDENTIFIER
+            JavaScriptTypes.DOT -> DOT
+            JavaScriptTypes.SEMICOLON -> SEMICOLON
+            JavaScriptTypes.COMMA -> COMMA
+            else -> TextAttributesKey.EMPTY_ARRAY
         }
     }
 
