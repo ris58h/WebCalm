@@ -35,6 +35,9 @@
         <annotator
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptHighlightingAnnotator"/>
+        <lang.findUsagesProvider
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptFindUsagesProvider"/>
         <!-- CSS -->
         <fileType
                 name="CSS"

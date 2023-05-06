@@ -1,6 +1,5 @@
 package ris58h.webcalm.javascript
 
-import JavaScriptLexer
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
@@ -20,9 +19,7 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             JavaScriptSyntaxHighlighter()
     }
 
-    override fun getHighlightingLexer(): Lexer {
-        return ANTLRLexerAdaptor(JavaScriptLanguage, JavaScriptLexer(null))
-    }
+    override fun getHighlightingLexer(): Lexer = JavaScriptLexer()
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
         //TODO: check if multiline comments work

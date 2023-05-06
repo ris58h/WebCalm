@@ -1,6 +1,5 @@
 package ris58h.webcalm.javascript
 
-import JavaScriptLexer
 import JavaScriptParser
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
@@ -14,7 +13,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
@@ -23,9 +21,7 @@ import ris58h.webcalm.antlr.SkipRuleNodeParseTreeToPsiConverter
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptParserDefinition : ParserDefinition {
-    override fun createLexer(project: Project?): Lexer {
-        return ANTLRLexerAdaptor(JavaScriptLanguage, JavaScriptLexer(null))
-    }
+    override fun createLexer(project: Project?): Lexer = JavaScriptLexer()
 
     override fun createParser(project: Project?): PsiParser {
         return object : ANTLRParserAdaptor(JavaScriptLanguage, JavaScriptParser(null)) {
