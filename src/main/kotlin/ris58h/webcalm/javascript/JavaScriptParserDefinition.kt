@@ -1,50 +1,21 @@
 package ris58h.webcalm.javascript
 
-import JavaScriptParser
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
-import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
-import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
-import org.antlr.v4.runtime.Parser
-import org.antlr.v4.runtime.tree.ParseTree
-import ris58h.webcalm.antlr.SkipRuleNodeParseTreeToPsiConverter
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptParserDefinition : ParserDefinition {
     override fun createLexer(project: Project?): Lexer = JavaScriptLexer()
 
-    override fun createParser(project: Project?): PsiParser {
-        return object : ANTLRParserAdaptor(JavaScriptLanguage, JavaScriptParser(null)) {
-            override fun parse(parser: Parser, root: IElementType): ParseTree {
-                if (root is IFileElementType) {
-                    return (parser as JavaScriptParser).program()
-                }
-                throw UnsupportedOperationException("Unsupported root: ${root.javaClass.name}")
-            }
-
-            override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
-                val rulesToSkip = setOf(
-                    JavaScriptParser.RULE_program,
-                    JavaScriptParser.RULE_sourceElements,
-                    JavaScriptParser.RULE_sourceElement,
-                    JavaScriptParser.RULE_statementList,
-                    JavaScriptParser.RULE_statement,
-                    JavaScriptParser.RULE_eos,
-                )
-                return SkipRuleNodeParseTreeToPsiConverter(rulesToSkip, language, parser, builder)
-            }
-        }
-    }
+    override fun createParser(project: Project?): PsiParser = JavaScriptParser()
 
     override fun getFileNodeType(): IFileElementType = JavaScriptTypes.FILE
 
