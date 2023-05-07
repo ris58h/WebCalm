@@ -13,7 +13,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     private fun findDeclaration(): PsiElement? {
         var prev = element
         var current = element.parent
-        while (current != null) {
+        while (current != null && prev !is JavaScriptFile) {
             val declaration = findDeclarationIteration(current, prev)
             if (declaration != null) return declaration
             prev = current
