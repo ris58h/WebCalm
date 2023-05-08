@@ -1,6 +1,6 @@
 package ris58h.webcalm.javascript
 
 import JavaScriptLexer as JavaScriptANTLRLexer
-import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
+import ris58h.webcalm.antlr.FixedANTLRLexerAdaptor
 
-class JavaScriptLexer : ANTLRLexerAdaptor(JavaScriptLanguage, JavaScriptANTLRLexer(null))
+class JavaScriptLexer : FixedANTLRLexerAdaptor(JavaScriptLanguage, JavaScriptANTLRLexer(null))
