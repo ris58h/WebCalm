@@ -12,9 +12,17 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         return findDeclaration()
     }
 
+    override fun handleElementRename(newElementName: String): PsiElement {
+        val element = myElement
+        if (element is JavaScriptIdentifierExpression) {
+            return element.setName(newElementName)
+        }
+        return super.handleElementRename(newElementName)
+    }
+
     private fun findDeclaration(): PsiElement? {
-        var prev = element
-        var current = element.parent
+        var prev = myElement
+        var current = myElement.parent
         while (current != null && prev !is JavaScriptFile) {
             val declaration = findDeclarationIteration(current, prev)
             if (declaration != null) return declaration
