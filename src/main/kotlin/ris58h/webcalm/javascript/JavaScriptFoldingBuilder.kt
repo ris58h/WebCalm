@@ -7,10 +7,7 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
-import ris58h.webcalm.javascript.psi.JavaScriptArray
-import ris58h.webcalm.javascript.psi.JavaScriptBlock
-import ris58h.webcalm.javascript.psi.JavaScriptFunctionBody
-import ris58h.webcalm.javascript.psi.JavaScriptObject
+import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptFoldingBuilder : FoldingBuilderEx() {
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
@@ -19,11 +16,14 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
             val placeholderText = when (it) {
                 is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject -> "{...}"
                 is JavaScriptArray -> "[...]"
-                else -> null
+                else -> {
+                    if (it.node.elementType == JavaScriptTypes.MULTILINE_COMMENT) "/*...*/"
+                    else null
+                }
             }
             if (placeholderText != null) {
                 val textRange = it.textRange
-                if (spanMultipleLines(textRange, document)) {
+                if (isOnMultipleLines(textRange, document)) {
                     descriptors.add(FoldingDescriptor(it.node, textRange, null, placeholderText))
                 }
             }
@@ -36,10 +36,9 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
-    private fun spanMultipleLines(textRange: TextRange, document: Document): Boolean {
-        val endOffset = textRange.endOffset
+    private fun isOnMultipleLines(textRange: TextRange, document: Document): Boolean {
         val startLineNumber = document.getLineNumber(textRange.startOffset)
-        val endLineNumber = if (endOffset < document.textLength) document.getLineNumber(endOffset) else document.lineCount - 1
-        return startLineNumber < endLineNumber
+        val endLineNumber = document.getLineNumber(textRange.endOffset)
+        return startLineNumber != endLineNumber
     }
 }
