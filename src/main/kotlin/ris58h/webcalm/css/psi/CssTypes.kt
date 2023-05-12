@@ -23,6 +23,12 @@ object CssTypes {
     val NUMBER = TOKENS[css3Lexer.Number]!!
     val DIMENSION = TOKENS[css3Lexer.Dimension]!!
     val PERCENTAGE = TOKENS[css3Lexer.Percentage]!!
+    val OPEN_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'{'"}]
+    val CLOSE_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'}'"}]
+    val OPEN_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'['"}]
+    val CLOSE_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "']'"}]
+    val OPEN_PAREN = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'('"}]
+    val CLOSE_PAREN = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "')'"}]
 
     object Factory {
         fun createElement(node: ASTNode): PsiElement {

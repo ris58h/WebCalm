@@ -27,15 +27,15 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         if (CssTokenSets.STRINGS.contains(tokenType)) {
             return STRING
         }
-//        if (CssTokenSets.BRACES.contains(tokenType)) {
-//            return BRACES
-//        }
-//        if (CssTokenSets.BRACKETS.contains(tokenType)) {
-//            return BRACKETS
-//        }
-//        if (CssTokenSets.PARENTHESES.contains(tokenType)) {
-//            return PARENTHESES
-//        }
+        if (CssTokenSets.BRACES.contains(tokenType)) {
+            return BRACES
+        }
+        if (CssTokenSets.BRACKETS.contains(tokenType)) {
+            return BRACKETS
+        }
+        if (CssTokenSets.PARENTHESES.contains(tokenType)) {
+            return PARENTHESES
+        }
 //        if (CssTokenSets.KEYWORDS.contains(tokenType)) {
 //            return KEYWORD
 //        }
@@ -55,9 +55,9 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
     companion object {
         private val COMMENT = arrayOf(DefaultLanguageHighlighterColors.LINE_COMMENT)
         private val STRING = arrayOf(DefaultLanguageHighlighterColors.STRING)
-//        private val BRACES = arrayOf(DefaultLanguageHighlighterColors.BRACES)
-//        private val BRACKETS = arrayOf(DefaultLanguageHighlighterColors.BRACKETS)
-//        private val PARENTHESES = arrayOf(DefaultLanguageHighlighterColors.PARENTHESES)
+        private val BRACES = arrayOf(DefaultLanguageHighlighterColors.BRACES)
+        private val BRACKETS = arrayOf(DefaultLanguageHighlighterColors.BRACKETS)
+        private val PARENTHESES = arrayOf(DefaultLanguageHighlighterColors.PARENTHESES)
 //        private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
 //        private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
 //        private val IDENTIFIER = arrayOf(DefaultLanguageHighlighterColors.IDENTIFIER)
