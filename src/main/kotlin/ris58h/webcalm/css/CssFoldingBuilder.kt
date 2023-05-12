@@ -15,14 +15,21 @@ class CssFoldingBuilder : FoldingBuilderEx() {
         val descriptors = mutableListOf<FoldingDescriptor>()
         PsiTreeUtil.processElements(root) {
             val node = it.node
-            val children = node.getChildren(CssTokenSets.BRACES)
-            if (children.size == 2) {
-                val first = children[0]
-                val second = children[1]
-                if (first.elementType == CssTypes.OPEN_BRACE && second.elementType == CssTypes.CLOSE_BRACE) {
-                    val textRange = TextRange(first.textRange.startOffset, second.textRange.endOffset)
-                    if (spanMultipleLines(textRange, document)) {
-                        descriptors.add(FoldingDescriptor(node, textRange, null, "{...}"))
+            if (node.elementType == CssTypes.COMMENT) {
+                val textRange = node.textRange
+                if (isOnMultipleLines(textRange, document)) {
+                    descriptors.add(FoldingDescriptor(node, textRange, null, "/*...*/"))
+                }
+            } else {
+                val children = node.getChildren(CssTokenSets.BRACES)
+                if (children.size == 2) {
+                    val first = children[0]
+                    val second = children[1]
+                    if (first.elementType == CssTypes.OPEN_BRACE && second.elementType == CssTypes.CLOSE_BRACE) {
+                        val textRange = TextRange(first.textRange.startOffset, second.textRange.endOffset)
+                        if (isOnMultipleLines(textRange, document)) {
+                            descriptors.add(FoldingDescriptor(node, textRange, null, "{...}"))
+                        }
                     }
                 }
             }
@@ -35,10 +42,9 @@ class CssFoldingBuilder : FoldingBuilderEx() {
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
-    private fun spanMultipleLines(textRange: TextRange, document: Document): Boolean {
-        val endOffset = textRange.endOffset
+    private fun isOnMultipleLines(textRange: TextRange, document: Document): Boolean {
         val startLineNumber = document.getLineNumber(textRange.startOffset)
-        val endLineNumber = if (endOffset < document.textLength) document.getLineNumber(endOffset) else document.lineCount - 1
-        return startLineNumber < endLineNumber
+        val endLineNumber = document.getLineNumber(textRange.endOffset)
+        return startLineNumber != endLineNumber
     }
 }
