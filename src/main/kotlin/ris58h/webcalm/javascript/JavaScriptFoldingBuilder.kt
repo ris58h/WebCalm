@@ -4,6 +4,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import ris58h.webcalm.javascript.psi.JavaScriptArray
@@ -21,7 +22,10 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
                 else -> null
             }
             if (placeholderText != null) {
-                descriptors.add(FoldingDescriptor(it.node, it.textRange, null, placeholderText))
+                val textRange = it.textRange
+                if (spanMultipleLines(textRange, document)) {
+                    descriptors.add(FoldingDescriptor(it.node, textRange, null, placeholderText))
+                }
             }
             return@processElements true
         }
@@ -31,4 +35,11 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = null
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
+
+    private fun spanMultipleLines(textRange: TextRange, document: Document): Boolean {
+        val endOffset = textRange.endOffset
+        val startLineNumber = document.getLineNumber(textRange.startOffset)
+        val endLineNumber = if (endOffset < document.textLength) document.getLineNumber(endOffset) else document.lineCount - 1
+        return startLineNumber < endLineNumber
+    }
 }
