@@ -53,5 +53,8 @@
         <lang.syntaxHighlighterFactory
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>
+        <lang.braceMatcher
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>
     </extensions>
 </idea-plugin>
