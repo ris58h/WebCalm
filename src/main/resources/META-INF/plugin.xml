@@ -38,6 +38,9 @@
         <lang.findUsagesProvider
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptFindUsagesProvider"/>
+        <lang.braceMatcher
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptPairedBraceMatcher"/>
         <!-- CSS -->
         <fileType
                 name="CSS"
