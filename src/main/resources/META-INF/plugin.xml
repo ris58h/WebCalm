@@ -59,5 +59,8 @@
         <lang.braceMatcher
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>
+        <lang.commenter
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssCommenter"/>
     </extensions>
 </idea-plugin>
