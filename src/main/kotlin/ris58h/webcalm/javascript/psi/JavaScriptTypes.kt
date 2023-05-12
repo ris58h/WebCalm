@@ -153,6 +153,8 @@ object JavaScriptTypes {
         private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
         private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
         private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
+        private val OBJECT = RULES[JavaScriptParser.RULE_objectLiteral]
+        private val ARRAY = RULES[JavaScriptParser.RULE_arrayLiteral]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -172,6 +174,8 @@ object JavaScriptTypes {
                 EXPRESSION -> createExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
+                OBJECT -> JavaScriptObject(node)
+                ARRAY -> JavaScriptArray(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }

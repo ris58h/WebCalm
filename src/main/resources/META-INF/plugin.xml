@@ -44,6 +44,9 @@
         <lang.commenter
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptCommenter"/>
+        <lang.foldingBuilder
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptFoldingBuilder"/>
         <!-- CSS -->
         <fileType
                 name="CSS"
