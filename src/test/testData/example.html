@@ -29,7 +29,8 @@
 
         const counter = document.querySelector('#counter')
         function getCount() {
-            return parseInt(counter.textContent)
+            const { textContent } = counter
+            return parseInt(textContent)
         }
         function setCount(value) {
             counter.textContent = value
