@@ -5,6 +5,7 @@ import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import ris58h.webcalm.javascript.psi.*
@@ -16,10 +17,11 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
             val placeholderText = when (it) {
                 is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject -> "{...}"
                 is JavaScriptArray -> "[...]"
-                else -> {
+                is PsiComment -> {
                     if (it.node.elementType == JavaScriptTypes.MULTILINE_COMMENT) "/*...*/"
                     else null
                 }
+                else -> null
             }
             if (placeholderText != null) {
                 val textRange = it.textRange
