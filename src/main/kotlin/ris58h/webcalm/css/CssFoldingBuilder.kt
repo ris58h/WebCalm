@@ -7,7 +7,6 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
-import ris58h.webcalm.css.psi.CssTokenSets
 import ris58h.webcalm.css.psi.CssTypes
 
 class CssFoldingBuilder : FoldingBuilderEx() {
@@ -15,18 +14,17 @@ class CssFoldingBuilder : FoldingBuilderEx() {
         val descriptors = mutableListOf<FoldingDescriptor>()
         PsiTreeUtil.processElements(root) {
             val node = it.node
-            if (node.elementType == CssTypes.COMMENT) {
-                val textRange = node.textRange
-                if (isOnMultipleLines(textRange, document)) {
-                    descriptors.add(FoldingDescriptor(node, textRange, null, "/*...*/"))
+            when (node.elementType) {
+                CssTypes.COMMENT -> {
+                    val textRange = node.textRange
+                    if (isOnMultipleLines(textRange, document)) {
+                        descriptors.add(FoldingDescriptor(node, textRange, null, "/*...*/"))
+                    }
                 }
-            } else {
-                val children = node.getChildren(CssTokenSets.BRACES)
-                if (children.size == 2) {
-                    val first = children[0]
-                    val second = children[1]
-                    if (first.elementType == CssTypes.OPEN_BRACE && second.elementType == CssTypes.CLOSE_BRACE) {
-                        val textRange = TextRange(first.textRange.startOffset, second.textRange.endOffset)
+                CssTypes.OPEN_BRACE -> {
+                    val closeBrace = findValidCloseBrace(node)
+                    if (closeBrace != null) {
+                        val textRange = TextRange(node.textRange.startOffset, closeBrace.textRange.endOffset)
                         if (isOnMultipleLines(textRange, document)) {
                             descriptors.add(FoldingDescriptor(node, textRange, null, "{...}"))
                         }
@@ -36,6 +34,16 @@ class CssFoldingBuilder : FoldingBuilderEx() {
             return@processElements true
         }
         return descriptors.toTypedArray()
+    }
+
+    private fun findValidCloseBrace(openBraceNode: ASTNode): ASTNode? {
+        var next: ASTNode? = openBraceNode.treeNext
+        while (next != null) {
+            if (next.elementType == CssTypes.CLOSE_BRACE) return next
+            if (next.elementType == CssTypes.OPEN_BRACE) return null
+            next = next.treeNext
+        }
+        return null
     }
 
     override fun getPlaceholderText(node: ASTNode): String? = null
