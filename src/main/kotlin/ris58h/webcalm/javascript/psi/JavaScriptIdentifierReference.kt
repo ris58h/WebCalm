@@ -2,7 +2,6 @@ package ris58h.webcalm.javascript.psi
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
-import com.intellij.psi.util.PsiTreeUtil
 import com.jetbrains.rd.util.forEachReversed
 
 class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) :
@@ -71,11 +70,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         val functionDeclarations = statements.map {
             when (it) {
                 is JavaScriptFunctionDeclaration -> it
-                is JavaScriptExportStatement -> {
-                    // TODO: a method in JavaScriptExportStatement to obtain underlying declaration
-                    PsiTreeUtil.findChildOfType(it, JavaScriptFunctionDeclaration::class.java)
-                }
-
+                is JavaScriptExportStatement -> it.declaration
                 else -> null
             }
         }
