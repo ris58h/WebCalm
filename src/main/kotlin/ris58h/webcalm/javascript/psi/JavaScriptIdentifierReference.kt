@@ -2,13 +2,18 @@ package ris58h.webcalm.javascript.psi
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
+import com.intellij.util.SmartList
 import com.jetbrains.rd.util.forEachReversed
 
 class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) :
-    PsiReferenceBase<PsiElement>(element, rangeInElement) {
-    override fun resolve(): PsiElement? {
-        //TODO: functions from other files
-        return findDeclaration()
+    PsiPolyVariantReferenceBase<PsiElement>(element, rangeInElement) {
+
+    override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
+        val declarations = SmartList<PsiElement>()
+        processDeclarations {
+            if (it.name == name) declarations.add(it)
+        }
+        return PsiElementResolveResult.createResults(declarations)
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
@@ -19,40 +24,34 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         return super.handleElementRename(newElementName)
     }
 
-    private fun findDeclaration(): PsiElement? {
+    private fun processDeclarations(callback: (PsiNamedElement) -> Unit) {
         var prev = myElement
         var current = myElement.parent
         while (current != null && prev !is JavaScriptFile) {
-            val declaration = findDeclarationIteration(current, prev)
-            if (declaration != null) return declaration
+            processDeclarationsIteration(current, prev, callback)
             prev = current
             current = current.parent
         }
-        return null
     }
 
-    private fun findDeclarationIteration(current: PsiElement, prev: PsiElement): PsiElement? {
+    private fun processDeclarationsIteration(current: PsiElement, prev: PsiElement, callback: (PsiNamedElement) -> Unit) {
         if (current is JavaScriptStatementsOwner && prev is JavaScriptStatement) {
-            val declaration = findDeclarationInScope(current, prev)
-            if (declaration != null) return declaration
+            processDeclarationsInScope(current, prev, callback)
         }
         if (current is JavaScriptFunctionDeclaration) {
-            val declaration = findDeclarationInParameters(current)
-            if (declaration != null) return declaration
+            processDeclarationsInParameters(current, callback)
         }
-        return null
     }
 
-    private fun findDeclarationInParameters(functionDeclaration: JavaScriptFunctionDeclaration): PsiElement? {
+    private fun processDeclarationsInParameters(functionDeclaration: JavaScriptFunctionDeclaration, callback: (PsiNamedElement) -> Unit) {
         functionDeclaration.parameters?.parameters?.forEach { parameter ->
             //TODO: support other parameter types
             val assignable = parameter.assignable
-            if (assignable?.name == name) return assignable
+            if (assignable != null) callback(assignable)
         }
-        return null
     }
 
-    private fun findDeclarationInScope(scope: JavaScriptStatementsOwner, visited: JavaScriptStatement): PsiElement? {
+    private fun processDeclarationsInScope(scope: JavaScriptStatementsOwner, visited: JavaScriptStatement, callback: (PsiNamedElement) -> Unit) {
         val statements = scope.statements
 
         val visitedIndex = statements.indexOfLast { it === visited }
@@ -62,18 +61,18 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
                     //TODO: support other variable declaration types
                     val assignable = variableDeclaration.assignable
-                    if (assignable?.name == name) return assignable
+                    if (assignable != null) callback(assignable)
                 }
             }
         }
 
-        val functionDeclarations = statements.map {
-            when (it) {
+        statements.forEach {
+            val functionDeclaration = when (it) {
                 is JavaScriptFunctionDeclaration -> it
                 is JavaScriptExportStatement -> it.declaration
                 else -> null
             }
+            if (functionDeclaration != null) callback(functionDeclaration)
         }
-        return functionDeclarations.findLast { it?.name == name }
     }
 }
