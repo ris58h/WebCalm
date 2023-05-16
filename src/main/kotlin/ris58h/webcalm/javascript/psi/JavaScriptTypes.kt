@@ -35,6 +35,7 @@ object JavaScriptTypes {
     val DOT = TOKENS[JavaScriptLexer.Dot]!!
     val SEMICOLON = TOKENS[JavaScriptLexer.SemiColon]!!
     val COMMA = TOKENS[JavaScriptLexer.Comma]!!
+    val COLON = TOKENS[JavaScriptLexer.Colon]!!
     val PLUS_PLUS_OP = TOKENS[JavaScriptLexer.PlusPlus]!!
     val MENUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!
     val PLUS_OP = TOKENS[JavaScriptLexer.Plus]!!
