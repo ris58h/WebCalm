@@ -156,6 +156,7 @@ object JavaScriptTypes {
         private val OBJECT = RULES[JavaScriptParser.RULE_objectLiteral]
         private val ARRAY = RULES[JavaScriptParser.RULE_arrayLiteral]
         private val PROPERTY_ASSIGNMENT = RULES[JavaScriptParser.RULE_propertyAssignment]
+        private val TEMPLATE_STRING = RULES[JavaScriptParser.RULE_templateStringLiteral]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -177,6 +178,7 @@ object JavaScriptTypes {
                 OBJECT -> JavaScriptObject(node)
                 ARRAY -> JavaScriptArray(node)
                 PROPERTY_ASSIGNMENT -> JavaScriptPropertyAssignment(node)
+                TEMPLATE_STRING -> JavaScriptTemplateString(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
