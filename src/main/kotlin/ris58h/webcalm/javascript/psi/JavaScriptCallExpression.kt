@@ -3,4 +3,4 @@ package ris58h.webcalm.javascript.psi
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 
-class JavaScriptCallExpression(node: ASTNode) : ASTWrapperPsiElement(node)
+class JavaScriptCallExpression(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptExpression

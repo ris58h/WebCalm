@@ -6,22 +6,14 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 
 open class JavaScriptIdentifierOwner(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
-    override fun getName(): String? = nameIdentifier?.text
+    val identifier: JavaScriptIdentifier?
+        get() = this.findChildByClass(JavaScriptIdentifier::class.java)
 
-    override fun setName(name: String): PsiElement {
-        val idLeaf = nameIdentifier
-        return if (idLeaf != null) {
-            val newIdLeaf: PsiElement = JavaScriptElementFactory.createIdentifierTokenFromText(project, name)
-            idLeaf.replace(newIdLeaf)
-        } else this
-    }
+    override fun getName(): String? = identifier?.name
 
-    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
+    override fun setName(name: String): PsiElement = identifier?.setName(name) ?: this
 
-    override fun getNameIdentifier(): PsiElement? {
-        return this.findChildByClass(JavaScriptIdentifier::class.java)
-            ?.node
-            ?.findChildByType(JavaScriptTypes.IDENTIFIER)
-            ?.psi
-    }
+    override fun getTextOffset(): Int = identifier?.textOffset ?: super.getTextOffset()
+
+    override fun getNameIdentifier(): PsiElement? = identifier?.nameIdentifier
 }

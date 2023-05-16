@@ -149,12 +149,12 @@ object JavaScriptTypes {
         private val RETURN_STATEMENT = RULES[JavaScriptParser.RULE_returnStatement]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
         private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
-        private val ASSIGNABLE = RULES[JavaScriptParser.RULE_assignable]
         private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
         private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
         private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
         private val OBJECT = RULES[JavaScriptParser.RULE_objectLiteral]
         private val ARRAY = RULES[JavaScriptParser.RULE_arrayLiteral]
+        private val PROPERTY_ASSIGNMENT = RULES[JavaScriptParser.RULE_propertyAssignment]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -170,12 +170,12 @@ object JavaScriptTypes {
                 RETURN_STATEMENT -> JavaScriptReturnStatement(node)
                 PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)
-                ASSIGNABLE -> JavaScriptAssignable(node)
                 EXPRESSION -> createExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
                 OBJECT -> JavaScriptObject(node)
                 ARRAY -> JavaScriptArray(node)
+                PROPERTY_ASSIGNMENT -> JavaScriptPropertyAssignment(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
@@ -189,7 +189,7 @@ object JavaScriptTypes {
             if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
                 return JavaScriptCallExpression(node)
             }
-            return JavaScriptExpression(node)
+            return JavaScriptExpression.Other(node)
         }
     }
 }

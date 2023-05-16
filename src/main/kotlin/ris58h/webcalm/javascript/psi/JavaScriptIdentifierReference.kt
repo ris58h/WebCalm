@@ -57,7 +57,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         functionDeclaration.parameters?.parameters?.forEach { parameter ->
             //TODO: support other parameter types
             val assignable = parameter.assignable
-            if (assignable != null) callback(assignable)
+            if (assignable != null) processDeclarationsInAssignable(assignable, callback)
         }
     }
 
@@ -71,7 +71,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
                     //TODO: support other variable declaration types
                     val assignable = variableDeclaration.assignable
-                    if (assignable != null) callback(assignable)
+                    if (assignable != null) processDeclarationsInAssignable(assignable, callback)
                 }
             }
         }
@@ -83,6 +83,23 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 else -> null
             }
             if (functionDeclaration != null) callback(functionDeclaration)
+        }
+    }
+
+    private fun processDeclarationsInAssignable(assignable: JavaScriptAssignable, callback: (PsiNamedElement) -> Unit) {
+        when (assignable) {
+            is JavaScriptIdentifier -> callback(assignable)
+            is JavaScriptArray -> {
+                assignable.elements.forEach {
+                    if (it is JavaScriptIdentifierExpression) callback(it)
+                }
+            }
+            is JavaScriptObject -> {
+                assignable.propertyAssignments.forEach {
+                    val propertyShorthand = it.propertyShorthand
+                    if (propertyShorthand != null) callback(propertyShorthand)
+                }
+            }
         }
     }
 }
