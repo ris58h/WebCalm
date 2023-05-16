@@ -51,10 +51,23 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         if (current is JavaScriptFunctionDeclaration) {
             processDeclarationsInParameters(current, callback)
         }
+        if (current is JavaScriptAnonymousFunction) {
+            processDeclarationsInParameters(current, callback)
+        }
     }
 
     private fun processDeclarationsInParameters(functionDeclaration: JavaScriptFunctionDeclaration, callback: (PsiNamedElement) -> Unit) {
-        functionDeclaration.parameters?.parameters?.forEach { parameter ->
+        val parameters = functionDeclaration.parameters
+        if (parameters != null) processDeclarationsInParameters(parameters, callback)
+    }
+
+    private fun processDeclarationsInParameters(anonymousFunction: JavaScriptAnonymousFunction, callback: (PsiNamedElement) -> Unit) {
+        val parameters = anonymousFunction.parameters
+        if (parameters != null) processDeclarationsInParameters(parameters, callback)
+    }
+
+    private fun processDeclarationsInParameters(parameters: JavaScriptParameters, callback: (PsiNamedElement) -> Unit) {
+        parameters.parameters.forEach { parameter ->
             //TODO: support other parameter types
             val assignable = parameter.assignable
             if (assignable != null) processDeclarationsInAssignable(assignable, callback)
