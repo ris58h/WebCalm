@@ -14,7 +14,7 @@ class JavaScriptIdentifierExpression(node: ASTNode) : JavaScriptIdentifierOwner(
     private fun isValidParent(parent: PsiElement): Boolean {
         // TODO: Could we just check if it's not a propertyAssignment?
         return parent is JavaScriptExpression
-                || parent is JavaScriptParameter
+                || parent is JavaScriptArgument
                 || parent is JavaScriptVariableDeclaration
     }
 }
