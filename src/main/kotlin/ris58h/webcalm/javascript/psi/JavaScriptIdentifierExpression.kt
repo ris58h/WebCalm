@@ -23,6 +23,15 @@ class JavaScriptIdentifierExpression(node: ASTNode) : JavaScriptIdentifierOwner(
     }
 
     private fun isValidPropertyAssignmentForReference(parent: JavaScriptPropertyAssignment): Boolean {
-        return PsiTreeUtil.prevVisibleLeaf(this).elementType == JavaScriptTypes.COLON
+        if (PsiTreeUtil.prevVisibleLeaf(this).elementType == JavaScriptTypes.COLON) {
+            return true
+        }
+        val parent2 = parent.parent
+        if (parent2 != null) {
+            if (PsiTreeUtil.nextVisibleLeaf(parent2).elementType != JavaScriptTypes.ASSIGN) {
+                return true
+            }
+        }
+        return false
     }
 }
