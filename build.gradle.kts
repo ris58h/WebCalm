@@ -24,9 +24,6 @@ intellij {
 //    version.set("LATEST-EAP-SNAPSHOT") // Check against 'latest' version
     type.set("IC") // Target IDE Platform
 
-//    plugins.set(listOf(/* Plugin Dependencies */))
-    plugins.set(listOf("org.jetbrains.plugins.textmate"))
-
     updateSinceUntilBuild.set(false)
 }
 
