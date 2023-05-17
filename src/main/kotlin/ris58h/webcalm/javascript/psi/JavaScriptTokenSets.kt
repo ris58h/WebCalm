@@ -80,7 +80,7 @@ object JavaScriptTokenSets {
         JavaScriptTypes.POWER_OP,
         JavaScriptTypes.RIGHT_SHIFT_OP,
         JavaScriptTypes.LEFT_SHIFT_OP,
-        JavaScriptTypes.UNSIGNED_RIGHT_SHIFT,
+        JavaScriptTypes.UNSIGNED_RIGHT_SHIFT_OP,
         JavaScriptTypes.LESS_THAN_OP,
         JavaScriptTypes.MORE_THAN_OP,
         JavaScriptTypes.LTE_OP,
@@ -94,6 +94,21 @@ object JavaScriptTokenSets {
         JavaScriptTypes.BIT_OR_OP,
         JavaScriptTypes.AND_OP,
         JavaScriptTypes.OR_OP,
+    )
+    val ASSIGNMENTS = TokenSet.create(
+        JavaScriptTypes.ASSIGN,
+        JavaScriptTypes.MULTIPLY_ASSIGN,
+        JavaScriptTypes.DIVIDE_ASSIGN,
+        JavaScriptTypes.MODULUS_ASSIGN,
+        JavaScriptTypes.PLUS_ASSIGN,
+        JavaScriptTypes.MINUS_ASSIGN,
+        JavaScriptTypes.LEFT_SHIFT_ASSIGN,
+        JavaScriptTypes.RIGHT_SHIFT_ASSIGN,
+        JavaScriptTypes.UNSIGNED_RIGHT_SHIFT_ASSIGN,
+        JavaScriptTypes.BIT_AND_ASSIGN,
+        JavaScriptTypes.BIT_XOR_ASSIGN,
+        JavaScriptTypes.BIT_OR_ASSIGN,
+        JavaScriptTypes.POWER_ASSIGN,
     )
     val NUMBERS = TokenSet.create(
         JavaScriptTypes.BOOLEAN_LITERAL,

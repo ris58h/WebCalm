@@ -4,6 +4,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.TokenSet
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
 import ris58h.webcalm.javascript.JavaScriptLanguage
 
@@ -35,7 +36,6 @@ object JavaScriptTypes {
     val DOT = TOKENS[JavaScriptLexer.Dot]!!
     val SEMICOLON = TOKENS[JavaScriptLexer.SemiColon]!!
     val COMMA = TOKENS[JavaScriptLexer.Comma]!!
-    val ASSIGN = TOKENS[JavaScriptLexer.Assign]!!
     val COLON = TOKENS[JavaScriptLexer.Colon]!!
     val PLUS_PLUS_OP = TOKENS[JavaScriptLexer.PlusPlus]!!
     val MENUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!
@@ -49,7 +49,7 @@ object JavaScriptTypes {
     val POWER_OP = TOKENS[JavaScriptLexer.Power]!!
     val RIGHT_SHIFT_OP = TOKENS[JavaScriptLexer.RightShiftArithmetic]!!
     val LEFT_SHIFT_OP = TOKENS[JavaScriptLexer.LeftShiftArithmetic]!!
-    val UNSIGNED_RIGHT_SHIFT = TOKENS[JavaScriptLexer.RightShiftLogical]!!
+    val UNSIGNED_RIGHT_SHIFT_OP = TOKENS[JavaScriptLexer.RightShiftLogical]!!
     val LESS_THAN_OP = TOKENS[JavaScriptLexer.LessThan]!!
     val MORE_THAN_OP = TOKENS[JavaScriptLexer.MoreThan]!!
     val LTE_OP = TOKENS[JavaScriptLexer.LessThanEquals]!!
@@ -63,19 +63,19 @@ object JavaScriptTypes {
     val BIT_OR_OP = TOKENS[JavaScriptLexer.BitOr]!!
     val AND_OP = TOKENS[JavaScriptLexer.And]!!
     val OR_OP = TOKENS[JavaScriptLexer.Or]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.Assign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.MultiplyAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.DivideAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.ModulusAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.PlusAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.MinusAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.LeftShiftArithmeticAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.RightShiftArithmeticAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.RightShiftLogicalAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.BitAndAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.BitXorAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.BitOrAssign]!!
-//    val ASSIGN = TOKENS[JavaScriptLexer.PowerAssign]!!
+    val ASSIGN = TOKENS[JavaScriptLexer.Assign]!!
+    val MULTIPLY_ASSIGN = TOKENS[JavaScriptLexer.MultiplyAssign]!!
+    val DIVIDE_ASSIGN = TOKENS[JavaScriptLexer.DivideAssign]!!
+    val MODULUS_ASSIGN = TOKENS[JavaScriptLexer.ModulusAssign]!!
+    val PLUS_ASSIGN = TOKENS[JavaScriptLexer.PlusAssign]!!
+    val MINUS_ASSIGN = TOKENS[JavaScriptLexer.MinusAssign]!!
+    val LEFT_SHIFT_ASSIGN = TOKENS[JavaScriptLexer.LeftShiftArithmeticAssign]!!
+    val RIGHT_SHIFT_ASSIGN = TOKENS[JavaScriptLexer.RightShiftArithmeticAssign]!!
+    val UNSIGNED_RIGHT_SHIFT_ASSIGN = TOKENS[JavaScriptLexer.RightShiftLogicalAssign]!!
+    val BIT_AND_ASSIGN = TOKENS[JavaScriptLexer.BitAndAssign]!!
+    val BIT_XOR_ASSIGN = TOKENS[JavaScriptLexer.BitXorAssign]!!
+    val BIT_OR_ASSIGN = TOKENS[JavaScriptLexer.BitOrAssign]!!
+    val POWER_ASSIGN = TOKENS[JavaScriptLexer.PowerAssign]!!
     val ARROW = TOKENS[JavaScriptLexer.ARROW]!!
     val NULL_LITERAL = TOKENS[JavaScriptLexer.NullLiteral]!!
     val BOOLEAN_LITERAL = TOKENS[JavaScriptLexer.BooleanLiteral]!!
@@ -190,12 +190,15 @@ object JavaScriptTypes {
         }
 
         private fun createExpression(node: ASTNode): PsiElement {
-            val children = node.getChildren(null)
+            val children = node.getChildren(TokenSet.andNot(TokenSet.ANY, TokenSet.WHITE_SPACE))
             if (children.size == 1 && children[0].elementType == IDENTIFIER) {
                 return JavaScriptIdentifierExpression(node)
             }
             if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
                 return JavaScriptCallExpression(node)
+            }
+            if (children.size == 3 && JavaScriptTokenSets.ASSIGNMENTS.contains(children[1].elementType)) {
+                return JavaScriptAssignmentExpression(node)
             }
             return JavaScriptExpression.Other(node)
         }

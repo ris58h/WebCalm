@@ -4,6 +4,7 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.parentOfType
 import ris58h.webcalm.javascript.psi.*
@@ -13,40 +14,11 @@ class JavaScriptHighlightingAnnotator : Annotator {
         if (element !is JavaScriptIdentifier) return
 
         val color = when (val parent = element.parent) {
-            is JavaScriptAssignable -> {
-                when (val parent2 = parent.parent) {
-                    is JavaScriptParameter -> DefaultLanguageHighlighterColors.PARAMETER
-                    is JavaScriptVariableDeclaration -> {
-                        val statement = parent2.parentOfType<JavaScriptVariableStatement>()
-                        // TODO: only 'var' creates a global variable
-                        val isGlobal = statement?.parent is JavaScriptFile
-                        if (isGlobal) DefaultLanguageHighlighterColors.GLOBAL_VARIABLE
-                        else DefaultLanguageHighlighterColors.LOCAL_VARIABLE
-                    }
-
-                    else -> null
-                }
-            }
-
+            is JavaScriptAssignable -> colorWhenParentIsAssignable(parent)
+            is JavaScriptIdentifierExpression -> colorWhenParentIsIdentifierExpression(parent, element)
             is JavaScriptFunctionDeclaration -> {
                 if (parent.identifier === element) DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
                 else null
-            }
-
-            is JavaScriptIdentifierExpression -> {
-                if (parent.parent is JavaScriptCallExpression) {
-                    DefaultLanguageHighlighterColors.FUNCTION_CALL
-                } else {
-                    // TODO: check for a param with the same name that can override predefined globals
-                    val name = element.name
-                    when {
-                        GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
-                        GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
-                        GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
-                        GLOBAL_NAMESPACES.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
-                        else -> null
-                    }
-                }
             }
 
             else -> null
@@ -56,6 +28,44 @@ class JavaScriptHighlightingAnnotator : Annotator {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(color)
                 .create()
+        }
+    }
+
+    private fun colorWhenParentIsAssignable(parent: JavaScriptAssignable): TextAttributesKey? {
+        return when (val parent2 = parent.parent) {
+            is JavaScriptParameter -> DefaultLanguageHighlighterColors.PARAMETER
+            is JavaScriptVariableDeclaration -> {
+                val statement = parent2.parentOfType<JavaScriptVariableStatement>()
+                // TODO: only 'var' creates a global variable
+                val isGlobal = statement?.parent is JavaScriptFile
+                if (isGlobal) DefaultLanguageHighlighterColors.GLOBAL_VARIABLE
+                else DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+            }
+
+            else -> null
+        }
+    }
+
+    private fun colorWhenParentIsIdentifierExpression(parent: JavaScriptIdentifierExpression, element: JavaScriptIdentifier): TextAttributesKey? {
+        return when (val parent2 = parent.parent) {
+            is JavaScriptCallExpression -> DefaultLanguageHighlighterColors.FUNCTION_CALL
+            is JavaScriptAssignmentExpression -> {
+                // TODO: REASSIGNED_PARAMETER
+                if (parent2.firstChild === parent) DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
+                else  null
+            }
+
+            else -> {
+                // TODO: check for a param with the same name that can override predefined globals
+                val name = element.name
+                when {
+                    GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
+                    GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                    GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
+                    GLOBAL_NAMESPACES.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                    else -> null
+                }
+            }
         }
     }
 
