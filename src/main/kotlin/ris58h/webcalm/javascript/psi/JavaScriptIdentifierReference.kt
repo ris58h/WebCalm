@@ -4,7 +4,6 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
 import com.intellij.util.SmartList
 import com.intellij.util.containers.SmartHashSet
-import com.jetbrains.rd.util.forEachReversed
 
 class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) :
     PsiPolyVariantReferenceBase<PsiElement>(element, rangeInElement) {
@@ -54,6 +53,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         if (current is JavaScriptAnonymousFunction) {
             processDeclarationsInParameters(current, callback)
         }
+        if (current is JavaScriptIterationStatement) {
+            val variableDeclarationList = current.variableDeclarationList
+            if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
+        }
     }
 
     private fun processDeclarationsInParameters(functionDeclaration: JavaScriptFunctionDeclaration, callback: (PsiNamedElement) -> Unit) {
@@ -81,11 +84,8 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         for (i in visitedIndex - 1 downTo 0) {
             val statement = statements[i]
             if (statement is JavaScriptVariableStatement) {
-                statement.variableDeclarationList?.variableDeclarations?.forEachReversed { variableDeclaration ->
-                    //TODO: support other variable declaration types
-                    val assignable = variableDeclaration.assignable
-                    if (assignable != null) processDeclarationsInAssignable(assignable, callback)
-                }
+                val variableDeclarationList = statement.variableDeclarationList
+                if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
             }
         }
 
@@ -96,6 +96,14 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 else -> null
             }
             if (functionDeclaration != null) callback(functionDeclaration)
+        }
+    }
+
+    private fun processDeclarationsInVariableDeclarationList(variableDeclarationList: JavaScriptVariableDeclarationList, callback: (PsiNamedElement) -> Unit) {
+        variableDeclarationList.variableDeclarations.forEach { variableDeclaration ->
+            //TODO: support other variable declaration types
+            val assignable = variableDeclaration.assignable
+            if (assignable != null) processDeclarationsInAssignable(assignable, callback)
         }
     }
 
