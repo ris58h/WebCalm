@@ -5,11 +5,12 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.parentOfType
 import ris58h.webcalm.javascript.psi.*
 
-class JavaScriptHighlightingAnnotator : Annotator {
+class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is JavaScriptIdentifier) return
 
