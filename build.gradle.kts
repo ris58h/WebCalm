@@ -15,7 +15,7 @@ repositories {
 dependencies {
     implementation("org.antlr:antlr4-intellij-adaptor:0.1")
     antlr("org.antlr:antlr4:4.12.0") {
-        exclude("group:'com.ibm.icu', module:'icu4j'")
+        exclude("com.ibm.icu", "icu4j")
     }
 }
 
