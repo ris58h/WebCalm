@@ -35,8 +35,8 @@
         <!-- HTML -->
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlAttributeJavaScriptInjector"/>
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptTagJavaScriptInjector"/>
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>
+<!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>-->
+<!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>-->
         <!-- JavaScript -->
         <fileType
                 name="JavaScript"
@@ -65,25 +65,25 @@
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptFoldingBuilder"/>
         <!-- CSS -->
-        <fileType
-                name="CSS"
-                implementationClass="ris58h.webcalm.css.CssFileType"
-                language="CSS"
-                extensions="css"/>
-        <lang.parserDefinition
-                language="CSS"
-                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>
-        <lang.syntaxHighlighterFactory
-                language="CSS"
-                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>
-        <lang.braceMatcher
-                language="CSS"
-                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>
-        <lang.commenter
-                language="CSS"
-                implementationClass="ris58h.webcalm.css.CssCommenter"/>
-        <lang.foldingBuilder
-                language="CSS"
-                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>
+<!--        <fileType-->
+<!--                name="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssFileType"-->
+<!--                language="CSS"-->
+<!--                extensions="css"/>-->
+<!--        <lang.parserDefinition-->
+<!--                language="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>-->
+<!--        <lang.syntaxHighlighterFactory-->
+<!--                language="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>-->
+<!--        <lang.braceMatcher-->
+<!--                language="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>-->
+<!--        <lang.commenter-->
+<!--                language="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssCommenter"/>-->
+<!--        <lang.foldingBuilder-->
+<!--                language="CSS"-->
+<!--                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>-->
     </extensions>
 </idea-plugin>
