@@ -2,13 +2,30 @@
     <id>ris58h.webcalm</id>
     <name>WebCalm</name>
     <vendor email="ris58h@gmail.com" url="https://github.com/ris58h">Ilya Rodionov</vendor>
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-  ]]></description>
+        Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
+        <br>
+        <br>
+        WARNING: Install it only if your IDE doesn't already support JavaScript. The plugin is still in development so something may not work properly.
+        <br>
+        <br>
+        Features:
+        <ul>
+            <li>Syntax highlighting.</li>
+            <li>Code folding.</li>
+            <li>Go to declaration.</li>
+            <li>Find usages.</li>
+            <li>Refactor/Rename.</li>
+            <li>Language injections in 'script' tags and event handler attributes.</li>
+        </ul>
+        <br>
+        Not planned:
+        <ul>
+            <li>Template engines support: Mustache, Handlebars, etc.</li>
+            <li>Frameworks support: jQuery, React, Angular, Vue, etc.</li>
+            <li>Other JavaScript based languages support: TypeScript, CoffeeScript, etc.</li>
+        </ul>
+      ]]></description>
 
     <idea-version since-build="201.6668.113"/>
 
