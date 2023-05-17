@@ -11,6 +11,9 @@ Features:
 - Refactor/Rename.
 - Language injections in 'script' tags and event handler attributes.
 
+Planned:
+- CSS language support.
+
 Not planned:
 - Template engines support: Mustache, Handlebars, etc.
 - Frameworks support: jQuery, React, Angular, Vue, etc.

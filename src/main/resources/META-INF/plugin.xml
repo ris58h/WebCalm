@@ -19,6 +19,11 @@
             <li>Language injections in 'script' tags and event handler attributes.</li>
         </ul>
         <br>
+        Planned:
+        <ul>
+            <li>CSS language support.</li>
+        </ul>
+        <br>
         Not planned:
         <ul>
             <li>Template engines support: Mustache, Handlebars, etc.</li>
