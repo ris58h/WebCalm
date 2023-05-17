@@ -152,6 +152,7 @@ object JavaScriptTypes {
         private val IF_STATEMENT = RULES[JavaScriptParser.RULE_ifStatement]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
         private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
+        private val EXPRESSION_SEQUENCE = RULES[JavaScriptParser.RULE_expressionSequence]
         private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
         private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
         private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
@@ -176,6 +177,7 @@ object JavaScriptTypes {
                 IF_STATEMENT -> JavaScriptIfStatement(node)
                 PARAMETERS -> JavaScriptParameters(node)
                 PARAMETER -> JavaScriptParameter(node)
+                EXPRESSION_SEQUENCE -> JavaScriptExpressionSequence(node)
                 EXPRESSION -> createExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
