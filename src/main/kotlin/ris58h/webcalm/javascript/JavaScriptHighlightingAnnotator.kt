@@ -5,22 +5,19 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.elementType
 import com.intellij.psi.util.parentOfType
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        if (element.elementType != JavaScriptTypes.IDENTIFIER) return
-        val parent = element.parent
-        if (parent !is JavaScriptIdentifier) return
+        if (element !is JavaScriptIdentifier) return
 
-        val color = when (val parent2 = parent.parent) {
+        val color = when (val parent = element.parent) {
             is JavaScriptAssignable -> {
-                when (val parent3 = parent2.parent) {
+                when (val parent2 = parent.parent) {
                     is JavaScriptParameter -> DefaultLanguageHighlighterColors.PARAMETER
                     is JavaScriptVariableDeclaration -> {
-                        val statement = parent3.parentOfType<JavaScriptVariableStatement>()
+                        val statement = parent2.parentOfType<JavaScriptVariableStatement>()
                         // TODO: only 'var' creates a global variable
                         val isGlobal = statement?.parent is JavaScriptFile
                         if (isGlobal) DefaultLanguageHighlighterColors.GLOBAL_VARIABLE
@@ -32,13 +29,13 @@ class JavaScriptHighlightingAnnotator : Annotator {
             }
 
             is JavaScriptFunctionDeclaration -> {
-                if (parent2.nameIdentifier === element) DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+                if (parent.identifier === element) DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
                 else null
             }
 
             is JavaScriptIdentifierExpression -> {
                 // TODO: check for a param with the same name that can override predefined globals
-                val name = element.text
+                val name = element.name
                 when {
                     GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
                     GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
