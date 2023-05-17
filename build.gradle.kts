@@ -29,11 +29,11 @@ intellij {
 
 tasks {
     withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "1.8"
     }
     getByName("compileKotlin").dependsOn("generateGrammarSource")
 
