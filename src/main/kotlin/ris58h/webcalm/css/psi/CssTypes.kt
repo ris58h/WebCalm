@@ -17,7 +17,7 @@ object CssTypes {
     val FILE = IFileElementType(CssLanguage)
 
     private val TOKENS = PSIElementTypeFactory.getTokenIElementTypes(CssLanguage)
-    val WS = TOKENS[css3Lexer.Space]!!
+    val SPACE = TOKENS[css3Lexer.Space]!!
     val COMMENT = TOKENS[css3Lexer.Comment]!!
     val STRING = TOKENS[css3Lexer.String_]!!
     val NUMBER = TOKENS[css3Lexer.Number]!!
