@@ -17,7 +17,7 @@ class HtmlAttributeJavaScriptInjector : MultiHostInjector {
         val attributeValueToken = context.node.findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN) ?: return
         if (attributeValueToken.text.isNotBlank()) {
             registrar.startInjecting(JavaScriptLanguage)
-            registrar.addPlace("function () {", ";}", context as PsiLanguageInjectionHost, attributeValueToken.psi.textRangeInParent)
+            registrar.addPlace("(function () {", ";})", context as PsiLanguageInjectionHost, attributeValueToken.psi.textRangeInParent)
             registrar.doneInjecting()
         }
     }
