@@ -44,18 +44,14 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun processDeclarationsIteration(current: PsiElement, prev: PsiElement, callback: (PsiNamedElement) -> Unit) {
-        if (current is JavaScriptStatementsOwner && prev is JavaScriptStatement) {
-            processDeclarationsInScope(current, prev, callback)
-        }
-        if (current is JavaScriptFunctionDeclaration) {
-            processDeclarationsInParameters(current, callback)
-        }
-        if (current is JavaScriptAnonymousFunction) {
-            processDeclarationsInParameters(current, callback)
-        }
-        if (current is JavaScriptIterationStatement) {
-            val variableDeclarationList = current.variableDeclarationList
-            if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
+        when (current) {
+            is JavaScriptStatementsOwner -> processDeclarationsInScope(current, prev, callback)
+            is JavaScriptFunctionDeclaration -> processDeclarationsInParameters(current, callback)
+            is JavaScriptAnonymousFunction -> processDeclarationsInParameters(current, callback)
+            is JavaScriptIterationStatement -> {
+                val variableDeclarationList = current.variableDeclarationList
+                if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
+            }
         }
     }
 
@@ -81,25 +77,20 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         }
     }
 
-    private fun processDeclarationsInScope(scope: JavaScriptStatementsOwner, visited: JavaScriptStatement, callback: (PsiNamedElement) -> Unit) {
-        val statements = scope.statements
-
-        val visitedIndex = statements.indexOfLast { it === visited }
-        for (i in visitedIndex - 1 downTo 0) {
-            val statement = statements[i]
-            if (statement is JavaScriptVariableStatement) {
-                val variableDeclarationList = statement.variableDeclarationList
-                if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
+    private fun processDeclarationsInScope(scope: JavaScriptStatementsOwner, visited: PsiElement, callback: (PsiNamedElement) -> Unit) {
+        scope.statements.forEach {
+            if (it === visited) return@forEach
+            when (it) {
+                is JavaScriptVariableStatement -> {
+                    val variableDeclarationList = it.variableDeclarationList
+                    if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
+                }
+                is JavaScriptFunctionDeclaration -> callback(it)
+                is JavaScriptExportStatement -> {
+                    val functionDeclaration = it.declaration
+                    if (functionDeclaration != null) callback(functionDeclaration)
+                }
             }
-        }
-
-        statements.forEach {
-            val functionDeclaration = when (it) {
-                is JavaScriptFunctionDeclaration -> it
-                is JavaScriptExportStatement -> it.declaration
-                else -> null
-            }
-            if (functionDeclaration != null) callback(functionDeclaration)
         }
     }
 
