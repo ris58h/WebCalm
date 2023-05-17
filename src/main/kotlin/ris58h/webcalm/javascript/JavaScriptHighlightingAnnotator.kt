@@ -34,14 +34,18 @@ class JavaScriptHighlightingAnnotator : Annotator {
             }
 
             is JavaScriptIdentifierExpression -> {
-                // TODO: check for a param with the same name that can override predefined globals
-                val name = element.name
-                when {
-                    GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
-                    GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
-                    GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
-                    GLOBAL_NAMESPACES.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
-                    else -> null
+                if (parent.parent is JavaScriptCallExpression) {
+                    DefaultLanguageHighlighterColors.FUNCTION_CALL
+                } else {
+                    // TODO: check for a param with the same name that can override predefined globals
+                    val name = element.name
+                    when {
+                        GLOBAL_VALUES.contains(name) -> DefaultLanguageHighlighterColors.KEYWORD
+                        GLOBAL_FUNCTIONS.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                        GLOBAL_OBJECTS.contains(name) -> DefaultLanguageHighlighterColors.CLASS_REFERENCE
+                        GLOBAL_NAMESPACES.contains(name) -> DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+                        else -> null
+                    }
                 }
             }
 
