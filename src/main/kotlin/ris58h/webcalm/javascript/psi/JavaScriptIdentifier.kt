@@ -24,16 +24,18 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScri
     override fun getNameIdentifier(): PsiElement? = this.node.findChildByType(JavaScriptTypes.IDENTIFIER)?.psi
 
     override fun getUseScope(): SearchScope {
-        if (parent is JavaScriptParameter) {
-            val functionBody = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java)?.body
-            if (functionBody != null) {
-                return LocalSearchScope(functionBody)
+        when (parent) {
+            is JavaScriptParameter -> {
+                val functionBody = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java)?.body
+                if (functionBody != null) {
+                    return LocalSearchScope(functionBody)
+                }
             }
-        }
-        if (parent is JavaScriptVariableDeclaration) {
-            val statementsOwner = PsiTreeUtil.getParentOfType(parent, JavaScriptStatementsOwner::class.java)
-            if (statementsOwner != null && statementsOwner !is JavaScriptFile) {
-                return LocalSearchScope(statementsOwner)
+            is JavaScriptVariableDeclaration, is JavaScriptFunctionDeclaration -> {
+                val statementsOwner = PsiTreeUtil.getParentOfType(parent, JavaScriptStatementsOwner::class.java)
+                if (statementsOwner != null && statementsOwner !is JavaScriptFile) {
+                    return LocalSearchScope(statementsOwner)
+                }
             }
         }
         return super.getUseScope()
