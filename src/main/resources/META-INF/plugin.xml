@@ -26,9 +26,9 @@
         <br>
         Not planned:
         <ul>
-            <li>Template engines support: Mustache, Handlebars, etc.</li>
-            <li>Frameworks support: jQuery, React, Angular, Vue, etc.</li>
-            <li>Other JavaScript based languages support: TypeScript, CoffeeScript, etc.</li>
+            <li>Template engines support.</li>
+            <li>Frameworks support.</li>
+            <li>Other JavaScript based languages support.</li>
         </ul>
       ]]></description>
 

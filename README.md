@@ -15,6 +15,6 @@ Planned:
 - CSS language support.
 
 Not planned:
-- Template engines support: Mustache, Handlebars, etc.
-- Frameworks support: jQuery, React, Angular, Vue, etc.
-- Other JavaScript based languages support: TypeScript, CoffeeScript, etc.
+- Template engines support.
+- Frameworks support.
+- Other JavaScript based languages support.
