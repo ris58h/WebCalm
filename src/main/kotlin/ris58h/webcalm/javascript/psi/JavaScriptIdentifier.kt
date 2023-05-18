@@ -32,7 +32,7 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScri
         }
         if (parent is JavaScriptVariableDeclaration) {
             val statementsOwner = PsiTreeUtil.getParentOfType(parent, JavaScriptStatementsOwner::class.java)
-            if (statementsOwner != null) {
+            if (statementsOwner != null && statementsOwner !is JavaScriptFile) {
                 return LocalSearchScope(statementsOwner)
             }
         }
