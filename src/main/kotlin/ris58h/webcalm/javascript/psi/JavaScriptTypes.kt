@@ -162,6 +162,7 @@ object JavaScriptTypes {
         private val PROPERTY_ASSIGNMENT = RULES[JavaScriptParser.RULE_propertyAssignment]
         private val TEMPLATE_STRING = RULES[JavaScriptParser.RULE_templateStringLiteral]
         private val ANONYMOUS_FUNCTION = RULES[JavaScriptParser.RULE_anonymousFunction]
+        private val CLASS_DECLARATION = RULES[JavaScriptParser.RULE_classDeclaration]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -188,6 +189,7 @@ object JavaScriptTypes {
                 PROPERTY_ASSIGNMENT -> JavaScriptPropertyAssignment(node)
                 TEMPLATE_STRING -> JavaScriptTemplateString(node)
                 ANONYMOUS_FUNCTION -> JavaScriptAnonymousFunction(node)
+                CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }

@@ -9,6 +9,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiFile
+import ris58h.webcalm.javascript.psi.JavaScriptClassDeclaration
 import ris58h.webcalm.javascript.psi.JavaScriptFile
 import ris58h.webcalm.javascript.psi.JavaScriptFunctionDeclaration
 import ris58h.webcalm.javascript.psi.JavaScriptStatement
@@ -35,8 +36,11 @@ class JavaScriptStructureViewModel(editor: Editor?, psiFile: PsiFile) :
         return false
     }
 
-    override fun getSuitableClasses(): Array<Class<JavaScriptFunctionDeclaration>> {
-        return arrayOf(JavaScriptFunctionDeclaration::class.java)
+    override fun getSuitableClasses(): Array<Class<out Any>> {
+        return arrayOf(
+            JavaScriptFunctionDeclaration::class.java,
+            JavaScriptClassDeclaration::class.java,
+        )
     }
 }
 
@@ -58,10 +62,11 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
     }
 
     override fun getPresentation(): ItemPresentation {
-        if (myElement is JavaScriptFunctionDeclaration) {
-            return PresentationData(myElement.name, null, AllIcons.Nodes.Function, null)
+        return when (myElement) {
+            is JavaScriptFunctionDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Function, null)
+            is JavaScriptClassDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Class, null)
+            else -> myElement.presentation ?: PresentationData()
         }
-        return myElement.presentation ?: PresentationData()
     }
 
     override fun getChildren(): Array<TreeElement> {
@@ -74,8 +79,8 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
 
     private fun toTreeChildren(statements: Array<out JavaScriptStatement>): Array<TreeElement> {
         return statements
-            .filterIsInstance<JavaScriptFunctionDeclaration>()
-            .map { JavaScriptStructureViewElement(it) }
+            .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration}
+            .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()
     }
 }
