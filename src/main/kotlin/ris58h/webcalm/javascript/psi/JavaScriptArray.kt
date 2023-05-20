@@ -5,6 +5,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.util.PsiTreeUtil
 
 class JavaScriptArray(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptAssignable {
-    val elements: Array<out JavaScriptExpression>
-        get() = PsiTreeUtil.getChildrenOfType(this, JavaScriptExpression::class.java).orEmpty()
+    val elements: List<JavaScriptExpression>
+        get() = PsiTreeUtil.getChildrenOfTypeAsList(this, JavaScriptExpression::class.java)
 }

@@ -77,7 +77,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
         }
     }
 
-    private fun toTreeChildren(statements: Array<out JavaScriptStatement>): Array<TreeElement> {
+    private fun toTreeChildren(statements: List<JavaScriptStatement>): Array<TreeElement> {
         return statements
             .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration}
             .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
