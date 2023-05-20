@@ -69,6 +69,9 @@
         <lang.foldingBuilder
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptFoldingBuilder"/>
+        <lang.psiStructureViewFactory
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptStructureViewFactory"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->
