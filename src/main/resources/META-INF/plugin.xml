@@ -13,6 +13,7 @@
         <ul>
             <li>Syntax highlighting.</li>
             <li>Code folding.</li>
+            <li>Structure view.</li>
             <li>Go to declaration.</li>
             <li>Find usages.</li>
             <li>Refactor/Rename.</li>

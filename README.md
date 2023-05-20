@@ -6,6 +6,7 @@ WARNING: Install it only if your IDE doesn't already support JavaScript. The plu
 Features:
 - Syntax highlighting.
 - Code folding.
+- Structure view.
 - Go to declaration.
 - Find usages.
 - Refactor/Rename.
