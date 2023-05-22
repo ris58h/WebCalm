@@ -8,16 +8,12 @@ import ris58h.webcalm.javascript.psi.JavaScriptTypes
 
 class JavaScriptPairedBraceMatcher : PairedBraceMatcher {
     override fun getPairs(): Array<BracePair> = PAIRS
-
     override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?): Boolean = true
-
     override fun getCodeConstructStart(file: PsiFile?, openingBraceOffset: Int): Int = openingBraceOffset
-
-    companion object {
-        private val PAIRS = arrayOf(
-            BracePair(JavaScriptTypes.OPEN_BRACE, JavaScriptTypes.CLOSE_BRACE, true),
-            BracePair(JavaScriptTypes.OPEN_BRACKET, JavaScriptTypes.CLOSE_BRACKET, true),
-            BracePair(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN, true),
-        )
-    }
 }
+
+private val PAIRS = arrayOf(
+    BracePair(JavaScriptTypes.OPEN_BRACE, JavaScriptTypes.CLOSE_BRACE, true),
+    BracePair(JavaScriptTypes.OPEN_BRACKET, JavaScriptTypes.CLOSE_BRACKET, true),
+    BracePair(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN, true),
+)
