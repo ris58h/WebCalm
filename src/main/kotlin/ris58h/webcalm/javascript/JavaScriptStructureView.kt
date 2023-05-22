@@ -24,42 +24,24 @@ class JavaScriptStructureViewFactory : PsiStructureViewFactory {
     }
 }
 
+private val SUITABLE_CLASSES: Array<Class<out Any>> = arrayOf(
+    JavaScriptFunctionDeclaration::class.java,
+    JavaScriptClassDeclaration::class.java,
+)
+
 class JavaScriptStructureViewModel(editor: Editor?, psiFile: PsiFile) :
     StructureViewModelBase(psiFile, editor, JavaScriptStructureViewElement(psiFile)),
     StructureViewModel.ElementInfoProvider {
-
-    override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean {
-        return false
-    }
-
-    override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean {
-        return false
-    }
-
-    override fun getSuitableClasses(): Array<Class<out Any>> {
-        return arrayOf(
-            JavaScriptFunctionDeclaration::class.java,
-            JavaScriptClassDeclaration::class.java,
-        )
-    }
+    override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
+    override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
+    override fun getSuitableClasses(): Array<Class<out Any>> = SUITABLE_CLASSES
 }
 
 class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElement) : StructureViewTreeElement {
-    override fun getValue(): Any {
-        return myElement
-    }
-
-    override fun navigate(requestFocus: Boolean) {
-        myElement.navigate(requestFocus)
-    }
-
-    override fun canNavigate(): Boolean {
-        return myElement.canNavigate()
-    }
-
-    override fun canNavigateToSource(): Boolean {
-        return myElement.canNavigateToSource()
-    }
+    override fun getValue(): Any = myElement
+    override fun navigate(requestFocus: Boolean) = myElement.navigate(requestFocus)
+    override fun canNavigate(): Boolean = myElement.canNavigate()
+    override fun canNavigateToSource(): Boolean = myElement.canNavigateToSource()
 
     override fun getPresentation(): ItemPresentation {
         return when (myElement) {
@@ -79,7 +61,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
 
     private fun toTreeChildren(statements: List<JavaScriptStatement>): Array<TreeElement> {
         return statements
-            .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration}
+            .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration }
             .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()
     }
