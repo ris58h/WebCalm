@@ -20,12 +20,12 @@
             <li>Language injections in 'script' tags and event handler attributes.</li>
         </ul>
         <br>
-        Planned:
+        Planned features:
         <ul>
             <li>CSS language support.</li>
         </ul>
         <br>
-        Not planned:
+        Not planned features:
         <ul>
             <li>Template engines support.</li>
             <li>Frameworks support.</li>

@@ -12,10 +12,10 @@ Features:
 - Refactor/Rename.
 - Language injections in 'script' tags and event handler attributes.
 
-Planned:
+Planned features:
 - CSS language support.
 
-Not planned:
+Not planned features:
 - Template engines support.
 - Frameworks support.
 - Other JavaScript based languages support.
