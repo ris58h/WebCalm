@@ -19,7 +19,7 @@ dependencies {
 }
 
 intellij {
-    version.set("2020.1") // Build against 'since' version
+    version.set("2020.3") // Build against 'since' version
 //    version.set("LATEST-EAP-SNAPSHOT") // Check against 'latest' version
     type.set("IC") // Target IDE Platform
 
@@ -28,11 +28,11 @@ intellij {
 
 tasks {
     withType<JavaCompile> {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = "11"
     }
     getByName("compileKotlin").dependsOn("generateGrammarSource")
 
