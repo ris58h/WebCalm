@@ -36,13 +36,9 @@
     <idea-version since-build="201.6668.113"/>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- HTML -->
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlAttributeJavaScriptInjector"/>
-        <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptTagJavaScriptInjector"/>
-<!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>-->
-<!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>-->
         <!-- JavaScript -->
         <fileType
                 name="JavaScript"
