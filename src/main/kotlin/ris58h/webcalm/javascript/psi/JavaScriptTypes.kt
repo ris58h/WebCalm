@@ -204,6 +204,9 @@ object JavaScriptTypes {
             if (node.findChildByType(METHOD_DEFINITION) != null) {
                 return JavaScriptMethod(node)
             }
+            if (node.findChildByType(PROPERTY_NAME) != null) {
+                return JavaScriptField(node)
+            }
             return JavaScriptClassElement.NotClassElement(node)
         }
 

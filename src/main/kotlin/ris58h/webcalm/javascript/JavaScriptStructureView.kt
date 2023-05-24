@@ -24,7 +24,7 @@ class JavaScriptStructureViewFactory : PsiStructureViewFactory {
 private val SUITABLE_CLASSES: Array<Class<out Any>> = arrayOf(
     JavaScriptFunctionDeclaration::class.java,
     JavaScriptClassDeclaration::class.java,
-    JavaScriptMethod::class.java,
+    JavaScriptClassElement::class.java,
 )
 
 class JavaScriptStructureViewModel(editor: Editor?, psiFile: PsiFile) :
@@ -46,6 +46,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
             is JavaScriptFunctionDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Function, null)
             is JavaScriptClassDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Class, null)
             is JavaScriptMethod -> PresentationData(myElement.name, null, AllIcons.Nodes.Method, null)
+            is JavaScriptField -> PresentationData(myElement.name, null, AllIcons.Nodes.Field, null)
             else -> myElement.presentation ?: PresentationData()
         }
     }
