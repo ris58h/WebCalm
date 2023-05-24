@@ -28,15 +28,14 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScri
             is JavaScriptParameter -> {
                 val parent2 = parent.parent
                 if (parent2 is JavaScriptParameters) {
-                    // TODO: should we create a unified interface for different function types?
-                    val functionBody = when (val parent3 = parent2.parent) {
+                    val scope = when (val parent3 = parent2.parent) {
                         is JavaScriptFunctionDeclaration -> parent3.body
-                        is JavaScriptAnonymousFunction -> parent3.body
+                        is JavaScriptAnonymousFunction -> parent3.body?.doWhen({ it }, { it })
                         is JavaScriptMethod -> parent3.body
                         else -> null
                     }
-                    if (functionBody != null) {
-                        return LocalSearchScope(functionBody)
+                    if (scope != null) {
+                        return LocalSearchScope(scope)
                     }
                 }
             }
