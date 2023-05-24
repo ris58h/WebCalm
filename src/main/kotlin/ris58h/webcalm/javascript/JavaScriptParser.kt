@@ -35,6 +35,8 @@ class JavaScriptParser : ANTLRParserAdaptor(JavaScriptLanguage, JavaScriptANTLRP
             JavaScriptANTLRParser.RULE_arrowFunctionBody,
             JavaScriptANTLRParser.RULE_assignmentOperator,
             JavaScriptANTLRParser.RULE_classTail,
+            JavaScriptANTLRParser.RULE_getter,
+            JavaScriptANTLRParser.RULE_setter,
         )
         return SkipRuleNodeParseTreeToPsiConverter(rulesToSkip, language, parser, builder)
     }

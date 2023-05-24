@@ -9,10 +9,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiFile
-import ris58h.webcalm.javascript.psi.JavaScriptClassDeclaration
-import ris58h.webcalm.javascript.psi.JavaScriptFile
-import ris58h.webcalm.javascript.psi.JavaScriptFunctionDeclaration
-import ris58h.webcalm.javascript.psi.JavaScriptStatement
+import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptStructureViewFactory : PsiStructureViewFactory {
     override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder {
@@ -27,6 +24,7 @@ class JavaScriptStructureViewFactory : PsiStructureViewFactory {
 private val SUITABLE_CLASSES: Array<Class<out Any>> = arrayOf(
     JavaScriptFunctionDeclaration::class.java,
     JavaScriptClassDeclaration::class.java,
+    JavaScriptMethod::class.java,
 )
 
 class JavaScriptStructureViewModel(editor: Editor?, psiFile: PsiFile) :
@@ -47,21 +45,30 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
         return when (myElement) {
             is JavaScriptFunctionDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Function, null)
             is JavaScriptClassDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Class, null)
+            is JavaScriptMethod -> PresentationData(myElement.name, null, AllIcons.Nodes.Method, null)
             else -> myElement.presentation ?: PresentationData()
         }
     }
 
     override fun getChildren(): Array<TreeElement> {
         return when (myElement) {
-            is JavaScriptFile -> toTreeChildren(myElement.statements)
-            is JavaScriptFunctionDeclaration -> toTreeChildren(myElement.body?.statements.orEmpty())
+            is JavaScriptFile -> statementsToTreeChildren(myElement.statements)
+            is JavaScriptFunctionDeclaration -> statementsToTreeChildren(myElement.body?.statements.orEmpty())
+            is JavaScriptClassDeclaration -> classElementsToTreeChildren(myElement.classElements)
+            is JavaScriptMethod -> statementsToTreeChildren(myElement.body?.statements.orEmpty())
             else -> TreeElement.EMPTY_ARRAY
         }
     }
 
-    private fun toTreeChildren(statements: List<JavaScriptStatement>): Array<TreeElement> {
+    private fun statementsToTreeChildren(statements: List<JavaScriptStatement>): Array<TreeElement> {
         return statements
             .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration }
+            .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
+            .toTypedArray()
+    }
+
+    private fun classElementsToTreeChildren(elements: List<JavaScriptClassElement>): Array<TreeElement> {
+        return elements
             .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()
     }

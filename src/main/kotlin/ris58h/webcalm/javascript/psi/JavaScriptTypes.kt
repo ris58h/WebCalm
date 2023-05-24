@@ -163,6 +163,9 @@ object JavaScriptTypes {
         private val TEMPLATE_STRING = RULES[JavaScriptParser.RULE_templateStringLiteral]
         private val ANONYMOUS_FUNCTION = RULES[JavaScriptParser.RULE_anonymousFunction]
         private val CLASS_DECLARATION = RULES[JavaScriptParser.RULE_classDeclaration]
+        private val CLASS_ELEMENT = RULES[JavaScriptParser.RULE_classElement]
+        private val METHOD_DEFINITION = RULES[JavaScriptParser.RULE_methodDefinition]
+        private val PROPERTY_NAME = RULES[JavaScriptParser.RULE_propertyName]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -190,9 +193,18 @@ object JavaScriptTypes {
                 TEMPLATE_STRING -> JavaScriptTemplateString(node)
                 ANONYMOUS_FUNCTION -> JavaScriptAnonymousFunction(node)
                 CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
+                CLASS_ELEMENT -> createClassElement(node)
+                PROPERTY_NAME -> JavaScriptPropertyName(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
+        }
+
+        private fun createClassElement(node: ASTNode): PsiElement {
+            if (node.findChildByType(METHOD_DEFINITION) != null) {
+                return JavaScriptMethod(node)
+            }
+            return JavaScriptClassElement.NotClassElement(node)
         }
 
         private fun createExpression(node: ASTNode): PsiElement {
