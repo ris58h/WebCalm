@@ -26,9 +26,18 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScri
     override fun getUseScope(): SearchScope {
         when (parent) {
             is JavaScriptParameter -> {
-                val functionBody = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java)?.body
-                if (functionBody != null) {
-                    return LocalSearchScope(functionBody)
+                val parent2 = parent.parent
+                if (parent2 is JavaScriptParameters) {
+                    // TODO: should we create a unified interface for different function types?
+                    val functionBody = when (val parent3 = parent2.parent) {
+                        is JavaScriptFunctionDeclaration -> parent3.body
+                        is JavaScriptAnonymousFunction -> parent3.body
+                        is JavaScriptMethod -> parent3.body
+                        else -> null
+                    }
+                    if (functionBody != null) {
+                        return LocalSearchScope(functionBody)
+                    }
                 }
             }
             is JavaScriptVariableDeclaration, is JavaScriptFunctionDeclaration -> {

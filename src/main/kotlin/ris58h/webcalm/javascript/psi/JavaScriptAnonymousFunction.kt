@@ -7,4 +7,7 @@ class JavaScriptAnonymousFunction(node: ASTNode) : ASTWrapperPsiElement(node) {
     //TODO: support single expression parameter
     val parameters: JavaScriptParameters?
         get() = this.findChildByClass(JavaScriptParameters::class.java)
+
+    val body: JavaScriptFunctionBody?
+        get() = this.findChildByClass(JavaScriptFunctionBody::class.java)
 }

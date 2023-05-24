@@ -5,6 +5,12 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.util.PsiTreeUtil
 
 class JavaScriptMethod(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptClassElement {
+    val parameters: JavaScriptParameters?
+        get() {
+            val methodDefinition = lastChild ?: null
+            return PsiTreeUtil.getChildOfType(methodDefinition, JavaScriptParameters::class.java)
+        }
+
     val body: JavaScriptFunctionBody?
         get() {
             val methodDefinition = lastChild ?: null

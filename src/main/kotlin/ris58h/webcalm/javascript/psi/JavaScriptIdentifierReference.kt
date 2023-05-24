@@ -82,6 +82,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             is JavaScriptStatementsOwner -> processDeclarationsInScope(current, prev, callback)
             is JavaScriptFunctionDeclaration -> processDeclarationsInParameters(current, callback)
             is JavaScriptAnonymousFunction -> processDeclarationsInParameters(current, callback)
+            is JavaScriptMethod -> processDeclarationsInParameters(current, callback)
             is JavaScriptIterationStatement -> {
                 val variableDeclarationList = current.variableDeclarationList
                 if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
@@ -101,6 +102,11 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             val firstChild = anonymousFunction.firstChild
             if (firstChild is JavaScriptIdentifier) callback(firstChild)
         }
+    }
+
+    private fun processDeclarationsInParameters(method: JavaScriptMethod, callback: (PsiNamedElement) -> Unit) {
+        val parameters = method.parameters
+        if (parameters != null) processDeclarationsInParameters(parameters, callback)
     }
 
     private fun processDeclarationsInParameters(parameters: JavaScriptParameters, callback: (PsiNamedElement) -> Unit) {
