@@ -15,6 +15,7 @@ dependencies {
     implementation("org.antlr:antlr4-intellij-adaptor:0.1")
     antlr("org.antlr:antlr4:4.12.0") {
         exclude("com.ibm.icu", "icu4j")
+        exclude("org.abego.treelayout", "org.abego.treelayout.core")
     }
 }
 
