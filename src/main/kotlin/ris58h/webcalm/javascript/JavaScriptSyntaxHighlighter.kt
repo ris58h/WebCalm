@@ -55,6 +55,7 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             JavaScriptTypes.DOT -> DOT
             JavaScriptTypes.SEMICOLON -> SEMICOLON
             JavaScriptTypes.COMMA -> COMMA
+            JavaScriptTypes.REGEX_LITERAL -> STRING
             else -> TextAttributesKey.EMPTY_ARRAY
         }
     }

@@ -88,6 +88,7 @@ object JavaScriptTypes {
     val BIG_OCT_INT_LITERAL = TOKENS[JavaScriptLexer.BigOctalIntegerLiteral]!!
     val BIG_BIN_INT_LITERAL = TOKENS[JavaScriptLexer.BigBinaryIntegerLiteral]!!
     val BIG_DEC_INT_LITERAL = TOKENS[JavaScriptLexer.BigDecimalIntegerLiteral]!!
+    val REGEX_LITERAL = TOKENS[JavaScriptLexer.RegularExpressionLiteral]!!
     val BREAK_KEYWORD = TOKENS[JavaScriptLexer.Break]!!
     val DO_KEYWORD = TOKENS[JavaScriptLexer.Do]!!
     val INSTANCEOF_KEYWORD = TOKENS[JavaScriptLexer.Instanceof]!!
