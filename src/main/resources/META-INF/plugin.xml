@@ -33,7 +33,7 @@
         </ul>
       ]]></description>
 
-    <idea-version since-build="203"/>
+    <idea-version since-build="203.5981.155"/>
 
     <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
@@ -69,6 +69,9 @@
         <lang.psiStructureViewFactory
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptStructureViewFactory"/>
+        <codeInsight.lineMarkerProvider
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptRecursiveCallLineMarkerProvider"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->

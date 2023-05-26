@@ -6,4 +6,4 @@ function factorial(n) {
   }
 };
 
-const fibonacci = (n) => (n <= 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2));
+function fibonacci(n) {(n <= 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2));}
