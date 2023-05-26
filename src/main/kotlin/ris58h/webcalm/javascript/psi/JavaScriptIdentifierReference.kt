@@ -41,7 +41,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         var prev = myElement
         var current = myElement.parent
         while (current != null && prev !is JavaScriptFile) {
-            processDeclarationsIteration(current, prev, callback)
+            processDeclarationsIteration(current, callback)
             prev = current
             current = current.parent
         }
@@ -70,16 +70,16 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 injectedPsiFiles?.forEach {
                     val element = it.first
                     if (element is JavaScriptFile && element !== processed) {
-                        processDeclarationsInScope(element, null, callback)
+                        processDeclarationsInScope(element, callback)
                     }
                 }
             }
         }
     }
 
-    private fun processDeclarationsIteration(current: PsiElement, prev: PsiElement, callback: (PsiNamedElement) -> Unit) {
+    private fun processDeclarationsIteration(current: PsiElement, callback: (PsiNamedElement) -> Unit) {
         when (current) {
-            is JavaScriptStatementsOwner -> processDeclarationsInScope(current, prev, callback)
+            is JavaScriptStatementsOwner -> processDeclarationsInScope(current, callback)
             is JavaScriptFunctionDeclaration -> processDeclarationsInParameters(current, callback)
             is JavaScriptAnonymousFunction -> processDeclarationsInParameters(current, callback)
             is JavaScriptMethod -> processDeclarationsInParameters(current, callback)
@@ -115,9 +115,8 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         }
     }
 
-    private fun processDeclarationsInScope(scope: JavaScriptStatementsOwner, processed: PsiElement?, callback: (PsiNamedElement) -> Unit) {
+    private fun processDeclarationsInScope(scope: JavaScriptStatementsOwner, callback: (PsiNamedElement) -> Unit) {
         scope.statements.forEach {
-            if (it === processed) return@forEach
             when (it) {
                 is JavaScriptVariableStatement -> {
                     val variableDeclarationList = it.variableDeclarationList
