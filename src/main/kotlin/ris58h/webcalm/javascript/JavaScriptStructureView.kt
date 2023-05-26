@@ -8,6 +8,7 @@ import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import ris58h.webcalm.javascript.psi.*
 
@@ -63,6 +64,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
 
     private fun statementsToTreeChildren(statements: List<JavaScriptStatement>): Array<TreeElement> {
         return statements
+            .map { if (it is JavaScriptExportStatement) it.declaration else it }
             .filter { it is JavaScriptFunctionDeclaration || it is JavaScriptClassDeclaration }
             .map { JavaScriptStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()

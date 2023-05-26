@@ -125,8 +125,14 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                 }
                 is JavaScriptFunctionDeclaration -> callback(it)
                 is JavaScriptExportStatement -> {
-                    val functionDeclaration = it.declaration
-                    if (functionDeclaration != null) callback(functionDeclaration)
+                    when (val declaration = it.declaration) {
+                        is JavaScriptFunctionDeclaration -> callback(declaration)
+                        is JavaScriptVariableDeclaration -> {
+                            val assignable = declaration.assignable
+                            if (assignable != null) processDeclarationsInAssignable(assignable, callback)
+                        }
+                        else -> Unit // do nothing
+                    }
                 }
             }
         }
