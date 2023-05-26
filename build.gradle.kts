@@ -11,12 +11,26 @@ repositories {
     mavenCentral()
 }
 
+val antlrVersion = "4.12.0"
+
 dependencies {
-    implementation("org.antlr:antlr4-intellij-adaptor:0.1")
-    antlr("org.antlr:antlr4:4.12.0") {
+    implementation("org.antlr:antlr4-intellij-adaptor:0.1") {
+        constraints {
+            implementation("org.antlr", "antlr4-runtime", antlrVersion) {
+                because("Old runtime leads to 'Could not deserialize ATN' error.")
+            }
+        }
+    }
+    antlr("org.antlr", "antlr4", antlrVersion) {
+        // Not required for 'generateGrammarSource' task.
         exclude("com.ibm.icu", "icu4j")
         exclude("org.abego.treelayout", "org.abego.treelayout.core")
     }
+}
+
+//TODO: a hack to exclude antlr4 dependencies from the resulting distribution zip. See https://github.com/gradle/gradle/issues/820
+configurations[JavaPlugin.API_CONFIGURATION_NAME].let { apiConfiguration ->
+    apiConfiguration.setExtendsFrom(apiConfiguration.extendsFrom.filter { it.name != "antlr" })
 }
 
 intellij {
