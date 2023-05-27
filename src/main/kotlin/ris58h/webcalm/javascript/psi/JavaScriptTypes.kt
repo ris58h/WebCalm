@@ -232,8 +232,18 @@ object JavaScriptTypes {
             if (children.size == 1 && children[0].elementType == IDENTIFIER) {
                 return JavaScriptIdentifierExpression(node)
             }
-            if (children.size == 2 && children[0].elementType == EXPRESSION && children[1].elementType == ARGUMENTS) {
-                return JavaScriptCallExpression(node)
+            if (children.size == 2) {
+                val firstType = children[0].elementType
+                val secondType = children[1].elementType
+                if (firstType == EXPRESSION && secondType == ARGUMENTS) {
+                    return JavaScriptCallExpression(node)
+                }
+                if (firstType == EXPRESSION && (secondType == PLUS_PLUS_OP || secondType == MINUS_MINUS_OP)) {
+                    return JavaScriptUpdateExpression(node)
+                }
+                if ((firstType == PLUS_PLUS_OP || firstType == MINUS_MINUS_OP) && secondType == EXPRESSION) {
+                    return JavaScriptUpdateExpression(node)
+                }
             }
             if (children.size == 3 && JavaScriptTokenSets.ASSIGNMENTS.contains(children[1].elementType)) {
                 return JavaScriptAssignmentExpression(node)

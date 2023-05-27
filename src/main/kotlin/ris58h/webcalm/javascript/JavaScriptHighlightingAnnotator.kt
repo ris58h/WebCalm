@@ -40,16 +40,15 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
     }
 
     private fun colorWhenParentIsIdentifierExpression(parent: JavaScriptIdentifierExpression, element: JavaScriptIdentifier): TextAttributesKey? {
+        // TODO: reassigned variable/parameter should be marked as reassigned in all places where it's defined or used.
+        // TODO: REASSIGNED_PARAMETER
         return when (val parent2 = parent.parent) {
             is JavaScriptCallExpression -> DefaultLanguageHighlighterColors.FUNCTION_CALL
+            is JavaScriptUpdateExpression -> DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
             is JavaScriptAssignmentExpression -> {
-                // TODO: the variable/parameter should be marked as reassigned too in a place when it's defined.
-                // TODO: support unary operators (++, -- and etc.)
-                // TODO: REASSIGNED_PARAMETER
                 if (parent2.firstChild === parent) DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
                 else  null
             }
-
             else -> {
                 // TODO: check for a param with the same name that can override predefined globals
                 val name = element.name
