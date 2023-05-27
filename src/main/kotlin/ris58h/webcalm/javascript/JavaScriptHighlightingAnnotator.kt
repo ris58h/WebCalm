@@ -7,7 +7,6 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.PsiTreeUtil
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
@@ -33,16 +32,9 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
     }
 
     private fun colorWhenParentIsAssignable(parent: JavaScriptAssignable): TextAttributesKey? {
-        return when (val parent2 = parent.parent) {
+        return when (parent.parent) {
             is JavaScriptParameter -> DefaultLanguageHighlighterColors.PARAMETER
-            is JavaScriptVariableDeclaration -> {
-                val statement = PsiTreeUtil.getParentOfType(parent2, JavaScriptVariableStatement::class.java)
-                // TODO: only 'var' creates a global variable
-                val isGlobal = statement?.parent is JavaScriptFile
-                if (isGlobal) DefaultLanguageHighlighterColors.GLOBAL_VARIABLE
-                else DefaultLanguageHighlighterColors.LOCAL_VARIABLE
-            }
-
+            is JavaScriptVariableDeclaration -> DefaultLanguageHighlighterColors.LOCAL_VARIABLE
             else -> null
         }
     }
