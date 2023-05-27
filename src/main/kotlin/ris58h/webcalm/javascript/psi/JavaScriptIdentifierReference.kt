@@ -47,6 +47,7 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
         }
 
         val context = prev.context
+        // TODO: usage of XmlElement requires 'com.intellij.modules.xml' module.
         if (context is XmlElement) {
             val containingFile = context.containingFile
             if (containingFile is XmlFile) processDeclarationsInHtmlFile(containingFile, prev, callback)
