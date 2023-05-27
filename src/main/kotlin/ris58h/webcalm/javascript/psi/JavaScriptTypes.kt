@@ -167,6 +167,9 @@ object JavaScriptTypes {
         private val CLASS_ELEMENT = RULES[JavaScriptParser.RULE_classElement]
         private val METHOD_DEFINITION = RULES[JavaScriptParser.RULE_methodDefinition]
         private val PROPERTY_NAME = RULES[JavaScriptParser.RULE_propertyName]
+        private val LABELED_STATEMENT = RULES[JavaScriptParser.RULE_labelledStatement]
+        private val BREAK_STATEMENT = RULES[JavaScriptParser.RULE_breakStatement]
+        private val CONTINUE_STATEMENT = RULES[JavaScriptParser.RULE_continueStatement]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -196,6 +199,9 @@ object JavaScriptTypes {
                 CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
                 CLASS_ELEMENT -> createClassElement(node)
                 PROPERTY_NAME -> JavaScriptPropertyName(node)
+                LABELED_STATEMENT -> JavaScriptLabeledStatement(node)
+                BREAK_STATEMENT -> JavaScriptBreakStatement(node)
+                CONTINUE_STATEMENT -> JavaScriptContinueStatement(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
