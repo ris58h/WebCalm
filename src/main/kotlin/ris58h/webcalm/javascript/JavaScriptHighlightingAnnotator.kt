@@ -43,6 +43,7 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
         return when (val parent2 = parent.parent) {
             is JavaScriptCallExpression -> DefaultLanguageHighlighterColors.FUNCTION_CALL
             is JavaScriptAssignmentExpression -> {
+                // TODO: the variable/parameter should be marked as reassigned too in a place when it's defined.
                 // TODO: REASSIGNED_PARAMETER
                 if (parent2.firstChild === parent) DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
                 else  null
