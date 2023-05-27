@@ -83,6 +83,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             is JavaScriptFunctionDeclaration -> processDeclarationsInParameters(current, callback)
             is JavaScriptAnonymousFunction -> processDeclarationsInParameters(current, callback)
             is JavaScriptMethod -> processDeclarationsInParameters(current, callback)
+            is JavaScriptCatch -> {
+                val assignable = current.assignable
+                if (assignable != null) processDeclarationsInAssignable(assignable, callback)
+            }
             is JavaScriptIterationStatement -> {
                 val variableDeclarationList = current.variableDeclarationList
                 if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)

@@ -170,6 +170,10 @@ object JavaScriptTypes {
         private val LABELED_STATEMENT = RULES[JavaScriptParser.RULE_labelledStatement]
         private val BREAK_STATEMENT = RULES[JavaScriptParser.RULE_breakStatement]
         private val CONTINUE_STATEMENT = RULES[JavaScriptParser.RULE_continueStatement]
+        private val THROW_STATEMENT = RULES[JavaScriptParser.RULE_throwStatement]
+        private val TRY_STATEMENT = RULES[JavaScriptParser.RULE_tryStatement]
+        private val CATCH = RULES[JavaScriptParser.RULE_catchProduction]
+        private val FINALLY = RULES[JavaScriptParser.RULE_finallyProduction]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -202,6 +206,10 @@ object JavaScriptTypes {
                 LABELED_STATEMENT -> JavaScriptLabeledStatement(node)
                 BREAK_STATEMENT -> JavaScriptBreakStatement(node)
                 CONTINUE_STATEMENT -> JavaScriptContinueStatement(node)
+                THROW_STATEMENT -> JavaScriptThrowStatement(node)
+                TRY_STATEMENT -> JavaScriptTryStatement(node)
+                CATCH -> JavaScriptCatch(node)
+                FINALLY -> JavaScriptFinally(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
