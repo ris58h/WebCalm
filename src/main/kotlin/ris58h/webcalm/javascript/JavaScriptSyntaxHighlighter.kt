@@ -21,7 +21,6 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getHighlightingLexer(): Lexer = JavaScriptLexer()
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
-        //TODO: check if multiline comments work
         if (JavaScriptTokenSets.COMMENTS.contains(tokenType)) {
             return COMMENT
         }

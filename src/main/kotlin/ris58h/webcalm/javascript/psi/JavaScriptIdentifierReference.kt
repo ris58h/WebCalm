@@ -108,8 +108,8 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun processDeclarationsInParameters(parameters: JavaScriptParameters, callback: (PsiNamedElement) -> Unit) {
+        // TODO: support lastFormalParameterArg
         parameters.parameters.forEach { parameter ->
-            //TODO: support other parameter types
             val assignable = parameter.assignable
             if (assignable != null) processDeclarationsInAssignable(assignable, callback)
         }
@@ -139,7 +139,6 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
 
     private fun processDeclarationsInVariableDeclarationList(variableDeclarationList: JavaScriptVariableDeclarationList, callback: (PsiNamedElement) -> Unit) {
         variableDeclarationList.variableDeclarations.forEach { variableDeclaration ->
-            //TODO: support other variable declaration types
             val assignable = variableDeclaration.assignable
             if (assignable != null) processDeclarationsInAssignable(assignable, callback)
         }
