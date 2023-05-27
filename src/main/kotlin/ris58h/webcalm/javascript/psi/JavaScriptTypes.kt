@@ -38,7 +38,7 @@ object JavaScriptTypes {
     val COMMA = TOKENS[JavaScriptLexer.Comma]!!
     val COLON = TOKENS[JavaScriptLexer.Colon]!!
     val PLUS_PLUS_OP = TOKENS[JavaScriptLexer.PlusPlus]!!
-    val MENUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!
+    val MINUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!
     val PLUS_OP = TOKENS[JavaScriptLexer.Plus]!!
     val MINUS_OP = TOKENS[JavaScriptLexer.Minus]!!
     val BIT_NOT_OP = TOKENS[JavaScriptLexer.BitNot]!!

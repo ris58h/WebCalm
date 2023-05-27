@@ -69,7 +69,7 @@ object JavaScriptTokenSets {
     )
     val OPERATIONS = TokenSet.create(
         JavaScriptTypes.PLUS_PLUS_OP,
-        JavaScriptTypes.MENUS_MINUS_OP,
+        JavaScriptTypes.MINUS_MINUS_OP,
         JavaScriptTypes.PLUS_OP,
         JavaScriptTypes.MINUS_OP,
         JavaScriptTypes.BIT_NOT_OP,
