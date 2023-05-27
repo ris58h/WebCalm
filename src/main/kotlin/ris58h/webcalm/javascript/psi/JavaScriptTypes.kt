@@ -150,6 +150,7 @@ object JavaScriptTypes {
         private val EXPORT_STATEMENT = RULES[JavaScriptParser.RULE_exportStatement]
         private val EXPRESSION_STATEMENT = RULES[JavaScriptParser.RULE_expressionStatement]
         private val RETURN_STATEMENT = RULES[JavaScriptParser.RULE_returnStatement]
+        private val YIELD_STATEMENT = RULES[JavaScriptParser.RULE_yieldStatement]
         private val IF_STATEMENT = RULES[JavaScriptParser.RULE_ifStatement]
         private val ITERATION_STATEMENT = RULES[JavaScriptParser.RULE_iterationStatement]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
@@ -187,6 +188,7 @@ object JavaScriptTypes {
                 EXPORT_STATEMENT -> JavaScriptExportStatement(node)
                 EXPRESSION_STATEMENT -> JavaScriptExpressionStatement(node)
                 RETURN_STATEMENT -> JavaScriptReturnStatement(node)
+                YIELD_STATEMENT -> JavaScriptYieldStatement(node)
                 IF_STATEMENT -> JavaScriptIfStatement(node)
                 ITERATION_STATEMENT -> JavaScriptIterationStatement(node)
                 PARAMETERS -> JavaScriptParameters(node)
