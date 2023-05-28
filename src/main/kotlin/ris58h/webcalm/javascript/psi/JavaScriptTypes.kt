@@ -147,6 +147,7 @@ object JavaScriptTypes {
         private val VARIABLE_STATEMENT = RULES[JavaScriptParser.RULE_variableStatement]
         private val VARIABLE_DECLARATION_LIST = RULES[JavaScriptParser.RULE_variableDeclarationList]
         private val VARIABLE_DECLARATION = RULES[JavaScriptParser.RULE_variableDeclaration]
+        private val IMPORT_STATEMENT = RULES[JavaScriptParser.RULE_importStatement]
         private val EXPORT_STATEMENT = RULES[JavaScriptParser.RULE_exportStatement]
         private val EXPRESSION_STATEMENT = RULES[JavaScriptParser.RULE_expressionStatement]
         private val RETURN_STATEMENT = RULES[JavaScriptParser.RULE_returnStatement]
@@ -191,6 +192,7 @@ object JavaScriptTypes {
                 VARIABLE_STATEMENT -> JavaScriptVariableStatement(node)
                 VARIABLE_DECLARATION_LIST -> JavaScriptVariableDeclarationList(node)
                 VARIABLE_DECLARATION -> JavaScriptVariableDeclaration(node)
+                IMPORT_STATEMENT -> JavaScriptImportStatement(node)
                 EXPORT_STATEMENT -> JavaScriptExportStatement(node)
                 EXPRESSION_STATEMENT -> JavaScriptExpressionStatement(node)
                 RETURN_STATEMENT -> JavaScriptReturnStatement(node)
