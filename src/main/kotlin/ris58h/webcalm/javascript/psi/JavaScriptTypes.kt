@@ -177,6 +177,10 @@ object JavaScriptTypes {
         private val TRY_STATEMENT = RULES[JavaScriptParser.RULE_tryStatement]
         private val CATCH = RULES[JavaScriptParser.RULE_catchProduction]
         private val FINALLY = RULES[JavaScriptParser.RULE_finallyProduction]
+        private val SWITCH = RULES[JavaScriptParser.RULE_switchStatement]
+        private val CASE_BLOCK = RULES[JavaScriptParser.RULE_caseBlock]
+        private val CASE = RULES[JavaScriptParser.RULE_caseClause]
+        private val DEFAULT_CASE = RULES[JavaScriptParser.RULE_defaultClause]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -216,6 +220,10 @@ object JavaScriptTypes {
                 TRY_STATEMENT -> JavaScriptTryStatement(node)
                 CATCH -> JavaScriptCatch(node)
                 FINALLY -> JavaScriptFinally(node)
+                SWITCH -> JavaScriptSwitchStatement(node)
+                CASE_BLOCK -> JavaScriptCaseBlock(node)
+                CASE -> JavaScriptCaseClause(node)
+                DEFAULT_CASE -> JavaScriptDefaultClause(node)
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
