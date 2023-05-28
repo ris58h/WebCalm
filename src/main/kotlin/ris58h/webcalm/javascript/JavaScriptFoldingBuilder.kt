@@ -15,7 +15,7 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
         val descriptors = mutableListOf<FoldingDescriptor>()
         PsiTreeUtil.processElements(root) {
             val placeholderText = when (it) {
-                is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject -> "{...}"
+                is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject, is JavaScriptCaseBlock -> "{...}"
                 is JavaScriptArray -> "[...]"
                 is PsiComment -> {
                     if (it.node.elementType == JavaScriptTypes.MULTILINE_COMMENT) "/*...*/"
