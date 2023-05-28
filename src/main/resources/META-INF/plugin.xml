@@ -95,4 +95,10 @@
 <!--                language="CSS"-->
 <!--                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>-->
     </extensions>
+
+    <extensionPoints>
+        <extensionPoint
+                name="relatedScriptsProcessor"
+                interface="ris58h.webcalm.javascript.RelatedScriptsProcessor"/>
+    </extensionPoints>
 </idea-plugin>

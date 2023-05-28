@@ -1,13 +1,10 @@
 package ris58h.webcalm.javascript.psi
 
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
-import com.intellij.psi.xml.XmlElement
-import com.intellij.psi.xml.XmlFile
-import com.intellij.psi.xml.XmlTag
 import com.intellij.util.SmartList
 import com.intellij.util.containers.SmartHashSet
+import ris58h.webcalm.javascript.RelatedScriptsProcessor
 
 class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) :
     PsiPolyVariantReferenceBase<PsiElement>(element, rangeInElement) {
@@ -46,33 +43,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             current = current.parent
         }
 
-        val context = prev.context
-        // TODO: usage of XmlElement requires 'com.intellij.modules.xml' module.
-        if (context is XmlElement) {
-            val containingFile = context.containingFile
-            if (containingFile is XmlFile) processDeclarationsInHtmlFile(containingFile, prev, callback)
-        }
-    }
-
-    private fun processDeclarationsInHtmlFile(htmlFile: XmlFile, processed: PsiElement, callback: (PsiNamedElement) -> Unit) {
-        val rootTag = htmlFile.rootTag
-        val headTag = rootTag?.findFirstSubTag("head")
-        if (headTag != null) processDeclarationsInScripts(headTag, processed, callback)
-        val bodyTag = rootTag?.findFirstSubTag("body")
-        if (bodyTag != null) processDeclarationsInScripts(bodyTag, processed, callback)
-    }
-
-    private fun processDeclarationsInScripts(tag: XmlTag, processed: PsiElement, callback: (PsiNamedElement) -> Unit) {
-        val injectedLanguageManager = InjectedLanguageManager.getInstance(tag.project)
-        val scripts = tag.findSubTags("script")
-        scripts.forEach { script ->
-            script.value.textElements.forEach { textElement ->
-                val injectedPsiFiles = injectedLanguageManager.getInjectedPsiFiles(textElement)
-                injectedPsiFiles?.forEach {
-                    val element = it.first
-                    if (element is JavaScriptFile && element !== processed) {
-                        processDeclarationsInScope(element, callback)
-                    }
+        if (prev is JavaScriptFile) {
+            RelatedScriptsProcessor.EP_NAME.extensionList.forEach {
+                it.processRelatedScripts(prev) { relatedScript ->
+                    processDeclarationsInScope(relatedScript, callback)
                 }
             }
         }
