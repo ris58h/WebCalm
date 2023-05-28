@@ -158,6 +158,7 @@ object JavaScriptTypes {
         private val DEBUGGER_STATEMENT = RULES[JavaScriptParser.RULE_debuggerStatement]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
         private val PARAMETER = RULES[JavaScriptParser.RULE_formalParameterArg]
+        private val REST_PARAMETER = RULES[JavaScriptParser.RULE_lastFormalParameterArg]
         private val EXPRESSION_SEQUENCE = RULES[JavaScriptParser.RULE_expressionSequence]
         private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
         private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
@@ -202,7 +203,8 @@ object JavaScriptTypes {
                 WITH_STATEMENT -> JavaScriptWithStatement(node)
                 DEBUGGER_STATEMENT -> JavaScriptDebuggerStatement(node)
                 PARAMETERS -> JavaScriptParameters(node)
-                PARAMETER -> JavaScriptParameter(node)
+                PARAMETER -> JavaScriptFormalParameter(node)
+                REST_PARAMETER -> JavaScriptFormalRestParameter(node)
                 EXPRESSION_SEQUENCE -> JavaScriptExpressionSequence(node)
                 EXPRESSION -> createExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)

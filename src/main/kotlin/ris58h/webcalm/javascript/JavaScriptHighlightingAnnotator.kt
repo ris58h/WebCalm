@@ -10,17 +10,19 @@ import com.intellij.psi.PsiElement
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
+    // TODO: A variable/parameter should be marked in all places where it's defined or used. The same for a reassigned variable/parameter.
+    // TODO: REASSIGNED_PARAMETER
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is JavaScriptIdentifier) return
 
         val color = when (val parent = element.parent) {
-            is JavaScriptAssignable -> colorWhenParentIsAssignable(parent)
+            is JavaScriptVariableDeclaration -> DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+            is JavaScriptFormalParameter -> DefaultLanguageHighlighterColors.PARAMETER
             is JavaScriptIdentifierExpression -> colorWhenParentIsIdentifierExpression(parent, element)
             is JavaScriptFunctionDeclaration -> {
                 if (parent.identifier === element) DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
                 else null
             }
-
             else -> null
         }
 
@@ -31,17 +33,7 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
         }
     }
 
-    private fun colorWhenParentIsAssignable(parent: JavaScriptAssignable): TextAttributesKey? {
-        return when (parent.parent) {
-            is JavaScriptParameter -> DefaultLanguageHighlighterColors.PARAMETER
-            is JavaScriptVariableDeclaration -> DefaultLanguageHighlighterColors.LOCAL_VARIABLE
-            else -> null
-        }
-    }
-
     private fun colorWhenParentIsIdentifierExpression(parent: JavaScriptIdentifierExpression, element: JavaScriptIdentifier): TextAttributesKey? {
-        // TODO: reassigned variable/parameter should be marked as reassigned in all places where it's defined or used.
-        // TODO: REASSIGNED_PARAMETER
         return when (val parent2 = parent.parent) {
             is JavaScriptCallExpression -> DefaultLanguageHighlighterColors.FUNCTION_CALL
             is JavaScriptUpdateExpression -> DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
@@ -49,6 +41,7 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
                 if (parent2.firstChild === parent) DefaultLanguageHighlighterColors.REASSIGNED_LOCAL_VARIABLE
                 else  null
             }
+            is JavaScriptFormalRestParameter -> DefaultLanguageHighlighterColors.PARAMETER
             else -> {
                 // TODO: check for a param with the same name that can override predefined globals
                 val name = element.name

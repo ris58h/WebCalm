@@ -24,28 +24,29 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScri
     override fun getNameIdentifier(): PsiElement? = this.node.findChildByType(JavaScriptTypes.IDENTIFIER)?.psi
 
     override fun getUseScope(): SearchScope {
-        when (parent) {
-            is JavaScriptParameter -> {
+        return when (val parent = parent) {
+            is JavaScriptFormalParameter -> searchScopeForParameter(parent)
+            is JavaScriptIdentifierExpression -> {
                 val parent2 = parent.parent
-                if (parent2 is JavaScriptParameters) {
-                    val scope = when (val parent3 = parent2.parent) {
-                        is JavaScriptFunctionDeclaration -> parent3.body
-                        is JavaScriptAnonymousFunction -> parent3.body?.doWhen({ it }, { it })
-                        is JavaScriptMethod -> parent3.body
-                        else -> null
-                    }
-                    if (scope != null) {
-                        return LocalSearchScope(scope)
-                    }
-                }
+                if (parent2 is JavaScriptFormalRestParameter) searchScopeForParameter(parent2)
+                else null
             }
             is JavaScriptVariableDeclaration, is JavaScriptFunctionDeclaration -> {
                 val statementsOwner = PsiTreeUtil.getParentOfType(parent, JavaScriptStatementsOwner::class.java)
-                if (statementsOwner != null && statementsOwner !is JavaScriptFile) {
-                    return LocalSearchScope(statementsOwner)
-                }
+                if (statementsOwner != null && statementsOwner !is JavaScriptFile) LocalSearchScope(statementsOwner)
+                else null
             }
+            else -> null
+        } ?: super.getUseScope()
+    }
+
+    private fun searchScopeForParameter(parameter: JavaScriptParameter): LocalSearchScope? {
+        val scopeElement = when (val context = (parameter.parent as? JavaScriptParameters)?.parent) {
+            is JavaScriptFunctionDeclaration -> context.body
+            is JavaScriptAnonymousFunction -> context.body?.doWhen({ it }, { it })
+            is JavaScriptMethod -> context.body
+            else -> null
         }
-        return super.getUseScope()
+        return if (scopeElement == null) null else LocalSearchScope(scopeElement)
     }
 }
