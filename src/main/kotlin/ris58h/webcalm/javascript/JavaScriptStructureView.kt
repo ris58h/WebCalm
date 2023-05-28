@@ -8,7 +8,6 @@ import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import ris58h.webcalm.javascript.psi.*
 
@@ -46,7 +45,14 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
         return when (myElement) {
             is JavaScriptFunctionDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Function, null)
             is JavaScriptClassDeclaration -> PresentationData(myElement.name, null, AllIcons.Nodes.Class, null)
-            is JavaScriptMethod -> PresentationData(myElement.name, null, AllIcons.Nodes.Method, null)
+            is JavaScriptMethod -> {
+                val text = when (myElement.type) {
+                    JavaScriptMethod.Type.GETTER -> "get ${myElement.name}"
+                    JavaScriptMethod.Type.SETTER -> "set ${myElement.name}"
+                    JavaScriptMethod.Type.REGULAR -> myElement.name
+                }
+                PresentationData(text, null, AllIcons.Nodes.Method, null)
+            }
             is JavaScriptField -> PresentationData(myElement.name, null, AllIcons.Nodes.Field, null)
             else -> myElement.presentation ?: PresentationData()
         }
