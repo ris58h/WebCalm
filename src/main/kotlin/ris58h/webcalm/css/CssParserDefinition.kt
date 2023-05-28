@@ -43,7 +43,7 @@ class CssParserDefinition : ParserDefinition {
 
     override fun getFileNodeType(): IFileElementType = CssTypes.FILE
 
-    override fun getWhitespaceTokens(): TokenSet = CssTokenSets.WHITESPACE
+    override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY // Space token is a part of the grammar
 
     override fun getCommentTokens(): TokenSet = CssTokenSets.COMMENTS
 
