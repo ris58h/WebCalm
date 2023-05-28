@@ -21,6 +21,7 @@ class JavaScriptIdentifierExpression(node: ASTNode) : JavaScriptIdentifierOwner(
                 || (parent is JavaScriptPropertyAssignment && isValidPropertyAssignmentForReference(parent))
                 || parent is JavaScriptTemplateString
                 || parent is JavaScriptExpressionSequence
+                || parent is JavaScriptPropertyName
     }
 
     private fun isValidPropertyAssignmentForReference(parent: JavaScriptPropertyAssignment): Boolean {
