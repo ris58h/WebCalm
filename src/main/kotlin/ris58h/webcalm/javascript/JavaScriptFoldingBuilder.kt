@@ -14,17 +14,23 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         val descriptors = mutableListOf<FoldingDescriptor>()
         PsiTreeUtil.processElements(root) {
-            val placeholderText = when (it) {
-                is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject, is JavaScriptCaseBlock -> "{...}"
-                is JavaScriptArray -> "[...]"
+            val textRangeAndPlaceholderText = when (it) {
+                is JavaScriptFunctionBody, is JavaScriptBlock, is JavaScriptObject, is JavaScriptCaseBlock -> Pair(it.textRange, "{...}")
+                is JavaScriptArray -> Pair(it.textRange, "[...]")
+                is JavaScriptClassDeclaration -> {
+                    val openBraceOffset = it.node.findChildByType(JavaScriptTypes.OPEN_BRACE)?.startOffset
+                    if (openBraceOffset == null) null
+                    else Pair(TextRange(openBraceOffset, it.textRange.endOffset), "{...}")
+                }
                 is PsiComment -> {
-                    if (it.node.elementType == JavaScriptTypes.MULTILINE_COMMENT) "/*...*/"
+                    if (it.node.elementType == JavaScriptTypes.MULTILINE_COMMENT) Pair(it.textRange, "/*...*/")
                     else null
                 }
                 else -> null
             }
-            if (placeholderText != null) {
-                val textRange = it.textRange
+            if (textRangeAndPlaceholderText != null) {
+                val textRange = textRangeAndPlaceholderText.first
+                val placeholderText = textRangeAndPlaceholderText.second
                 if (isOnMultipleLines(textRange, document)) {
                     descriptors.add(FoldingDescriptor(it.node, textRange, null, placeholderText))
                 }
