@@ -135,9 +135,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
                             val assignable = declaration.assignable
                             if (assignable != null) processDeclarationsInAssignable(assignable, callback)
                         }
-                        else -> Unit // do nothing
+                        else -> Unit
                     }
                 }
+                else -> Unit
             }
         }
     }
