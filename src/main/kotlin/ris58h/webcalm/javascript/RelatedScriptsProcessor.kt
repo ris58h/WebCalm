@@ -7,6 +7,6 @@ interface RelatedScriptsProcessor {
     fun processRelatedScripts(file: JavaScriptFile, callback: (JavaScriptFile) -> Unit)
 
     companion object {
-        val EP_NAME = ExtensionPointName.create<RelatedScriptsProcessor>("ris58h.webcalm.relatedScriptsProcessor")
+        val EP_NAME = ExtensionPointName.create<RelatedScriptsProcessor>("ris58h.webcalm.javascript.relatedScriptsProcessor")
     }
 }

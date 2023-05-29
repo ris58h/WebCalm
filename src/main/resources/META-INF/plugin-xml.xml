@@ -6,6 +6,6 @@
         <!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>-->
     </extensions>
     <extensions defaultExtensionNs="ris58h.webcalm">
-        <relatedScriptsProcessor implementation="ris58h.webcalm.html.HtmlRelatedScriptsProcessor"/>
+        <javascript.relatedScriptsProcessor implementation="ris58h.webcalm.html.HtmlRelatedScriptsProcessor"/>
     </extensions>
 </idea-plugin>

@@ -101,7 +101,7 @@
 
     <extensionPoints>
         <extensionPoint
-                name="relatedScriptsProcessor"
+                name="javascript.relatedScriptsProcessor"
                 interface="ris58h.webcalm.javascript.RelatedScriptsProcessor"/>
     </extensionPoints>
 </idea-plugin>
