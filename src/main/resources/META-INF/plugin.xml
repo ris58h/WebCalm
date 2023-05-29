@@ -73,6 +73,9 @@
         <codeInsight.lineMarkerProvider
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptRecursiveCallLineMarkerProvider"/>
+        <completion.contributor
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptCompletionContributor"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->
