@@ -18,6 +18,7 @@ object JavaScriptTypes {
     val FILE = IFileElementType(JavaScriptLanguage)
 
     private val TOKENS = PSIElementTypeFactory.getTokenIElementTypes(JavaScriptLanguage)
+    val UNEXPECTED_CHARACTER = TOKENS[JavaScriptLexer.UnexpectedCharacter]!!
     val WS = TOKENS[JavaScriptLexer.WhiteSpaces]!!
     val EOL = TOKENS[JavaScriptLexer.LineTerminator]!!
     val LINE_COMMENT = TOKENS[JavaScriptLexer.SingleLineComment]!!

@@ -76,6 +76,7 @@
         <completion.contributor
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptCompletionContributor"/>
+        <quoteHandler fileType="JavaScript" className="ris58h.webcalm.javascript.JavaScriptQuoteHandler"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->
