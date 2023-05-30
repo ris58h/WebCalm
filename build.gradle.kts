@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ris58h.webcalm"
-version = "0.3"
+version = "0.4"
 
 repositories {
     mavenCentral()
