@@ -1,7 +1,7 @@
 # WebCalm
 Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
 
-WARNING: Install it only if your IDE doesn't already support JavaScript. The plugin is still in development so something may not work properly.
+WARNING: The plugin is still in development so something may not work properly.
 
 Features:
 - Syntax highlighting.
@@ -9,7 +9,7 @@ Features:
 - Structure view.
 - Go to declaration.
 - Find usages.
-- Refactor/Rename.
+- Renaming.
 - Language injections in 'script' tags and event handler attributes.
 
 Planned features:

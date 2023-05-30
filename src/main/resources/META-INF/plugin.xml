@@ -6,7 +6,7 @@
         Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
         <br>
         <br>
-        WARNING: Install it only if your IDE doesn't already support JavaScript. The plugin is still in development so something may not work properly.
+        WARNING: The plugin is still in development so something may not work properly.
         <br>
         <br>
         Features:
@@ -16,7 +16,7 @@
             <li>Structure view.</li>
             <li>Go to declaration.</li>
             <li>Find usages.</li>
-            <li>Refactor/Rename.</li>
+            <li>Renaming.</li>
             <li>Language injections in 'script' tags and event handler attributes.</li>
         </ul>
         <br>
@@ -38,6 +38,8 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
+
+    <incompatible-with>JavaScript</incompatible-with>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- JavaScript -->
