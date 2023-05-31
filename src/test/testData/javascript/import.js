@@ -1,3 +1,4 @@
+// TODO: https://github.com/antlr/grammars-v4/issues/3484
 import defaultExport from "module-name";
 import * as name from "module-name";
 import { export1 } from "module-name";

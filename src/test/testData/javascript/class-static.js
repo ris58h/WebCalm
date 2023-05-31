@@ -1,3 +1,4 @@
+// TODO: https://github.com/antlr/grammars-v4/issues/3451
 class ClassWithStaticInitializationBlock {
   static staticProperty1 = 'Property 1';
   static staticProperty2;
