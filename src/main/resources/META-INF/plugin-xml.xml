@@ -2,8 +2,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlAttributeJavaScriptInjector"/>
         <multiHostInjector implementation="ris58h.webcalm.html.HtmlScriptTagJavaScriptInjector"/>
-        <!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>-->
-        <!--        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>-->
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleAttributeCssInjector"/>
+        <multiHostInjector implementation="ris58h.webcalm.html.HtmlStyleTagCssInjector"/>
     </extensions>
     <extensions defaultExtensionNs="ris58h.webcalm">
         <javascript.relatedScriptsProcessor implementation="ris58h.webcalm.html.HtmlRelatedScriptsProcessor"/>

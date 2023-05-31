@@ -8,6 +8,7 @@
     <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
 
     <incompatible-with>JavaScript</incompatible-with>
+    <incompatible-with>com.intellij.modules.css</incompatible-with>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- JavaScript -->
@@ -60,26 +61,26 @@
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.formatting.JavaScriptFormattingModelBuilder"/>
         <!-- CSS -->
-<!--        <fileType-->
-<!--                name="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssFileType"-->
-<!--                language="CSS"-->
-<!--                extensions="css"/>-->
-<!--        <lang.parserDefinition-->
-<!--                language="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>-->
-<!--        <lang.syntaxHighlighterFactory-->
-<!--                language="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>-->
-<!--        <lang.braceMatcher-->
-<!--                language="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>-->
-<!--        <lang.commenter-->
-<!--                language="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssCommenter"/>-->
-<!--        <lang.foldingBuilder-->
-<!--                language="CSS"-->
-<!--                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>-->
+        <fileType
+                name="CSS"
+                implementationClass="ris58h.webcalm.css.CssFileType"
+                language="CSS"
+                extensions="css"/>
+        <lang.parserDefinition
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>
+        <lang.braceMatcher
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>
+        <lang.commenter
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssCommenter"/>
+        <lang.foldingBuilder
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>
     </extensions>
 
     <extensionPoints>
