@@ -9,8 +9,9 @@ class JavaScriptWordsScanner : DefaultWordsScanner(
     JavaScriptLexer(),
     TokenSet.create(JavaScriptTypes.IDENTIFIER),
     JavaScriptTokenSets.COMMENTS,
-    TokenSet.andSet(
+    TokenSet.orSet(
         JavaScriptTokenSets.NUMBERS,
-        JavaScriptTokenSets.STRINGS
+        JavaScriptTokenSets.STRINGS,
+        TokenSet.create(JavaScriptTypes.NULL_LITERAL, JavaScriptTypes.BOOLEAN_LITERAL)
     )
 )

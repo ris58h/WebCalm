@@ -17,8 +17,6 @@ object JavaScriptTokenSets {
     val PARENTHESES = TokenSet.create(JavaScriptTypes.OPEN_PAREN, JavaScriptTypes.CLOSE_PAREN)
     val KEYWORDS = TokenSet.create(
         JavaScriptTypes.ARROW,
-        JavaScriptTypes.NULL_LITERAL,
-        JavaScriptTypes.BOOLEAN_LITERAL,
         JavaScriptTypes.BREAK_KEYWORD,
         JavaScriptTypes.DO_KEYWORD,
         JavaScriptTypes.INSTANCEOF_KEYWORD,
@@ -111,7 +109,6 @@ object JavaScriptTokenSets {
         JavaScriptTypes.POWER_ASSIGN,
     )
     val NUMBERS = TokenSet.create(
-        JavaScriptTypes.BOOLEAN_LITERAL,
         JavaScriptTypes.DEC_INT_LITERAL,
         JavaScriptTypes.HEX_INT_LITERAL,
         JavaScriptTypes.OCT_INT_LITERAL,

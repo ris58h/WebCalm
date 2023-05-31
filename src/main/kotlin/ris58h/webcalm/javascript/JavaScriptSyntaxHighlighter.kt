@@ -50,6 +50,8 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         }
         //TODO: other token types
         return when (tokenType) {
+            JavaScriptTypes.NULL_LITERAL -> KEYWORD
+            JavaScriptTypes.BOOLEAN_LITERAL -> KEYWORD
             JavaScriptTypes.IDENTIFIER -> IDENTIFIER
             JavaScriptTypes.DOT -> DOT
             JavaScriptTypes.SEMICOLON -> SEMICOLON
