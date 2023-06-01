@@ -8,7 +8,7 @@ import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
-class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptAssignable, PsiNameIdentifierOwner {
+class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
     override fun getName(): String? = nameIdentifier?.text
 
     override fun setName(name: String): PsiElement {

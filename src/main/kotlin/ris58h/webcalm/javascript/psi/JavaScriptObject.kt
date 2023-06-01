@@ -4,7 +4,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.util.PsiTreeUtil
 
-class JavaScriptObject(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptAssignable {
+class JavaScriptObject(node: ASTNode) : ASTWrapperPsiElement(node) {
     val propertyAssignments: List<JavaScriptPropertyAssignment>
         get() = PsiTreeUtil.getChildrenOfTypeAsList(this, JavaScriptPropertyAssignment::class.java)
 }

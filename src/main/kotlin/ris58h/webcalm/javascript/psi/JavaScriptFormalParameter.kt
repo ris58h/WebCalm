@@ -5,5 +5,5 @@ import com.intellij.lang.ASTNode
 
 class JavaScriptFormalParameter(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptParameter {
     val assignable: JavaScriptAssignable?
-        get() = this.findChildByClass(JavaScriptAssignable::class.java)
+        get() = findAssignableChild(this)
 }

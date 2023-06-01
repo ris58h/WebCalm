@@ -132,19 +132,19 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     private fun processDeclarationsInAssignable(assignable: JavaScriptAssignable, callback: (PsiNamedElement) -> Unit) {
-        when (assignable) {
-            is JavaScriptIdentifier -> callback(assignable)
-            is JavaScriptArray -> {
-                assignable.elements.forEach {
+        assignable.doWhen(
+            { identifier -> callback(identifier) },
+            { array ->
+                array.elements.forEach {
                     if (it is JavaScriptIdentifierExpression) callback(it)
                 }
-            }
-            is JavaScriptObject -> {
-                assignable.propertyAssignments.forEach {
+            },
+            { obj ->
+                obj.propertyAssignments.forEach {
                     val propertyShorthand = it.propertyShorthand
                     if (propertyShorthand != null) callback(propertyShorthand)
                 }
             }
-        }
+        )
     }
 }

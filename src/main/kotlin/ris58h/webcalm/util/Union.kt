@@ -17,3 +17,26 @@ class Union2<F, S> private constructor(private val first: F?, private val second
         }
     }
 }
+
+class Union3<F, S, T> private constructor(private val first: F?, private val second: S?, private val third: T?) {
+    fun <R> doWhen(firstCallback: (F) -> R, secondCallback: (S) -> R, thirdCallback: (T) -> R): R {
+        return if (first != null) firstCallback(first)
+        else if (second != null) secondCallback(second)
+        else if (third != null) thirdCallback(third)
+        else throw IllegalStateException()
+    }
+
+    companion object {
+        fun <F, S, T> first(first: F): Union3<F, S, T> {
+            return Union3(first, null, null)
+        }
+
+        fun <F, S, T> second(second: S): Union3<F, S, T> {
+            return Union3(null, second, null)
+        }
+
+        fun <F, S, T> third(third: T): Union3<F, S, T> {
+            return Union3(null, null, third)
+        }
+    }
+}

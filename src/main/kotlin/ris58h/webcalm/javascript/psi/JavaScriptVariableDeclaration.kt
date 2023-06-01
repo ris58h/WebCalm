@@ -5,5 +5,5 @@ import com.intellij.lang.ASTNode
 
 class JavaScriptVariableDeclaration(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptDeclaration {
     val assignable: JavaScriptAssignable?
-        get() = this.findChildByClass(JavaScriptAssignable::class.java)
+        get() = findAssignableChild(this)
 }
