@@ -36,6 +36,10 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
                 if (statementsOwner != null && statementsOwner !is JavaScriptFile) LocalSearchScope(statementsOwner)
                 else null
             }
+            is JavaScriptCatch -> {
+                val block = parent.block
+                if (block != null) LocalSearchScope(block) else null
+            }
             else -> null
         } ?: super.getUseScope()
     }
