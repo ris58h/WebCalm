@@ -21,7 +21,7 @@ class JavaScriptRecursiveCallLineMarkerProvider : LineMarkerProvider, DumbAware 
         val lines = HashSet<Int>()
         for (element in elements) {
             if (element is JavaScriptIdentifierExpression) {
-                val name = element.name ?: continue
+                val name = element.identifier?.name ?: continue
                 val parent = element.parent
                 if (parent is JavaScriptCallExpression) {
                     val functionDeclaration = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java) ?: continue

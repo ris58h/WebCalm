@@ -8,6 +8,7 @@ import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
+// TODO: Only elements that introduce a name should implement PsiNamedElement interface. See https://plugins.jetbrains.com/docs/intellij/references-and-resolve.html#psireference
 class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
     override fun getName(): String? = nameIdentifier?.text
 

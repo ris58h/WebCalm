@@ -29,7 +29,10 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     override fun handleElementRename(newElementName: String): PsiElement {
         val element = myElement
         if (element is JavaScriptIdentifierExpression) {
-            return element.setName(newElementName)
+            val identifier = element.identifier
+            if (identifier != null) {
+                return identifier.setName(newElementName)
+            }
         }
         return super.handleElementRename(newElementName)
     }
@@ -136,13 +139,16 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
             { identifier -> callback(identifier) },
             { array ->
                 array.elements.forEach {
-                    if (it is JavaScriptIdentifierExpression) callback(it)
+                    if (it is JavaScriptIdentifierExpression) {
+                        val identifier = it.identifier
+                        if (identifier != null) callback(identifier)
+                    }
                 }
             },
             { obj ->
                 obj.propertyAssignments.forEach {
-                    val propertyShorthand = it.propertyShorthand
-                    if (propertyShorthand != null) callback(propertyShorthand)
+                    val identifier = it.propertyShorthand?.identifier
+                    if (identifier != null) callback(identifier)
                 }
             }
         )

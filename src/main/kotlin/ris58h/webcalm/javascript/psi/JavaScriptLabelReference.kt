@@ -29,7 +29,10 @@ class JavaScriptLabelReference(private val label: String, element: PsiElement, r
     override fun handleElementRename(newElementName: String): PsiElement {
         val element = myElement
         if (element is JavaScriptIdentifierOwner) {
-            return element.setName(newElementName)
+            val identifier = element.identifier
+            if (identifier != null) {
+                return identifier.setName(newElementName)
+            }
         }
         return super.handleElementRename(newElementName)
     }
