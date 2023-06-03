@@ -1,4 +1,4 @@
-package ris58h.webcalm.javascript
+package ris58h.webcalm.javascript.completion
 
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
