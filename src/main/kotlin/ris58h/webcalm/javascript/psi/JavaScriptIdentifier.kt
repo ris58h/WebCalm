@@ -46,13 +46,8 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
     override fun getUseScope(): SearchScope {
         return when (val parent = parent) {
             is JavaScriptNamedIdentifierOwner -> null
-            is JavaScriptCatch -> {
-                val block = parent.block
-                if (block != null) LocalSearchScope(block) else null
-            }
-            is JavaScriptAnonymousFunction -> {
-                parent.body?.doWhen({ LocalSearchScope(it) }, { LocalSearchScope(it) })
-            }
+            is JavaScriptCatch -> LocalSearchScope(parent)
+            is JavaScriptAnonymousFunction -> LocalSearchScope(parent)
             else -> {
                 val parameter = PsiTreeUtil.getParentOfType(parent, JavaScriptParameter::class.java, false)
                 if (parameter != null) useScopeForParameter(parameter)
@@ -84,9 +79,9 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
 
     private fun useScopeForParameter(parameter: JavaScriptParameter): LocalSearchScope? {
         val scopeElement = when (val context = (parameter.parent as? JavaScriptParameters)?.parent) {
-            is JavaScriptFunctionDeclaration -> context.body
-            is JavaScriptAnonymousFunction -> context.body?.doWhen({ it }, { it })
-            is JavaScriptMethod -> context.body
+            is JavaScriptFunctionDeclaration -> context
+            is JavaScriptAnonymousFunction -> context
+            is JavaScriptMethod -> context
             else -> null
         }
         return if (scopeElement == null) null else LocalSearchScope(scopeElement)

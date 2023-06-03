@@ -52,6 +52,9 @@
         <targetElementEvaluator
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptTargetElementEvaluator"/>
+        <lang.refactoringSupport
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptRefactoringSupportProvider"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->
