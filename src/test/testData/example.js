@@ -1,12 +1,12 @@
 // Youtubei API declines requests with wrong Origin.
 // We need to remove the Origin header which is added automatically by the browser.
-chrome.permissions.contains({ 
+chrome.permissions.contains({
     permissions: ['webRequestBlocking'],
     origins: ['https://www.youtube.com/']
 }, (permissionExists) => {
     // In Chrome/Chromium (Manifest V3) Origin is removed via declarative net request.
     // See `declarative_net_request` property in the manifest.
-    if (!permissionExists) { 
+    if (!permissionExists) {
         return
     }
 
@@ -100,7 +100,7 @@ export async function fetchComments(videoResponse) {
                 .map(run => run.text)
                 .join("")
             comments.push({ text, isPinned })
-        } 
+        }
     }
 
     return comments
