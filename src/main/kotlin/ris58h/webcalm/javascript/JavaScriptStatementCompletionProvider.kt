@@ -17,6 +17,7 @@ class JavaScriptStatementCompletionProvider : CompletionProvider<CompletionParam
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
+        result.addElement(LookupElementBuilder.create("null").bold())
         result.addElement(LookupElementBuilder.create("true").bold())
         result.addElement(LookupElementBuilder.create("false").bold())
         result.addElement(LookupElementBuilder.create("do").bold())
