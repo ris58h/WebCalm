@@ -78,7 +78,9 @@
         <completion.contributor
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.completion.JavaScriptCompletionContributor"/>
-        <quoteHandler fileType="JavaScript" className="ris58h.webcalm.javascript.JavaScriptQuoteHandler"/>
+        <lang.quoteHandler
+                language="JavaScript"
+                implementationClass="ris58h.webcalm.javascript.JavaScriptQuoteHandler"/>
         <targetElementEvaluator
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptTargetElementEvaluator"/>
