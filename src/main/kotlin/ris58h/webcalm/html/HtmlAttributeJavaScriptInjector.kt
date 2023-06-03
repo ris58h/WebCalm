@@ -22,8 +22,8 @@ class HtmlAttributeJavaScriptInjector : MultiHostInjector {
         }
     }
 
-    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlAttributeValue::class.java)
+    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
+        return listOf(XmlAttributeValue::class.java)
     }
 
     private fun isEventHandlerAttribute(attribute: XmlAttribute?): Boolean {

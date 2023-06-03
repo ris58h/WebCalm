@@ -17,7 +17,7 @@ import java.util.function.Supplier
 class JavaScriptRecursiveCallLineMarkerProvider : LineMarkerProvider, DumbAware {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? = null
 
-    override fun collectSlowLineMarkers(elements: MutableList<out PsiElement>, result: MutableCollection<in LineMarkerInfo<*>>) {
+    override fun collectSlowLineMarkers(elements: List<PsiElement>, result: MutableCollection<in LineMarkerInfo<*>>) {
         val lines = HashSet<Int>()
         for (element in elements) {
             if (element is JavaScriptIdentifierExpression) {

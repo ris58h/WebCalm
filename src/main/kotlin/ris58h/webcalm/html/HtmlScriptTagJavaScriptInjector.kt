@@ -30,7 +30,7 @@ class HtmlScriptTagJavaScriptInjector : MultiHostInjector {
         }
     }
 
-    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlText::class.java)
+    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
+        return listOf(XmlText::class.java)
     }
 }

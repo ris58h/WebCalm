@@ -28,8 +28,8 @@ class HtmlStyleTagCssInjector : MultiHostInjector {
         registrar.doneInjecting()
     }
 
-    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlText::class.java)
+    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
+        return listOf(XmlText::class.java)
     }
 
     private fun isStyleTag(tag: XmlTag?): Boolean {
