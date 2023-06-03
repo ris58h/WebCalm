@@ -8,7 +8,6 @@ import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
-// TODO: Only elements that introduce a name should implement PsiNamedElement interface. See https://plugins.jetbrains.com/docs/intellij/references-and-resolve.html#psireference
 class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
     override fun getName(): String? = nameIdentifier?.text
 
@@ -24,28 +23,66 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
 
     override fun getNameIdentifier(): PsiElement? = this.node.findChildByType(JavaScriptTypes.IDENTIFIER)?.psi
 
+    /**
+     * Only elements that introduce a name should implement PsiNamedElement interface (https://plugins.jetbrains.com/docs/intellij/references-and-resolve.html#psireference).
+     * @see ris58h.webcalm.javascript.psi.JavaScriptIdentifier.getUseScope
+     */
+    fun introducesName(): Boolean {
+        return when (val parent = parent) {
+            is JavaScriptNamedIdentifierOwner -> false
+            is JavaScriptCatch -> true
+            is JavaScriptAnonymousFunction -> true
+            else -> {
+                val parameter = PsiTreeUtil.getParentOfType(parent, JavaScriptParameter::class.java, false)
+                if (parameter != null) true
+                else variableDeclarationFromLeftHand() != null
+            }
+        }
+    }
+
+    /**
+     * @see ris58h.webcalm.javascript.psi.JavaScriptIdentifier.introducesName
+     */
     override fun getUseScope(): SearchScope {
         return when (val parent = parent) {
-            is JavaScriptFormalParameter -> searchScopeForParameter(parent)
-            is JavaScriptIdentifierExpression -> {
-                val parent2 = parent.parent
-                if (parent2 is JavaScriptFormalRestParameter) searchScopeForParameter(parent2)
-                else null
-            }
-            is JavaScriptVariableDeclaration, is JavaScriptFunctionDeclaration -> {
-                val statementsOwner = PsiTreeUtil.getParentOfType(parent, JavaScriptStatementsOwner::class.java)
-                if (statementsOwner != null && statementsOwner !is JavaScriptFile) LocalSearchScope(statementsOwner)
-                else null
-            }
+            is JavaScriptNamedIdentifierOwner -> null
             is JavaScriptCatch -> {
                 val block = parent.block
                 if (block != null) LocalSearchScope(block) else null
             }
-            else -> null
+            is JavaScriptAnonymousFunction -> {
+                parent.body?.doWhen({ LocalSearchScope(it) }, { LocalSearchScope(it) })
+            }
+            else -> {
+                val parameter = PsiTreeUtil.getParentOfType(parent, JavaScriptParameter::class.java, false)
+                if (parameter != null) useScopeForParameter(parameter)
+                else {
+                    val variableDeclaration = variableDeclarationFromLeftHand()
+                    val statementsOwner = PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptStatementsOwner::class.java)
+                    if (statementsOwner != null && statementsOwner !is JavaScriptFile) LocalSearchScope(statementsOwner)
+                    else null
+                }
+            }
         } ?: super.getUseScope()
     }
 
-    private fun searchScopeForParameter(parameter: JavaScriptParameter): LocalSearchScope? {
+    /**
+     * @return a variable declaration if this element is in the left hand of the variable declaration.
+     */
+    private fun variableDeclarationFromLeftHand(): JavaScriptVariableDeclaration? {
+        var prev: PsiElement = this
+        var current: PsiElement? = parent
+        while (current != null && current !is JavaScriptVariableDeclaration) {
+            prev = current
+            current = current.parent
+        }
+        if (current != null && prev.prevSibling == null) {
+            return current as JavaScriptVariableDeclaration
+        }
+        return null
+    }
+
+    private fun useScopeForParameter(parameter: JavaScriptParameter): LocalSearchScope? {
         val scopeElement = when (val context = (parameter.parent as? JavaScriptParameters)?.parent) {
             is JavaScriptFunctionDeclaration -> context.body
             is JavaScriptAnonymousFunction -> context.body?.doWhen({ it }, { it })

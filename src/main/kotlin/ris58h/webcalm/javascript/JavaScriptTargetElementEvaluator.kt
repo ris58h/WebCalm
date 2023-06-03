@@ -10,8 +10,9 @@ class JavaScriptTargetElementEvaluator : TargetElementEvaluatorEx2() {
     override fun getNamedElement(element: PsiElement): PsiElement? {
         val identifier = PsiTreeUtil.getParentOfType(element, JavaScriptIdentifier::class.java)
         if (identifier != null) {
+            if (identifier.introducesName()) return identifier
             val parent = identifier.parent
-            return if (parent is JavaScriptNamedIdentifierOwner) parent else identifier
+            if (parent is JavaScriptNamedIdentifierOwner) return parent
         }
         return null
     }

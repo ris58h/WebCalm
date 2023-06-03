@@ -10,7 +10,7 @@ class JavaScriptFindUsagesProvider : EmptyFindUsagesProvider() {
     override fun getWordsScanner(): WordsScanner = JavaScriptWordsScanner()
 
     override fun canFindUsagesFor(element: PsiElement): Boolean {
-        return element is JavaScriptIdentifier
+        return (element is JavaScriptIdentifier && element.introducesName())
                 || element is JavaScriptNamedIdentifierOwner
     }
 }
