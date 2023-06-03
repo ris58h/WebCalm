@@ -10,7 +10,7 @@ import ris58h.webcalm.javascript.psi.*
 class JavaScriptCompletionContributor: CompletionContributor() {
     init {
         extend(CompletionType.BASIC, STATEMENT_IDENTIFIER_PATTERN, JavaScriptStatementCompletionProvider())
-        extend(CompletionType.BASIC, LEFT_HAND_IDENTIFIER_PATTERN, JavaScriptLeftHandCompletionProvider())
+        extend(CompletionType.BASIC, RIGHT_HAND_IDENTIFIER_PATTERN, JavaScriptRightHandCompletionProvider())
     }
 }
 
@@ -18,7 +18,7 @@ private val STATEMENT_IDENTIFIER_PATTERN = identifierExpressionWithParent(
     PlatformPatterns.psiElement(JavaScriptExpressionSequence::class.java)
         .withParent(PlatformPatterns.psiElement(JavaScriptExpressionStatement::class.java))
 )
-private val LEFT_HAND_IDENTIFIER_PATTERN = identifierExpressionWithParent(
+private val RIGHT_HAND_IDENTIFIER_PATTERN = identifierExpressionWithParent(
     PlatformPatterns.psiElement(JavaScriptVariableDeclaration::class.java)
 )
 
