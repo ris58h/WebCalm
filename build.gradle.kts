@@ -1,6 +1,7 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.20"
     id("org.jetbrains.intellij") version "1.13.1"
+    id("org.jetbrains.changelog") version "2.1.0"
     id("antlr")
 }
 
@@ -53,6 +54,11 @@ tasks {
 
     buildSearchableOptions {
         enabled = false
+    }
+
+    changelog {
+        // Allow both d.d and d.d.d version formats.
+        headerParserRegex.set("""(\d+\.\d+(.\d+)?)""".toRegex())
     }
 
     signPlugin {
