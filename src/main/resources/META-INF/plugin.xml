@@ -2,36 +2,6 @@
     <id>ris58h.webcalm</id>
     <name>WebCalm</name>
     <vendor email="ris58h@gmail.com" url="https://github.com/ris58h">Ilya Rodionov</vendor>
-    <description><![CDATA[
-        Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
-        <br>
-        <br>
-        WARNING: The plugin is still in development so something may not work properly.
-        <br>
-        <br>
-        Features:
-        <ul>
-            <li>Syntax highlighting.</li>
-            <li>Code folding.</li>
-            <li>Structure view.</li>
-            <li>Go to declaration.</li>
-            <li>Find usages.</li>
-            <li>Renaming.</li>
-            <li>Language injections in 'script' tags and event handler attributes.</li>
-        </ul>
-        <br>
-        Planned features:
-        <ul>
-            <li>CSS language support.</li>
-        </ul>
-        <br>
-        Not planned features:
-        <ul>
-            <li>Template engines support.</li>
-            <li>Frameworks support.</li>
-            <li>Other JavaScript based languages support.</li>
-        </ul>
-      ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>

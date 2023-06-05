@@ -1,4 +1,5 @@
 # WebCalm
+<!-- Plugin description -->
 Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
 
 WARNING: The plugin is still in development so something may not work properly.
@@ -19,3 +20,4 @@ Not planned features:
 - Template engines support.
 - Frameworks support.
 - Other JavaScript based languages support.
+<!-- Plugin description end -->
