@@ -51,6 +51,14 @@ intellij {
     updateSinceUntilBuild.set(false)
 }
 
+changelog {
+    groups.empty()
+    repositoryUrl.set(properties("pluginRepositoryUrl"))
+
+    // Allow both d.d and d.d.d version formats.
+    headerParserRegex.set("""(\d+\.\d+(.\d+)?)""".toRegex())
+}
+
 tasks {
     compileKotlin {
         dependsOn("generateGrammarSource")
@@ -58,11 +66,6 @@ tasks {
 
     buildSearchableOptions {
         enabled = false
-    }
-
-    changelog {
-        // Allow both d.d and d.d.d version formats.
-        headerParserRegex.set("""(\d+\.\d+(.\d+)?)""".toRegex())
     }
 
     patchPluginXml {
