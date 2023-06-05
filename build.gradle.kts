@@ -61,6 +61,10 @@ tasks {
         headerParserRegex.set("""(\d+\.\d+(.\d+)?)""".toRegex())
     }
 
+    patchPluginXml {
+        sinceBuild.set("203.5981.155")
+    }
+
     signPlugin {
         certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
         privateKey.set(System.getenv("PRIVATE_KEY"))

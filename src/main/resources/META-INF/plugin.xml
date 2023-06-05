@@ -33,8 +33,6 @@
         </ul>
       ]]></description>
 
-    <idea-version since-build="203.5981.155"/>
-
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
