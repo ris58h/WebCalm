@@ -31,10 +31,13 @@ dependencies {
         exclude("org.abego.treelayout", "org.abego.treelayout.core")
     }
 }
-
 //TODO: a hack to exclude antlr4 dependencies from the resulting distribution zip. See https://github.com/gradle/gradle/issues/820
 configurations[JavaPlugin.API_CONFIGURATION_NAME].let { apiConfiguration ->
     apiConfiguration.setExtendsFrom(apiConfiguration.extendsFrom.filter { it.name != "antlr" })
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 intellij {
@@ -46,14 +49,9 @@ intellij {
 }
 
 tasks {
-    withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+    compileKotlin {
+        dependsOn("generateGrammarSource")
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
-    }
-    getByName("compileKotlin").dependsOn("generateGrammarSource")
 
     buildSearchableOptions {
         enabled = false
