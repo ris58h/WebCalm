@@ -1,3 +1,6 @@
+fun properties(key: String) = providers.gradleProperty(key)
+fun environment(key: String) = providers.environmentVariable(key)
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.20"
     id("org.jetbrains.intellij") version "1.13.1"
@@ -5,8 +8,8 @@ plugins {
     id("antlr")
 }
 
-group = "ris58h.webcalm"
-version = "0.4"
+group = properties("pluginGroup").get()
+version = properties("pluginVersion").get()
 
 repositories {
     mavenCentral()
@@ -35,9 +38,9 @@ configurations[JavaPlugin.API_CONFIGURATION_NAME].let { apiConfiguration ->
 }
 
 intellij {
-    version.set("2020.3") // Build against 'since' version
-//    version.set("LATEST-EAP-SNAPSHOT") // Check against 'latest' version
-    type.set("IC") // Target IDE Platform
+    pluginName.set(properties("pluginName"))
+    version.set(properties("platformVersion"))
+    type.set(properties("platformType"))
 
     updateSinceUntilBuild.set(false)
 }
@@ -62,16 +65,18 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("203.5981.155")
+        version.set(properties("pluginVersion"))
+        sinceBuild.set(properties("pluginSinceBuild"))
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChain.set(environment("CERTIFICATE_CHAIN"))
+        privateKey.set(environment("PRIVATE_KEY"))
+        password.set(environment("PRIVATE_KEY_PASSWORD"))
     }
 
     publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+        dependsOn("patchChangelog")
+        token.set(environment("PUBLISH_TOKEN"))
     }
 }
