@@ -24,6 +24,21 @@ object CssTypes {
     val DIMENSION = TOKENS[css3Lexer.Dimension]!!
     val PERCENTAGE = TOKENS[css3Lexer.Percentage]!!
     val HASH = TOKENS[css3Lexer.Hash]!!
+    val AT_IMPORT = TOKENS[css3Lexer.Import]!!
+    val AT_PAGE = TOKENS[css3Lexer.Page]!!
+    val AT_MEDIA = TOKENS[css3Lexer.Media]!!
+    val AT_NAMESPACE = TOKENS[css3Lexer.Namespace]!!
+    val AT_CHARSET = TOKENS[css3Lexer.Charset]!!
+    val AT_FONT_FACE = TOKENS[css3Lexer.FontFace]!!
+    val AT_SUPPORTS = TOKENS[css3Lexer.Supports]!!
+    val AT_KEYFRAMES = TOKENS[css3Lexer.Keyframes]!!
+    val AT_VIEWPORT = TOKENS[css3Lexer.Viewport]!!
+    val AT_COUNTER_STYLE = TOKENS[css3Lexer.CounterStyle]!!
+    val AT_FONT_FEATURE_VALUES = TOKENS[css3Lexer.FontFeatureValues]!!
+    val AND_KEYWORD = TOKENS[css3Lexer.And]!!
+    val OR_KEYWORD = TOKENS[css3Lexer.Or]!!
+    val FROM_KEYWORD = TOKENS[css3Lexer.From]!!
+    val TO_KEYWORD = TOKENS[css3Lexer.To]!!
     val OPEN_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'{'"}]!!
     val CLOSE_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'}'"}]!!
     val OPEN_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'['"}]!!
