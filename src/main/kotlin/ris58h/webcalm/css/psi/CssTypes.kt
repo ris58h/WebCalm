@@ -32,8 +32,24 @@ object CssTypes {
     val CLOSE_PAREN = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "')'"}]!!
 
     object Factory {
+        private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)
+        private val IDENTIFIER = RULES[css3Parser.RULE_ident]
+        private val TYPE_SELECTOR = RULES[css3Parser.RULE_typeSelector]
+        private val CLASS_NAME_SELECTOR = RULES[css3Parser.RULE_className]
+        private val PSEUDO_SELECTOR = RULES[css3Parser.RULE_pseudo]
+        private val NOT_SELECTOR = RULES[css3Parser.RULE_negation]
+        private val ATTRIBUTE_SELECTOR = RULES[css3Parser.RULE_attrib]
+
         fun createElement(node: ASTNode): PsiElement {
-            return ASTWrapperPsiElement(node)
+            return when (node.elementType) {
+                IDENTIFIER -> CssIdentifier(node)
+                TYPE_SELECTOR -> CssTypeSelector(node)
+                CLASS_NAME_SELECTOR -> CssClassNameSelector(node)
+                PSEUDO_SELECTOR -> CssPseudoSelector(node)
+                NOT_SELECTOR -> CssNotSelector(node)
+                ATTRIBUTE_SELECTOR -> CssAttributeSelector(node)
+                else -> return ASTWrapperPsiElement(node)
+            }
         }
     }
 }
