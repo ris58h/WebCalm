@@ -54,6 +54,9 @@ object CssTypes {
         private val PSEUDO_SELECTOR = RULES[css3Parser.RULE_pseudo]
         private val NOT_SELECTOR = RULES[css3Parser.RULE_negation]
         private val ATTRIBUTE_SELECTOR = RULES[css3Parser.RULE_attrib]
+        private val DECLARATION = RULES[css3Parser.RULE_declaration]
+        private val PROPERTY = RULES[css3Parser.RULE_property_]
+        private val TERM = RULES[css3Parser.RULE_term]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -63,6 +66,9 @@ object CssTypes {
                 PSEUDO_SELECTOR -> CssPseudoSelector(node)
                 NOT_SELECTOR -> CssNotSelector(node)
                 ATTRIBUTE_SELECTOR -> CssAttributeSelector(node)
+                DECLARATION -> CssDeclaration(node)
+                PROPERTY -> CssProperty(node)
+                TERM -> CssTerm(node)
                 else -> return ASTWrapperPsiElement(node)
             }
         }
