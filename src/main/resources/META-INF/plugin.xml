@@ -81,6 +81,9 @@
         <lang.foldingBuilder
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>
+        <annotator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssHighlightingAnnotator"/>
     </extensions>
 
     <extensionPoints>
