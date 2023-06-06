@@ -4,6 +4,10 @@
     Comment
 */
 
+* {
+    margin: 0;
+}
+
 :root {
   --main-bg-color: brown;
 }
@@ -21,6 +25,8 @@ tag {
 .class {
     display: inline-block;
 }
+
+:not(p) { color: green; }
 
 body a[target="_blank"] {
   background-color: #FF0011;
