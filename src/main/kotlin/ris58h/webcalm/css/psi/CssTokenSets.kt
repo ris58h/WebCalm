@@ -22,6 +22,7 @@ object CssTokenSets {
         CssTypes.AT_FONT_FEATURE_VALUES,
     )
     val KEYWORDS = TokenSet.create(
+        CssTypes.IMPORTANT_KEYWORD,
         CssTypes.AND_KEYWORD,
         CssTypes.OR_KEYWORD,
         CssTypes.FROM_KEYWORD,
