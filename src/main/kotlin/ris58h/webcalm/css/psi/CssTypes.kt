@@ -24,6 +24,8 @@ object CssTypes {
     val DIMENSION = TOKENS[css3Lexer.Dimension]!!
     val PERCENTAGE = TOKENS[css3Lexer.Percentage]!!
     val HASH = TOKENS[css3Lexer.Hash]!!
+    val URI = TOKENS[css3Lexer.Uri]!!
+    val VARIABLE = TOKENS[css3Lexer.Variable]!!
     val AT_IMPORT = TOKENS[css3Lexer.Import]!!
     val AT_PAGE = TOKENS[css3Lexer.Page]!!
     val AT_MEDIA = TOKENS[css3Lexer.Media]!!
@@ -35,6 +37,7 @@ object CssTypes {
     val AT_VIEWPORT = TOKENS[css3Lexer.Viewport]!!
     val AT_COUNTER_STYLE = TOKENS[css3Lexer.CounterStyle]!!
     val AT_FONT_FEATURE_VALUES = TOKENS[css3Lexer.FontFeatureValues]!!
+    val IMPORTANT_KEYWORD = TOKENS[css3Lexer.Important]!!
     val AND_KEYWORD = TOKENS[css3Lexer.And]!!
     val OR_KEYWORD = TOKENS[css3Lexer.Or]!!
     val FROM_KEYWORD = TOKENS[css3Lexer.From]!!

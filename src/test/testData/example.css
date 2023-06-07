@@ -29,7 +29,7 @@ tag {
 :not(p) { color: green; }
 
 body a[target="_blank"] {
-  background-color: #FF0011;
+  background-color: #FF0011 !important;
 }
 
 @media screen and (color) {

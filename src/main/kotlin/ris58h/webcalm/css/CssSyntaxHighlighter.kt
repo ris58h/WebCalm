@@ -46,6 +46,8 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         return when (tokenType) {
             CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> NUMBER
             CssTypes.HASH -> CONSTANT
+            CssTypes.URI -> STRING
+            CssTypes.VARIABLE -> LOCAL_VARIABLE
             else -> TextAttributesKey.EMPTY_ARRAY
         }
     }
@@ -59,5 +61,6 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
         private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
         private val CONSTANT = arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
+        private val LOCAL_VARIABLE = arrayOf(DefaultLanguageHighlighterColors.LOCAL_VARIABLE)
     }
 }
