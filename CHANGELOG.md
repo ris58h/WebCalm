@@ -5,6 +5,7 @@
 ## [Unreleased]
 
 ### Added
+- Inplace renaming.
 - GitHub build workflow.
 - Return completion.
 - Label reference.
