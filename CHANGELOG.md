@@ -11,6 +11,7 @@
 - Right-hand completion.
 
 ### Fixed
+- `from` can be used as identifier. See https://github.com/antlr/grammars-v4/issues/3516
 - Fix JavaScript Lexer exception ([#1](https://github.com/ris58h/WebCalm/issues/1)).
 - Find usages fix.
 - Words scanner and syntax highlighting issues fix.
