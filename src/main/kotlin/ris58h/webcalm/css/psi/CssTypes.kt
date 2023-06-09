@@ -42,6 +42,8 @@ object CssTypes {
     val OR_KEYWORD = TOKENS[css3Lexer.Or]!!
     val FROM_KEYWORD = TOKENS[css3Lexer.From]!!
     val TO_KEYWORD = TOKENS[css3Lexer.To]!!
+    val PLUS_OP = TOKENS[css3Lexer.Plus]!!
+    val MINUS_OP = TOKENS[css3Lexer.Minus]!!
     val OPEN_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'{'"}]!!
     val CLOSE_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'}'"}]!!
     val OPEN_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'['"}]!!
