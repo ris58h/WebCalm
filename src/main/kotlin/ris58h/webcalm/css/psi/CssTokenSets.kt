@@ -28,4 +28,8 @@ object CssTokenSets {
         CssTypes.FROM_KEYWORD,
         CssTypes.TO_KEYWORD,
     )
+    val OPERATIONS = TokenSet.create(
+        CssTypes.PLUS_OP,
+        CssTypes.MINUS_OP,
+    )
 }
