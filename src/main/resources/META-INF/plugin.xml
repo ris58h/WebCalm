@@ -84,6 +84,15 @@
         <annotator
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssHighlightingAnnotator"/>
+        <lang.ast.factory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssASTFactory"/>
+        <lang.findUsagesProvider
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssFindUsagesProvider"/>
+        <targetElementEvaluator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
     </extensions>
 
     <extensionPoints>
