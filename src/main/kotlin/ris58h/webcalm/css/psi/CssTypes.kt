@@ -60,6 +60,8 @@ object CssTypes {
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
         private val PROPERTY = RULES[css3Parser.RULE_property_]
         private val TERM = RULES[css3Parser.RULE_term]
+        private val VAR_FUNCTION = RULES[css3Parser.RULE_var_]
+        private val CALC_FUNCTION = RULES[css3Parser.RULE_calc]
 
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
@@ -72,6 +74,8 @@ object CssTypes {
                 DECLARATION -> CssDeclaration(node)
                 PROPERTY -> CssProperty(node)
                 TERM -> CssTerm(node)
+                VAR_FUNCTION -> CssVarFunction(node)
+                CALC_FUNCTION -> CssCalcFunction(node)
                 else -> return ASTWrapperPsiElement(node)
             }
         }
