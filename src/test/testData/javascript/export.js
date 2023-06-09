@@ -1,4 +1,3 @@
-// TODO: https://github.com/antlr/grammars-v4/issues/3484
 // Exporting declarations
 export let name1, name2/*, … */; // also var
 export const name1 = 1, name2 = 2/*, … */; // also var, let

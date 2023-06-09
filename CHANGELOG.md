@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Support string literals in import and export. See https://github.com/antlr/grammars-v4/issues/3484
+
 ## [0.5] - 2023-06-07
 
 ### Added
