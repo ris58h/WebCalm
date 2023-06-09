@@ -6,8 +6,8 @@ import com.intellij.util.SmartList
 import com.intellij.util.containers.SmartHashSet
 import ris58h.webcalm.javascript.RelatedScriptsProcessor
 
-class JavaScriptIdentifierReference(private val name: String, element: PsiElement, rangeInElement: TextRange) :
-    PsiPolyVariantReferenceBase<PsiElement>(element, rangeInElement) {
+class JavaScriptIdentifierReference(private val name: String, element: JavaScriptIdentifier, rangeInElement: TextRange) :
+    PsiPolyVariantReferenceBase<JavaScriptIdentifier>(element, rangeInElement) {
 
     override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
         val declarations = SmartList<PsiElement>()
@@ -27,18 +27,12 @@ class JavaScriptIdentifierReference(private val name: String, element: PsiElemen
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        val element = myElement
-        if (element is JavaScriptIdentifierExpression) {
-            val identifier = element.identifier
-            if (identifier != null) {
-                return identifier.setName(newElementName)
-            }
-        }
+        myElement.setName(newElementName)
         return super.handleElementRename(newElementName)
     }
 
     private fun processDeclarations(callback: (PsiNamedElement) -> Unit) {
-        var prev = myElement
+        var prev: PsiElement = myElement
         var current = myElement.parent
         while (current != null && prev !is JavaScriptFile) {
             processDeclarationsIteration(current, callback)

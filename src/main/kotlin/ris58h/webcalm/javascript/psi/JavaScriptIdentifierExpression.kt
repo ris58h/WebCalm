@@ -10,7 +10,7 @@ class JavaScriptIdentifierExpression(node: ASTNode) : JavaScriptIdentifierOwner(
     override fun getReference(): PsiReference? {
         if (!isValidParentForReference(parent)) return null
         val identifier = identifier ?: return null
-        return JavaScriptIdentifierReference(identifier.text, this, identifier.textRangeInParent)
+        return JavaScriptIdentifierReference(identifier.text, identifier, identifier.textRangeInParent)
     }
 
     private fun isValidParentForReference(parent: PsiElement): Boolean {
