@@ -1,12 +1,9 @@
 package ris58h.webcalm.javascript.psi
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiReference
 
-class JavaScriptIdentifierExpression(node: ASTNode) : JavaScriptIdentifierOwner(node), JavaScriptExpression {
-    override fun getReference(): PsiReference? {
-        val identifier = identifier
-        if (identifier == null || identifier.introducesName()) return null
-        return JavaScriptIdentifierReference(identifier.text, identifier, identifier.textRangeInParent)
-    }
+class JavaScriptIdentifierExpression(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptExpression {
+    val identifier: JavaScriptIdentifier?
+        get() = this.findChildByClass(JavaScriptIdentifier::class.java)
 }

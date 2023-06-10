@@ -6,8 +6,10 @@ import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.containers.SmartHashSet
 
-class JavaScriptLabelReference(private val label: String, element: PsiElement, rangeInElement: TextRange) : PsiReferenceBase<PsiElement>(element, rangeInElement) {
+class JavaScriptLabelReference(element: JavaScriptIdentifier, rangeInElement: TextRange) :
+    PsiReferenceBase<JavaScriptIdentifier>(element, rangeInElement) {
     override fun resolve(): PsiElement? {
+        val label = element.name
         return PsiTreeUtil.findFirstParent(myElement) {
             it is JavaScriptLabeledStatement && it.name == label
         }
@@ -27,13 +29,6 @@ class JavaScriptLabelReference(private val label: String, element: PsiElement, r
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        val element = myElement
-        if (element is JavaScriptIdentifierOwner) {
-            val identifier = element.identifier
-            if (identifier != null) {
-                return identifier.setName(newElementName)
-            }
-        }
-        return super.handleElementRename(newElementName)
+        return myElement.setName(newElementName)
     }
 }
