@@ -13,7 +13,7 @@ import com.intellij.psi.util.PsiTreeUtil
 class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
     override fun getReference(): PsiReference? {
         if (introducesName()) return null
-        val rangeInElement = TextRange(0, name!!.length)
+        val rangeInElement = TextRange(0, node.textLength)
         return when (parent) {
             is JavaScriptBreakStatement, is JavaScriptContinueStatement -> return JavaScriptLabelReference(this, rangeInElement)
             else -> JavaScriptIdentifierReference(this, rangeInElement)
@@ -32,6 +32,7 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
 
     override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
 
+    // TODO: it can be not an IDENTIFIER token. See JavaScriptParser.g4 grammar.
     override fun getNameIdentifier(): PsiElement? = this.node.findChildByType(JavaScriptTypes.IDENTIFIER)?.psi
 
     /**
