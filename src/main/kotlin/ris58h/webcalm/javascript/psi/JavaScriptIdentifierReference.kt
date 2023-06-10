@@ -105,7 +105,10 @@ class JavaScriptIdentifierReference(element: JavaScriptIdentifier, rangeInElemen
                     val variableDeclarationList = it.variableDeclarationList
                     if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
                 }
-                is JavaScriptFunctionDeclaration -> callback(it)
+                is JavaScriptFunctionDeclaration, is JavaScriptClassDeclaration -> {
+                    val identifierOwner = it as JavaScriptIdentifierOwner
+                    if (identifierOwner.identifier != myElement) callback(identifierOwner)
+                }
                 is JavaScriptExportStatement -> {
                     when (val declaration = it.declaration) {
                         is JavaScriptFunctionDeclaration -> callback(declaration)
