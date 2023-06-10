@@ -30,7 +30,6 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
 
     override fun getTextOffset(): Int = nameIdentifier.textOffset
 
-    // TODO: it can be not an IDENTIFIER token. See JavaScriptParser.g4 grammar.
     override fun getNameIdentifier(): PsiElement = firstChild
 
     /**
