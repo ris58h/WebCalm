@@ -12,7 +12,7 @@ import com.intellij.psi.util.PsiTreeUtil
 
 class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameIdentifierOwner {
     override fun getReference(): PsiReference? {
-        if (introducesName()) return null
+        if (introducesName() || parent is JavaScriptIdentifierOwner) return null
         val rangeInElement = TextRange(0, node.textLength)
         return when (parent) {
             is JavaScriptBreakStatement, is JavaScriptContinueStatement -> return JavaScriptLabelReference(this, rangeInElement)
