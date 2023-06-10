@@ -9,7 +9,7 @@ import com.intellij.util.containers.SmartHashSet
 class JavaScriptLabelReference(element: JavaScriptIdentifier, rangeInElement: TextRange) :
     PsiReferenceBase<JavaScriptIdentifier>(element, rangeInElement) {
     override fun resolve(): PsiElement? {
-        val label = element.name ?: return null
+        val label = element.name
         return PsiTreeUtil.findFirstParent(myElement) {
             it is JavaScriptLabeledStatement && it.name == label
         }

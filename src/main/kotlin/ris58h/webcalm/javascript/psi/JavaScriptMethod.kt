@@ -9,7 +9,7 @@ class JavaScriptMethod(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptCl
         get() {
             val methodDefinition = lastChild
             val identifier = PsiTreeUtil.getChildOfType(methodDefinition, JavaScriptIdentifier::class.java)
-            return when (identifier?.text) {
+            return when (identifier?.name) {
                 "get" -> Type.GETTER
                 "set" -> Type.SETTER
                 else -> Type.REGULAR

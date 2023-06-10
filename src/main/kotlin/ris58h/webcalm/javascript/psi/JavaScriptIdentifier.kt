@@ -20,20 +20,18 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
         }
     }
 
-    override fun getName(): String? = nameIdentifier?.text
+    override fun getName(): String = nameIdentifier.text
 
     override fun setName(name: String): PsiElement {
         val idLeaf = nameIdentifier
-        return if (idLeaf != null) {
-            val newIdLeaf: PsiElement = JavaScriptElementFactory.createIdentifierTokenFromText(project, name)
-            idLeaf.replace(newIdLeaf)
-        } else this
+        val newIdLeaf: PsiElement = JavaScriptElementFactory.createIdentifierTokenFromText(project, name)
+        return idLeaf.replace(newIdLeaf)
     }
 
-    override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
+    override fun getTextOffset(): Int = nameIdentifier.textOffset
 
     // TODO: it can be not an IDENTIFIER token. See JavaScriptParser.g4 grammar.
-    override fun getNameIdentifier(): PsiElement? = this.node.findChildByType(JavaScriptTypes.IDENTIFIER)?.psi
+    override fun getNameIdentifier(): PsiElement = firstChild
 
     /**
      * Only elements that introduce a name should implement PsiNamedElement interface (https://plugins.jetbrains.com/docs/intellij/references-and-resolve.html#psireference).

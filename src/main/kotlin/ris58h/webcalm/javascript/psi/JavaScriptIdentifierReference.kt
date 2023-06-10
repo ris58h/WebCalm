@@ -12,10 +12,8 @@ class JavaScriptIdentifierReference(element: JavaScriptIdentifier, rangeInElemen
     override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
         val declarations = SmartList<PsiElement>()
         val name = myElement.name
-        if (name != null) {
-            processDeclarations {
-                if (it.name == name) declarations.add(it)
-            }
+        processDeclarations {
+            if (it.name == name) declarations.add(it)
         }
         return PsiElementResolveResult.createResults(declarations)
     }
