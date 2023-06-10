@@ -26,6 +26,10 @@ class CssVariableReference(private val name: String, element: CssVariable, range
         return variants.toTypedArray()
     }
 
+    override fun handleElementRename(newElementName: String): PsiElement {
+        return myElement.setName(newElementName)
+    }
+
     private fun processDeclarations(callback: (PsiNamedElement) -> Unit) {
         val containingFile = myElement.containingFile
         PsiTreeUtil.processElements(containingFile, CssVariable::class.java) {

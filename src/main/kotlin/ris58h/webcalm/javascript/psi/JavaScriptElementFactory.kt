@@ -15,12 +15,12 @@ object JavaScriptElementFactory {
     }
 
     fun createIdentifierFromText(project: Project, text: String) : JavaScriptIdentifier {
-        val file = createFileFromText(project, text)
-        return PsiTreeUtil.findChildOfType(file, JavaScriptIdentifier::class.java, true)!!
+        val javaScriptFile = createFileFromText(project, text)
+        return PsiTreeUtil.findChildOfType(javaScriptFile, JavaScriptIdentifier::class.java, true)!!
     }
 
-    fun createFileFromText(project: Project, text: String) : PsiElement {
+    fun createFileFromText(project: Project, text: String) : JavaScriptFile {
         return PsiFileFactory.getInstance(project)
-            .createFileFromText("dummy.js", JavaScriptFileType.INSTANCE, text);
+            .createFileFromText("dummy.js", JavaScriptFileType.INSTANCE, text) as JavaScriptFile
     }
 }

@@ -93,6 +93,7 @@
         <targetElementEvaluator
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
+        <renameInputValidator implementation="ris58h.webcalm.css.CssNameValidator"/>
     </extensions>
 
     <extensionPoints>

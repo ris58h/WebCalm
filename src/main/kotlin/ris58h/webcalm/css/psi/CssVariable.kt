@@ -17,15 +17,12 @@ class CssVariable(text: CharSequence) : LeafPsiElement(CssTypes.VARIABLE, text),
         }
     }
 
-    override fun getName(): String {
-        return text
-    }
+    override fun getName(): String = text
 
     override fun setName(name: String): PsiElement {
-        TODO("Not yet implemented")
+        val newVariable: PsiElement = CssElementFactory.createVariableFromText(project, name)
+        return replace(newVariable)
     }
 
-    override fun toString(): String {
-        return "CSS_VARIABLE"
-    }
+    override fun toString(): String = "CSS_VARIABLE"
 }
