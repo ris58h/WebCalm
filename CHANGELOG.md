@@ -6,6 +6,7 @@
 
 ### Fixed
 - Support string literals in import and export. See https://github.com/antlr/grammars-v4/issues/3484
+- Inplace renaming for labels and iteration statement variables.
 
 ## [0.5] - 2023-06-07
 
