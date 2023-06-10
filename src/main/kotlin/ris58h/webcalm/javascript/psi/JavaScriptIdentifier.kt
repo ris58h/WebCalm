@@ -64,8 +64,7 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
                 if (parameter != null) useScopeForParameter(parameter)
                 else {
                     val variableDeclaration = variableDeclarationFromLeftHand()
-                    val statementsOwner = PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptStatementsOwner::class.java)
-                    if (statementsOwner != null && statementsOwner !is JavaScriptFile) LocalSearchScope(statementsOwner)
+                    if (variableDeclaration != null) useScopeForVariableDeclaration(variableDeclaration)
                     else null
                 }
             }
@@ -96,5 +95,18 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
             else -> null
         }
         return if (scopeElement == null) null else LocalSearchScope(scopeElement)
+    }
+
+    private fun useScopeForVariableDeclaration(variableDeclaration: JavaScriptVariableDeclaration): LocalSearchScope? {
+        val variableDeclarationList = PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptVariableDeclarationList::class.java)
+        val variableDeclarationListParent = variableDeclarationList?.parent
+        if (variableDeclarationListParent is JavaScriptIterationStatement) {
+            return LocalSearchScope(variableDeclarationListParent)
+        }
+        val statementsOwner = PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptStatementsOwner::class.java)
+        if (statementsOwner != null && statementsOwner !is JavaScriptFile) {
+            return LocalSearchScope(statementsOwner)
+        }
+        return null
     }
 }
