@@ -1,4 +1,9 @@
 # WebCalm
+IntelliJ IDEA plugin that adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
+
+Available on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21826-webcalm).
+
+## Description
 <!-- Plugin description -->
 Adds basic support for the JavaScript language: highlighting, navigation, completion, etc.
 
