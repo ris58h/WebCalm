@@ -18,8 +18,7 @@ class HtmlScriptTagJavaScriptInjector : MultiHostInjector {
         if (!HtmlUtil.isScriptTag(host.parentTag)) {
             return
         }
-        val type = host.parentTag!!.getAttributeValue("type")
-        if (type.isNullOrEmpty() || type == "text/javascript") {
+        if (isJavaScriptScriptTag(host.parentTag!!)) {
             val elements: List<PsiElement> = ContainerUtil.filter(host.getChildren()) { it !is OuterLanguageElement }
             if (elements.isEmpty()) return
             registrar.startInjecting(JavaScriptLanguage)
