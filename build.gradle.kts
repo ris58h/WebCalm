@@ -83,7 +83,11 @@ tasks {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
                 subList(indexOf(start) + 1, indexOf(end)).joinToString("\n").let(::markdownToHTML)
-            }
+            } +
+                    "<br>" +
+                    "<a href=\"https://github.com/ris58h/WebCalm\">Source Code</a>" +
+                    "<br>" +
+                    "<a href=\"https://github.com/ris58h/WebCalm/issues\">Issue Tracker</a>"
         })
 
         val changelog = project.changelog // local variable for configuration cache compatibility
