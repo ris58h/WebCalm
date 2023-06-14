@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.6] - 2023-06-14
+
 ### Added
 - External script support (`src` in `script` tag).
 
