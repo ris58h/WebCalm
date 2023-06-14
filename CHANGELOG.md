@@ -8,6 +8,7 @@
 
 ### Added
 - External script support (`src` in `script` tag).
+- JavaScript File template.
 
 ### Fixed
 - Support static class fields. See https://github.com/antlr/grammars-v4/issues/3451
