@@ -8,6 +8,8 @@
 - External script support (`src` in `script` tag).
 
 ### Fixed
+- Support static class fields. See https://github.com/antlr/grammars-v4/issues/3451
+- Support class fields without initializer. See https://github.com/antlr/grammars-v4/issues/3474
 - Support string literals in import/export statements. See https://github.com/antlr/grammars-v4/issues/3484
 - Inplace renaming for labels and iteration statement variables.
 
