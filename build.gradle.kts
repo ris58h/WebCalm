@@ -61,7 +61,7 @@ changelog {
 
 tasks {
     compileKotlin {
-        dependsOn("generateGrammarSource")
+        dependsOn(generateGrammarSource)
     }
 
     buildSearchableOptions {
@@ -111,7 +111,7 @@ tasks {
     }
 
     publishPlugin {
-        dependsOn("patchChangelog")
+        dependsOn(patchChangelog)
         token.set(environment("PUBLISH_TOKEN"))
     }
 }
