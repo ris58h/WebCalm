@@ -244,6 +244,9 @@ object JavaScriptTypes {
             if (node.findChildByType(FIELD_DEFINITION) != null) {
                 return JavaScriptField(node)
             }
+            if (node.lastChildNode?.psi is JavaScriptBlock) {
+                return JavaScriptClassStaticBlock(node)
+            }
             return ASTWrapperPsiElement(node)
         }
 

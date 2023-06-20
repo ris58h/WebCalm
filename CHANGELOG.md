@@ -3,6 +3,8 @@
 # WebCalm Changelog
 
 ## [Unreleased]
+### Added
+- Static class block.
 
 ### Fixed
 - Class elements not parsed properly (9be1cc78 regression).

@@ -54,6 +54,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
                 PresentationData(text, null, AllIcons.Nodes.Method, null)
             }
             is JavaScriptField -> PresentationData(myElement.name, null, AllIcons.Nodes.Field, null)
+            is JavaScriptClassStaticBlock -> PresentationData("static class initializer", null, AllIcons.Nodes.ClassInitializer, null)
             else -> myElement.presentation ?: PresentationData()
         }
     }
@@ -64,6 +65,7 @@ class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElemen
             is JavaScriptFunctionDeclaration -> statementsToTreeChildren(myElement.body?.statements.orEmpty())
             is JavaScriptClassDeclaration -> classElementsToTreeChildren(myElement.classElements)
             is JavaScriptMethod -> statementsToTreeChildren(myElement.body?.statements.orEmpty())
+            is JavaScriptClassStaticBlock -> statementsToTreeChildren(myElement.block?.statements.orEmpty())
             else -> TreeElement.EMPTY_ARRAY
         }
     }
