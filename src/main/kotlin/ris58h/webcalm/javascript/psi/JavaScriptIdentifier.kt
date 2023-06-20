@@ -15,8 +15,9 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
         if (introducesName() || parent is JavaScriptIdentifierOwner) return null
         val rangeInElement = TextRange(0, node.textLength)
         return when (parent) {
-            is JavaScriptBreakStatement, is JavaScriptContinueStatement -> return JavaScriptLabelReference(this, rangeInElement)
-            else -> JavaScriptIdentifierReference(this, rangeInElement)
+            is JavaScriptBreakStatement, is JavaScriptContinueStatement -> JavaScriptLabelReference(this, rangeInElement)
+            is JavaScriptIdentifierExpression -> JavaScriptIdentifierReference(this, rangeInElement)
+            else -> null
         }
     }
 
@@ -96,7 +97,8 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
     }
 
     private fun useScopeForVariableDeclaration(variableDeclaration: JavaScriptVariableDeclaration): LocalSearchScope? {
-        val variableDeclarationList = PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptVariableDeclarationList::class.java)
+        val variableDeclarationList =
+            PsiTreeUtil.getParentOfType(variableDeclaration, JavaScriptVariableDeclarationList::class.java)
         val variableDeclarationListParent = variableDeclarationList?.parent
         if (variableDeclarationListParent is JavaScriptIterationStatement) {
             return LocalSearchScope(variableDeclarationListParent)
