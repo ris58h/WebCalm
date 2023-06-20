@@ -1,4 +1,3 @@
-// TODO: https://github.com/antlr/grammars-v4/issues/3474
 const PREFIX = "prefix";
 
 class ClassWithField {
