@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Class elements not parsed properly (9be1cc78 regression).
+
 ## [0.6] - 2023-06-14
 
 ### Added

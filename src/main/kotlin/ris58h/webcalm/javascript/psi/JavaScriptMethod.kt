@@ -30,7 +30,7 @@ class JavaScriptMethod(node: ASTNode) : ASTWrapperPsiElement(node), JavaScriptCl
 
     override fun getName(): String? {
         val methodDefinition = lastChild
-        return PsiTreeUtil.getChildOfType(methodDefinition, JavaScriptPropertyName::class.java)?.text
+        return PsiTreeUtil.getChildOfType(methodDefinition, JavaScriptClassElementName::class.java)?.text
     }
 
     enum class Type {

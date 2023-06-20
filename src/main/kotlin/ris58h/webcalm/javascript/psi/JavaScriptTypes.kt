@@ -171,7 +171,9 @@ object JavaScriptTypes {
         private val ANONYMOUS_FUNCTION = RULES[JavaScriptParser.RULE_anonymousFunction]
         private val CLASS_DECLARATION = RULES[JavaScriptParser.RULE_classDeclaration]
         private val CLASS_ELEMENT = RULES[JavaScriptParser.RULE_classElement]
+        private val CLASS_ELEMENT_NAME = RULES[JavaScriptParser.RULE_classElementName]
         private val METHOD_DEFINITION = RULES[JavaScriptParser.RULE_methodDefinition]
+        private val FIELD_DEFINITION = RULES[JavaScriptParser.RULE_fieldDefinition]
         private val PROPERTY_NAME = RULES[JavaScriptParser.RULE_propertyName]
         private val LABELED_STATEMENT = RULES[JavaScriptParser.RULE_labelledStatement]
         private val BREAK_STATEMENT = RULES[JavaScriptParser.RULE_breakStatement]
@@ -217,6 +219,7 @@ object JavaScriptTypes {
                 ANONYMOUS_FUNCTION -> JavaScriptAnonymousFunction(node)
                 CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
                 CLASS_ELEMENT -> createClassElement(node)
+                CLASS_ELEMENT_NAME -> JavaScriptClassElementName(node)
                 PROPERTY_NAME -> JavaScriptPropertyName(node)
                 LABELED_STATEMENT -> JavaScriptLabeledStatement(node)
                 BREAK_STATEMENT -> JavaScriptBreakStatement(node)
@@ -238,10 +241,10 @@ object JavaScriptTypes {
             if (node.findChildByType(METHOD_DEFINITION) != null) {
                 return JavaScriptMethod(node)
             }
-            if (node.findChildByType(PROPERTY_NAME) != null) {
+            if (node.findChildByType(FIELD_DEFINITION) != null) {
                 return JavaScriptField(node)
             }
-            return JavaScriptClassElement.NotClassElement(node)
+            return ASTWrapperPsiElement(node)
         }
 
         private fun createExpression(node: ASTNode): PsiElement {
