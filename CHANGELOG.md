@@ -7,6 +7,7 @@
 ### Fixed
 - Highlight `static` keyword in non-strict mode.
 - Highlight `get` keyword.
+- Field declaration should end with ';'. See https://github.com/antlr/grammars-v4/issues/3546
 
 ## [0.7] - 2023-06-21
 

@@ -263,7 +263,7 @@ classTail
 
 classElement
     : (Static | {this.n("static")}? identifier)? methodDefinition
-    | (Static | {this.n("static")}? identifier)? fieldDefinition
+    | (Static | {this.n("static")}? identifier)? fieldDefinition ';'
     | (Static | {this.n("static")}? identifier) block
     | emptyStatement_
     ;
