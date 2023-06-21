@@ -55,6 +55,7 @@
         <lang.refactoringSupport
                 language="JavaScript"
                 implementationClass="ris58h.webcalm.javascript.JavaScriptRefactoringSupportProvider"/>
+        <highlightVisitor implementation="ris58h.webcalm.javascript.JavaScriptRainbowVisitor"/>
         <!-- CSS -->
 <!--        <fileType-->
 <!--                name="CSS"-->
