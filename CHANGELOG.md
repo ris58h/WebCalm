@@ -3,6 +3,9 @@
 # WebCalm Changelog
 
 ## [Unreleased]
+
+## [0.7] - 2023-06-21
+
 ### Added
 - Static class block.
 - Semantic Highlighting for JavaScript.
