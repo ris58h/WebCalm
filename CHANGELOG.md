@@ -5,6 +5,7 @@
 ## [Unreleased]
 ### Added
 - Static class block.
+- Semantic Highlighting for JavaScript.
 
 ### Fixed
 - Class elements not parsed properly (9be1cc78 regression).
