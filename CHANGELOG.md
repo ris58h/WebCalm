@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Highlight `static` keyword in non-strict mode.
+
 ## [0.7] - 2023-06-21
 
 ### Added

@@ -23,6 +23,10 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
                 if (parent.identifier === element) DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
                 else null
             }
+            is JavaScriptClassElement -> {
+                if (element.text == "static") DefaultLanguageHighlighterColors.KEYWORD
+                else null
+            }
             else -> null
         }
 
