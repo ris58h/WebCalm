@@ -6,6 +6,7 @@
 
 ### Fixed
 - Highlight `static` keyword in non-strict mode.
+- Highlight `get` keyword.
 
 ## [0.7] - 2023-06-21
 

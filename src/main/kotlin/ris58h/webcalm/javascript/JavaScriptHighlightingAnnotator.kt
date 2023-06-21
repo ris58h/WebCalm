@@ -27,6 +27,11 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
                 if (element.text == "static") DefaultLanguageHighlighterColors.KEYWORD
                 else null
             }
+            is JavaScriptMethodDefinition -> {
+                val text = element.text
+                if (text == "get" || text == "set") DefaultLanguageHighlighterColors.KEYWORD
+                else null
+            }
             else -> null
         }
 

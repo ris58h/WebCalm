@@ -220,6 +220,8 @@ object JavaScriptTypes {
                 CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
                 CLASS_ELEMENT -> createClassElement(node)
                 CLASS_ELEMENT_NAME -> JavaScriptClassElementName(node)
+                METHOD_DEFINITION -> JavaScriptMethodDefinition(node)
+                FIELD_DEFINITION -> JavaScriptFieldDefinition(node)
                 PROPERTY_NAME -> JavaScriptPropertyName(node)
                 LABELED_STATEMENT -> JavaScriptLabeledStatement(node)
                 BREAK_STATEMENT -> JavaScriptBreakStatement(node)
@@ -238,16 +240,12 @@ object JavaScriptTypes {
         }
 
         private fun createClassElement(node: ASTNode): PsiElement {
-            if (node.findChildByType(METHOD_DEFINITION) != null) {
-                return JavaScriptMethod(node)
+            return when (node.lastChildNode?.psi) {
+                is JavaScriptMethodDefinition -> JavaScriptMethod(node)
+                is JavaScriptFieldDefinition -> JavaScriptField(node)
+                is JavaScriptBlock -> JavaScriptClassStaticBlock(node)
+                else -> ASTWrapperPsiElement(node)
             }
-            if (node.findChildByType(FIELD_DEFINITION) != null) {
-                return JavaScriptField(node)
-            }
-            if (node.lastChildNode?.psi is JavaScriptBlock) {
-                return JavaScriptClassStaticBlock(node)
-            }
-            return ASTWrapperPsiElement(node)
         }
 
         private fun createExpression(node: ASTNode): PsiElement {
