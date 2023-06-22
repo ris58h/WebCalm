@@ -27,7 +27,7 @@ class JavaScriptStatementCompletionProvider : CompletionProvider<CompletionParam
         result.addElement(LookupElementBuilder.create("return").bold())
         result.addElement(LookupElementBuilder.create("yield").bold())
         result.addElement(LookupElementBuilder.create("throw").bold())
-        result.addElement(LookupElementBuilder.create("try").bold())
+        result.addElement(JavaScriptLookupElements.TRY)
         result.addElement(LookupElementBuilder.create("var").bold())
         result.addElement(LookupElementBuilder.create("let").bold())
         result.addElement(LookupElementBuilder.create("const").bold())
@@ -44,6 +44,10 @@ class JavaScriptStatementCompletionProvider : CompletionProvider<CompletionParam
         val prevStatement = PsiTreeUtil.getPrevSiblingOfType(statement, JavaScriptStatement::class.java)
         if (prevStatement is JavaScriptIfStatement) {
             result.addElement(LookupElementBuilder.create("else").bold())
+        }
+        if (prevStatement is JavaScriptTryStatement) {
+            result.addElement(JavaScriptLookupElements.CATCH)
+            result.addElement(JavaScriptLookupElements.FINALLY)
         }
 
         val statementsOwner = PsiTreeUtil.getParentOfType(statement, JavaScriptStatementsOwner::class.java)
