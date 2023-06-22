@@ -6,10 +6,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.ProcessingContext
-import ris58h.webcalm.javascript.psi.JavaScriptFile
-import ris58h.webcalm.javascript.psi.JavaScriptIfStatement
-import ris58h.webcalm.javascript.psi.JavaScriptStatement
-import ris58h.webcalm.javascript.psi.JavaScriptStatementsOwner
+import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptStatementCompletionProvider : CompletionProvider<CompletionParameters>() {
     override fun addCompletions(
@@ -24,7 +21,7 @@ class JavaScriptStatementCompletionProvider : CompletionProvider<CompletionParam
         result.addElement(JavaScriptLookupElements.WHILE)
         result.addElement(JavaScriptLookupElements.FOR)
         result.addElement(JavaScriptLookupElements.IF)
-        result.addElement(LookupElementBuilder.create("switch").bold())
+        result.addElement(JavaScriptLookupElements.SWITCH)
         result.addElement(LookupElementBuilder.create("break").bold())
         result.addElement(LookupElementBuilder.create("continue").bold())
         result.addElement(LookupElementBuilder.create("return").bold())

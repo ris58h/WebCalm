@@ -5,7 +5,7 @@
 ## [Unreleased]
 
 ### Added
-- Completion for `if`, `while`, `for`.
+- Completion for `if`, `while`, `for`, `switch`.
 
 ### Fixed
 - Highlight `static` keyword in non-strict mode.
