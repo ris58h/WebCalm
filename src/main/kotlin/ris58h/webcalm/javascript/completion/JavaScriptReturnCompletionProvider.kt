@@ -15,7 +15,7 @@ class JavaScriptReturnCompletionProvider : CompletionProvider<CompletionParamete
         result.addElement(LookupElementBuilder.create("null").bold())
         result.addElement(LookupElementBuilder.create("true").bold())
         result.addElement(LookupElementBuilder.create("false").bold())
-        result.addElement(LookupElementBuilder.create("if").bold())
+        result.addElement(JavaScriptLookupElements.IF)
         result.addElement(LookupElementBuilder.create("function").bold())
         result.addElement(LookupElementBuilder.create("new").bold())
         result.addElement(LookupElementBuilder.create("await").bold())

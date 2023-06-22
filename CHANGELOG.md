@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- Completion for `if`, `while`, `for`.
+
 ### Fixed
 - Highlight `static` keyword in non-strict mode.
 - Highlight `get` keyword.
