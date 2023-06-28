@@ -94,6 +94,7 @@
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
         <renameInputValidator implementation="ris58h.webcalm.css.CssNameValidator"/>
+        <highlightVisitor implementation="ris58h.webcalm.css.CssRainbowVisitor"/>
     </extensions>
 
     <extensionPoints>
