@@ -8,13 +8,13 @@ import com.intellij.psi.formatter.common.AbstractBlock
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBlock(node, wrap, alignment) {
-    //TODO: indent for dot expressions on new lines
     override fun getIndent(): Indent {
         val elementType = myNode.elementType
         val element = myNode.psi
         val parentElement = element.parent
 
-        if (elementType == JavaScriptTypes.DOT) {
+        //TODO: it's a hack to indent dot expressions on new lines. It doesn't work for multiline code blocks (try to format arrow-functions.js).
+        if (elementType == JavaScriptTypes.DOT || elementType == JavaScriptTypes.QUESTION_MARK_DOT) {
             return Indent.getNormalIndent()
         }
 

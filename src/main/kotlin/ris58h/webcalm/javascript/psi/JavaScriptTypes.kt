@@ -35,6 +35,7 @@ object JavaScriptTypes {
     val OPEN_PAREN = TOKENS[JavaScriptLexer.OpenParen]!!
     val CLOSE_PAREN = TOKENS[JavaScriptLexer.CloseParen]!!
     val DOT = TOKENS[JavaScriptLexer.Dot]!!
+    val QUESTION_MARK_DOT = TOKENS[JavaScriptLexer.QuestionMarkDot]!!
     val SEMICOLON = TOKENS[JavaScriptLexer.SemiColon]!!
     val COMMA = TOKENS[JavaScriptLexer.Comma]!!
     val COLON = TOKENS[JavaScriptLexer.Colon]!!

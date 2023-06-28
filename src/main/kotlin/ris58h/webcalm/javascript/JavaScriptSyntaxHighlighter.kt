@@ -53,7 +53,7 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             JavaScriptTypes.NULL_LITERAL -> KEYWORD
             JavaScriptTypes.BOOLEAN_LITERAL -> KEYWORD
             JavaScriptTypes.IDENTIFIER -> IDENTIFIER
-            JavaScriptTypes.DOT -> DOT
+            JavaScriptTypes.DOT, JavaScriptTypes.QUESTION_MARK_DOT -> DOT
             JavaScriptTypes.SEMICOLON -> SEMICOLON
             JavaScriptTypes.COMMA -> COMMA
             JavaScriptTypes.REGEX_LITERAL -> STRING
