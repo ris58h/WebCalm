@@ -17,6 +17,7 @@ Features:
 - Find usages.
 - Renaming.
 - Language injections in 'script' tags and event handler attributes.
+- Formatting.
 
 Planned features:
 - CSS language support.
