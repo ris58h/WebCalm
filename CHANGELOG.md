@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.8] - 2023-06-28
+
 ### Added
 - Completion for `if`, `while`, `for`, `switch` and `try`, `catch`, `finally`.
 - Plugin's icon.
