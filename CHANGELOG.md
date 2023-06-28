@@ -7,6 +7,7 @@
 ### Added
 - Completion for `if`, `while`, `for`, `switch` and `try`, `catch`, `finally`.
 - Plugin's icon.
+- Formatting.
 
 ### Fixed
 - Highlight `static` keyword in non-strict mode.
