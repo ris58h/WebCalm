@@ -142,6 +142,8 @@ object JavaScriptTypes {
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
         private val IDENTIFIER = RULES[JavaScriptParser.RULE_identifier]
+        private val IDENTIFIER_NAME = RULES[JavaScriptParser.RULE_identifierName]
+        private val LITERAL = RULES[JavaScriptParser.RULE_literal]
         private val FUNCTION_DECLARATION = RULES[JavaScriptParser.RULE_functionDeclaration]
         private val FUNCTION_BODY = RULES[JavaScriptParser.RULE_functionBody]
         private val BLOCK = RULES[JavaScriptParser.RULE_block]
@@ -190,6 +192,8 @@ object JavaScriptTypes {
         fun createElement(node: ASTNode): PsiElement {
             return when (node.elementType) {
                 IDENTIFIER -> JavaScriptIdentifier(node)
+                IDENTIFIER_NAME -> JavaScriptIdentifierName(node)
+                LITERAL -> JavaScriptLiteral(node)
                 FUNCTION_DECLARATION -> JavaScriptFunctionDeclaration(node)
                 FUNCTION_BODY -> JavaScriptFunctionBody(node)
                 BLOCK -> JavaScriptBlock(node)

@@ -14,6 +14,10 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
         val element = myNode.psi
         val parentElement = element.parent
 
+        if (elementType == JavaScriptTypes.DOT) {
+            return Indent.getNormalIndent()
+        }
+
         if (parentElement is JavaScriptFile) {
             return Indent.getNoneIndent()
         }
@@ -44,10 +48,20 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
     }
 
     override fun isLeaf(): Boolean {
+        val element = myNode.psi
+        if (element is JavaScriptIdentifier ||
+            element is JavaScriptIdentifierName ||
+            element is JavaScriptIdentifierExpression ||
+            element is JavaScriptLiteral) return true
         return myNode.firstChildNode == null
     }
 
     override fun buildChildren(): List<Block> {
+        if (isLeaf) return emptyList()
+        return buildSubBlocks()
+    }
+
+    private fun buildSubBlocks(): List<Block> {
         val blocks = mutableListOf<Block>()
         var child = myNode.firstChildNode
         while (child != null) {
