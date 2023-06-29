@@ -53,12 +53,15 @@ object CssTypes {
 
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)
+        val WS = RULES[css3Parser.RULE_ws]//TODO skipping ws rule leads to wrong PSI tree sometimes
         private val IDENTIFIER = RULES[css3Parser.RULE_ident]
         private val TYPE_SELECTOR = RULES[css3Parser.RULE_typeSelector]
         private val CLASS_NAME_SELECTOR = RULES[css3Parser.RULE_className]
         private val PSEUDO_SELECTOR = RULES[css3Parser.RULE_pseudo]
         private val NOT_SELECTOR = RULES[css3Parser.RULE_negation]
         private val ATTRIBUTE_SELECTOR = RULES[css3Parser.RULE_attrib]
+        private val NESTED_STATEMENT = RULES[css3Parser.RULE_nestedStatement]
+        private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
         private val PROPERTY = RULES[css3Parser.RULE_property_]
         private val TERM = RULES[css3Parser.RULE_term]
@@ -73,6 +76,8 @@ object CssTypes {
                 PSEUDO_SELECTOR -> CssPseudoSelector(node)
                 NOT_SELECTOR -> CssNotSelector(node)
                 ATTRIBUTE_SELECTOR -> CssAttributeSelector(node)
+                NESTED_STATEMENT -> CssNestedStatement(node)
+                DECLARATION_LIST -> CssDeclarationList(node)
                 DECLARATION -> CssDeclaration(node)
                 PROPERTY -> CssProperty(node)
                 TERM -> CssTerm(node)

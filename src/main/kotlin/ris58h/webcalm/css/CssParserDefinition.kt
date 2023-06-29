@@ -37,7 +37,7 @@ class CssParserDefinition : ParserDefinition {
             override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
                 val rulesToSkip = setOf(
                     css3Parser.RULE_stylesheet,
-                    css3Parser.RULE_ws
+//                    css3Parser.RULE_ws//TODO skipping ws rule leads to wrong PSI tree sometimes
                 )
                 return SkipRuleNodeParseTreeToPsiConverter(rulesToSkip, language, parser, builder)
             }
