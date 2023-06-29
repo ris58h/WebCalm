@@ -3,6 +3,7 @@ package ris58h.webcalm.css.formatting
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.formatter.common.AbstractBlock
+import org.antlr.intellij.adaptor.lexer.TokenIElementType
 import ris58h.webcalm.css.psi.*
 
 class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBlock(node, wrap, alignment) {
@@ -56,6 +57,28 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
             child = child.treeNext
         }
         return blocks
+    }
+
+    override fun getChildAttributes(newChildIndex: Int): ChildAttributes {
+        // TODO: it's a hack to indent insertion after '{' and before '}'
+        val subBlocks = subBlocks
+        fun isBraceSubBlock(index: Int, braceElementType: TokenIElementType): Boolean {
+            if (index >= 0 && index < subBlocks.size) {
+                val subBlock = subBlocks[index]
+                if (subBlock.isLeaf && subBlock.textRange.length == 1) {
+                    val node = myNode.findLeafElementAt(subBlock.textRange.startOffset - myNode.startOffset)
+                    if (node?.elementType == braceElementType) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+        if (isBraceSubBlock(newChildIndex - 1, CssTypes.OPEN_BRACE) || isBraceSubBlock(newChildIndex, CssTypes.CLOSE_BRACE)) {
+            return ChildAttributes(Indent.getNormalIndent(), null)
+        }
+
+        return super.getChildAttributes(newChildIndex)
     }
 
     override fun getChildIndent(): Indent? {
