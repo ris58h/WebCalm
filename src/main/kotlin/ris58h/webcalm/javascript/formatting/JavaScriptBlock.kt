@@ -65,16 +65,10 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
         val blocks = mutableListOf<Block>()
         var child = myNode.firstChildNode
         while (child != null) {
-            val childType = child.elementType
-            if (child.textRange.length == 0) {
-                child = child.treeNext
-                continue
+            val skip = child.textRange.length == 0 || child.elementType === TokenType.WHITE_SPACE
+            if (!skip) {
+                blocks.add(JavaScriptBlock(child, null, null))
             }
-            if (childType === TokenType.WHITE_SPACE) {
-                child = child.treeNext
-                continue
-            }
-            blocks.add(JavaScriptBlock(child, null, null))
             child = child.treeNext
         }
         return blocks

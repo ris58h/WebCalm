@@ -49,16 +49,10 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
         val blocks = mutableListOf<Block>()
         var child = myNode.firstChildNode
         while (child != null) {
-            val childType = child.elementType
-            if (child.textRange.length == 0) {
-                child = child.treeNext
-                continue
+            val skip = child.textRange.length == 0 || child.elementType === CssTypes.SPACE
+            if (!skip) {
+                blocks.add(CssBlock(child, null, null))
             }
-            if (childType === CssTypes.SPACE) {
-                child = child.treeNext
-                continue
-            }
-            blocks.add(CssBlock(child, null, null))
             child = child.treeNext
         }
         return blocks
