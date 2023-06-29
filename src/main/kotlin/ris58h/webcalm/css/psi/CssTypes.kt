@@ -53,7 +53,6 @@ object CssTypes {
 
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)
-        val WS = RULES[css3Parser.RULE_ws]//TODO skipping ws rule leads to wrong PSI tree sometimes
         private val IDENTIFIER = RULES[css3Parser.RULE_ident]
         private val TYPE_SELECTOR = RULES[css3Parser.RULE_typeSelector]
         private val CLASS_NAME_SELECTOR = RULES[css3Parser.RULE_className]

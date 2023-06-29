@@ -54,8 +54,7 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
                 child = child.treeNext
                 continue
             }
-//            if (childType === CssTypes.SPACE) {
-            if (childType === CssTypes.Factory.WS) {//TODO  skipping ws rule leads to wrong PSI tree sometimes
+            if (childType === CssTypes.SPACE) {
                 child = child.treeNext
                 continue
             }
