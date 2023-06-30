@@ -21,7 +21,7 @@ class CssPropertyValueCompletionProvider : CompletionProvider<CompletionParamete
 
         val declaration = PsiTreeUtil.getParentOfType(parameters.position, CssDeclaration::class.java)
         val propertyName = declaration?.property?.text
-        val lookupElements = PROPERTY_VALUES_LOOKUP_ELEMENTS[propertyName]
+        val lookupElements = CssPropertyLookupElements.PROPERTY_VALUES_LOOKUP_ELEMENTS[propertyName]
         if (lookupElements != null) {
             result.addAllElements(lookupElements)
         }
@@ -41,36 +41,3 @@ private fun keywordWithParentheses(keyword: String): LookupElement {
 private fun moveCaretRelatively(columnShift: Int, lineShift: Int): InsertHandler<LookupElement> {
     return InsertHandler { context, _ -> context.editor.caretModel.moveCaretRelatively(columnShift, lineShift, false, false, true) }
 }
-
-private val PROPERTY_VALUES_LOOKUP_ELEMENTS = mapOf(
-    "display" to listOf(
-        "inline",
-        "block",
-        "contents",
-        "flex",
-        "grid",
-        "inline-block",
-        "inline-flex",
-        "inline-grid",
-        "inline-table",
-        "list-item",
-        "run-in",
-        "table",
-        "table-caption",
-        "table-column-group",
-        "table-header-group",
-        "table-footer-group",
-        "table-row-group",
-        "table-cell",
-        "table-column",
-        "table-row",
-        "none",
-    ),
-    "position" to listOf(
-        "static",
-        "absolute",
-        "fixed",
-        "relative",
-        "sticky",
-    )
-).mapValues { it.value.map { LookupElementBuilder.create(it) } }
