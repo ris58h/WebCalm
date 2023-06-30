@@ -51,6 +51,7 @@ object CssTypes {
     val CLOSE_BRACKET = TOKENS[css3Lexer.CloseBracket]!!
     val OPEN_PAREN = TOKENS[css3Lexer.OpenParen]!!
     val CLOSE_PAREN = TOKENS[css3Lexer.CloseParen]!!
+    val IDENTIFIER = TOKENS[css3Lexer.Ident]!!
 
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)
@@ -64,6 +65,7 @@ object CssTypes {
         private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
         private val PROPERTY = RULES[css3Parser.RULE_property_]
+        private val VALUE = RULES[css3Parser.RULE_value]
         private val TERM = RULES[css3Parser.RULE_term]
         private val VAR_FUNCTION = RULES[css3Parser.RULE_var_]
         private val CALC_FUNCTION = RULES[css3Parser.RULE_calc]
@@ -80,6 +82,7 @@ object CssTypes {
                 DECLARATION_LIST -> CssDeclarationList(node)
                 DECLARATION -> CssDeclaration(node)
                 PROPERTY -> CssProperty(node)
+                VALUE -> CssValue(node)
                 TERM -> CssTerm(node)
                 VAR_FUNCTION -> CssVarFunction(node)
                 CALC_FUNCTION -> CssCalcFunction(node)

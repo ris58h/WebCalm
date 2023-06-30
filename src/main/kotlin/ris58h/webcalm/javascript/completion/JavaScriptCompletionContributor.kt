@@ -7,7 +7,7 @@ import com.intellij.patterns.PsiElementPattern
 import com.intellij.psi.PsiElement
 import ris58h.webcalm.javascript.psi.*
 
-class JavaScriptCompletionContributor: CompletionContributor() {
+class JavaScriptCompletionContributor : CompletionContributor() {
     init {
         extend(CompletionType.BASIC, STATEMENT_IDENTIFIER_PATTERN, JavaScriptStatementCompletionProvider())
         extend(CompletionType.BASIC, RETURN_IDENTIFIER_PATTERN, JavaScriptReturnCompletionProvider())
