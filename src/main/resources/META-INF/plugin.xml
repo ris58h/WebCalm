@@ -90,6 +90,9 @@
         <lang.findUsagesProvider
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssFindUsagesProvider"/>
+        <completion.contributor
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.completion.CssCompletionContributor"/>
         <lang.quoteHandler
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssQuoteHandler"/>
