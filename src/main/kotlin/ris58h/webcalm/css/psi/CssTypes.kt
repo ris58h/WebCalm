@@ -44,12 +44,12 @@ object CssTypes {
     val TO_KEYWORD = TOKENS[css3Lexer.To]!!
     val PLUS_OP = TOKENS[css3Lexer.Plus]!!
     val MINUS_OP = TOKENS[css3Lexer.Minus]!!
-    val OPEN_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'{'"}]!!
-    val CLOSE_BRACE = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'}'"}]!!
-    val OPEN_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'['"}]!!
-    val CLOSE_BRACKET = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "']'"}]!!
-    val OPEN_PAREN = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "'('"}]!!
-    val CLOSE_PAREN = TOKENS[css3Lexer.tokenNames.indexOfFirst { it == "')'"}]!!
+    val OPEN_BRACE = TOKENS[css3Lexer.OpenBrace]!!
+    val CLOSE_BRACE = TOKENS[css3Lexer.CloseBrace]!!
+    val OPEN_BRACKET = TOKENS[css3Lexer.OpenBracket]!!
+    val CLOSE_BRACKET = TOKENS[css3Lexer.CloseBracket]!!
+    val OPEN_PAREN = TOKENS[css3Lexer.OpenParen]!!
+    val CLOSE_PAREN = TOKENS[css3Lexer.CloseParen]!!
 
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)
