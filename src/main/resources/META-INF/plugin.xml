@@ -90,6 +90,9 @@
         <lang.findUsagesProvider
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssFindUsagesProvider"/>
+        <lang.quoteHandler
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssQuoteHandler"/>
         <targetElementEvaluator
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
