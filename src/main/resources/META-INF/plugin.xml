@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>ris58h.webcalm</id>
-    <name>WebCalm</name>
+    <name>WebCalm: JavaScript and CSS</name>
     <vendor email="ris58h@gmail.com" url="https://github.com/ris58h">Ilya Rodionov</vendor>
 
     <depends>com.intellij.modules.platform</depends>

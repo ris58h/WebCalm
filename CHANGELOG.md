@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- CSS support.
+
 ## [0.8] - 2023-06-28
 
 ### Added
