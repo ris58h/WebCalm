@@ -99,7 +99,13 @@
         <targetElementEvaluator
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
-        <renameInputValidator implementation="ris58h.webcalm.css.CssNameValidator"/>
+        <lang.refactoringSupport
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssRefactoringSupportProvider"/>
+        <renameInputValidator implementation="ris58h.webcalm.css.CssRenameInputValidator"/>
+        <lang.namesValidator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssNamesValidator"/>
         <highlightVisitor implementation="ris58h.webcalm.css.CssRainbowVisitor"/>
         <lang.formatter
                 language="CSS"
