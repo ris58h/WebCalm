@@ -62,6 +62,7 @@ object CssTypes {
         private val NOT_SELECTOR = RULES[css3Parser.RULE_negation]
         private val ATTRIBUTE_SELECTOR = RULES[css3Parser.RULE_attrib]
         private val NESTED_STATEMENT = RULES[css3Parser.RULE_nestedStatement]
+        private val RULE_SET = RULES[css3Parser.RULE_ruleset]
         private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
         private val PROPERTY = RULES[css3Parser.RULE_property_]
@@ -79,6 +80,7 @@ object CssTypes {
                 NOT_SELECTOR -> CssNotSelector(node)
                 ATTRIBUTE_SELECTOR -> CssAttributeSelector(node)
                 NESTED_STATEMENT -> CssNestedStatement(node)
+                RULE_SET -> CssRuleSet(node)
                 DECLARATION_LIST -> CssDeclarationList(node)
                 DECLARATION -> CssDeclaration(node)
                 PROPERTY -> CssProperty(node)
