@@ -12,31 +12,26 @@ import com.intellij.psi.PsiFile
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptStructureViewFactory : PsiStructureViewFactory {
-    override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder {
-        return object : TreeBasedStructureViewBuilder() {
-            override fun createStructureViewModel(editor: Editor?): StructureViewModel {
-                return JavaScriptStructureViewModel(editor, psiFile)
-            }
+    override fun getStructureViewBuilder(psiFile: PsiFile) =
+        object : TreeBasedStructureViewBuilder() {
+            override fun createStructureViewModel(editor: Editor?) = createModel(psiFile, editor)
         }
-    }
 }
 
-private val SUITABLE_CLASSES: Array<Class<out Any>> = arrayOf(
-    JavaScriptFunctionDeclaration::class.java,
-    JavaScriptClassDeclaration::class.java,
-    JavaScriptClassElement::class.java,
-)
-
-class JavaScriptStructureViewModel(editor: Editor?, psiFile: PsiFile) :
-    StructureViewModelBase(psiFile, editor, JavaScriptStructureViewElement(psiFile)),
-    StructureViewModel.ElementInfoProvider {
-    override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
-    override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
-    override fun getSuitableClasses(): Array<Class<out Any>> = SUITABLE_CLASSES
+private fun createModel(psiFile: PsiFile, editor: Editor?): StructureViewModel {
+    return object : StructureViewModelBase(psiFile, editor, JavaScriptStructureViewElement(psiFile)),
+        StructureViewModel.ElementInfoProvider {
+        override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
+        override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
+    }.withSuitableClasses(
+        JavaScriptFunctionDeclaration::class.java,
+        JavaScriptClassDeclaration::class.java,
+        JavaScriptClassElement::class.java,
+    )
 }
 
-class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElement) : StructureViewTreeElement {
-    override fun getValue(): Any = myElement
+private class JavaScriptStructureViewElement(private val myElement: NavigatablePsiElement) : StructureViewTreeElement {
+    override fun getValue() = myElement
     override fun navigate(requestFocus: Boolean) = myElement.navigate(requestFocus)
     override fun canNavigate(): Boolean = myElement.canNavigate()
     override fun canNavigateToSource(): Boolean = myElement.canNavigateToSource()

@@ -81,6 +81,9 @@
         <lang.foldingBuilder
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>
+        <lang.psiStructureViewFactory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssStructureViewFactory"/>
         <annotator
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.CssHighlightingAnnotator"/>
