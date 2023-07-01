@@ -49,3 +49,9 @@ body a[target="_blank"] {
         display: flex;
     }
 }
+
+@font-feature-values Font One {
+    @styleset {
+        nice-style: 12;
+    }
+}

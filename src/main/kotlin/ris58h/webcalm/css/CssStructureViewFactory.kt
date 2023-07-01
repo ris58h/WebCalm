@@ -7,6 +7,7 @@ import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import ris58h.webcalm.css.psi.*
 
@@ -24,6 +25,7 @@ private fun createModel(psiFile: PsiFile, editor: Editor?): StructureViewModel {
         override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
     }.withSuitableClasses(
         CssNestedStatement::class.java,
+        CssFeatureValueBlock::class.java,
     )
 }
 
@@ -36,24 +38,29 @@ private class CssStructureViewElement(private val myElement: NavigatablePsiEleme
     override fun getPresentation(): ItemPresentation {
         return when (myElement) {
             is CssNestedStatement -> PresentationData(presentableText(myElement), null, null, null)
+            is CssFeatureValueBlock -> PresentationData(presentableText(myElement), null, null, null)
             else -> myElement.presentation ?: PresentationData()
         }
     }
 
-    private fun presentableText(nestedStatement: CssNestedStatement): String {
+    private fun presentableText(element: CssNestedStatement): String = substringBeforeOpenBrace(element)
+
+    private fun presentableText(element: CssFeatureValueBlock): String = substringBeforeOpenBrace(element)
+
+    private fun substringBeforeOpenBrace(element: PsiElement): String {
         // TODO a hack to get statement's description
-        return nestedStatement.text.substringBefore('{').trim()
+        return element.text.substringBefore('{').trim()
     }
 
     override fun getChildren(): Array<TreeElement> {
         return when (myElement) {
             is CssFile -> nestedStatementsToTreeChildren(myElement.statements)
-            // TODO: other statements that can have nested statements (@keyframes, @font-feature-values, etc.)
+            // TODO: other statements that can have nested statements (@keyframes, etc.)
             // CssNestedStatement cases
             is CssMediaRule -> nestedStatementsToTreeChildren(myElement.statements)
             is CssKeyframesRule -> TreeElement.EMPTY_ARRAY
             is CssSupportsRule -> nestedStatementsToTreeChildren(myElement.statements)
-            is CssFontFeatureValuesRule -> TreeElement.EMPTY_ARRAY
+            is CssFontFeatureValuesRule -> myElement.featureValueBlocks.map(::CssStructureViewElement).toTypedArray()
             is CssAtRule -> TreeElement.EMPTY_ARRAY
 
             else -> TreeElement.EMPTY_ARRAY

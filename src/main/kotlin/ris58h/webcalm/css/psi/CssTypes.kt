@@ -70,6 +70,8 @@ object CssTypes {
         private val VIEWPORT_RULE = RULES[css3Parser.RULE_viewport]
         private val COUNTER_STYLE_RULE = RULES[css3Parser.RULE_counterStyle]
         private val FONT_FEATURE_VALUES_RULE = RULES[css3Parser.RULE_fontFeatureValuesRule]
+        private val FEATURE_VALUE_BLOCK = RULES[css3Parser.RULE_featureValueBlock]
+        private val FEATURE_VALUE_DEFINITION = RULES[css3Parser.RULE_featureValueDefinition]
         private val AT_RULE = RULES[css3Parser.RULE_atRule]
         private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
@@ -95,6 +97,8 @@ object CssTypes {
                 VIEWPORT_RULE -> CssViewportRule(node)
                 COUNTER_STYLE_RULE -> CssCounterStyleRule(node)
                 FONT_FEATURE_VALUES_RULE -> CssFontFeatureValuesRule(node)
+                FEATURE_VALUE_BLOCK -> CssFeatureValueBlock(node)
+                FEATURE_VALUE_DEFINITION -> CssFeatureValueDefinition(node)
                 AT_RULE -> CssAtRule(node)
                 RULE_SET -> CssRuleSet(node)
                 DECLARATION_LIST -> CssDeclarationList(node)

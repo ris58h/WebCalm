@@ -20,6 +20,13 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
             return Indent.getNormalIndent()
         }
 
+        if (element is CssFeatureValueBlock) {
+            return Indent.getNormalIndent()
+        }
+        if (element is CssFeatureValueDefinition) {
+            return Indent.getNormalIndent()
+        }
+
         if (CssTokenSets.BRACES.contains(elementType) ||
             CssTokenSets.BRACKETS.contains(elementType) ||
             CssTokenSets.PARENTHESES.contains(elementType)) {
