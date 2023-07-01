@@ -37,7 +37,8 @@ class CssParserDefinition : ParserDefinition {
             override fun createListener(parser: Parser, root: IElementType, builder: PsiBuilder): ANTLRParseTreeToPSIConverter {
                 val rulesToDrop = setOf(
                     css3Parser.RULE_stylesheet,
-                    css3Parser.RULE_ws
+                    css3Parser.RULE_ws,
+                    css3Parser.RULE_nestedStatement,
                 )
                 return DropRuleNodeParseTreeToPsiConverter(rulesToDrop, language, parser, builder)
             }

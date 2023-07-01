@@ -48,15 +48,15 @@ private class CssStructureViewElement(private val myElement: NavigatablePsiEleme
 
     override fun getChildren(): Array<TreeElement> {
         return when (myElement) {
-            is CssFile -> elementsToTreeChildren(myElement.statements)
+            is CssFile -> nestedStatementsToTreeChildren(myElement.statements)
             // TODO: other statements that can have nested statements (@media, @keyframes, @supports, @font-feature-values, etc.)
             else -> TreeElement.EMPTY_ARRAY
         }
     }
 
-    private fun elementsToTreeChildren(elements: List<NavigatablePsiElement>): Array<TreeElement> {
+    private fun nestedStatementsToTreeChildren(elements: List<CssNestedStatement>): Array<TreeElement> {
         return elements
-            .map { CssStructureViewElement(it) }
+            .map { CssStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()
     }
 }
