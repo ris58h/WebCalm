@@ -2,5 +2,9 @@ package ris58h.webcalm.css.psi
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.util.PsiTreeUtil
 
-class CssMediaRule(node: ASTNode) : ASTWrapperPsiElement(node), CssNestedStatement
+class CssMediaRule(node: ASTNode) : ASTWrapperPsiElement(node), CssNestedStatement {
+    val statements: List<CssNestedStatement>
+        get() = PsiTreeUtil.getChildrenOfTypeAsList(this, CssNestedStatement::class.java)
+}

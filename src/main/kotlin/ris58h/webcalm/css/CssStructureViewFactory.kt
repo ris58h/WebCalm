@@ -8,8 +8,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiFile
-import ris58h.webcalm.css.psi.CssFile
-import ris58h.webcalm.css.psi.CssNestedStatement
+import ris58h.webcalm.css.psi.*
 
 class CssStructureViewFactory : PsiStructureViewFactory {
     override fun getStructureViewBuilder(psiFile: PsiFile) =
@@ -49,7 +48,14 @@ private class CssStructureViewElement(private val myElement: NavigatablePsiEleme
     override fun getChildren(): Array<TreeElement> {
         return when (myElement) {
             is CssFile -> nestedStatementsToTreeChildren(myElement.statements)
-            // TODO: other statements that can have nested statements (@media, @keyframes, @supports, @font-feature-values, etc.)
+            // TODO: other statements that can have nested statements (@keyframes, @font-feature-values, etc.)
+            // CssNestedStatement cases
+            is CssMediaRule -> nestedStatementsToTreeChildren(myElement.statements)
+            is CssKeyframesRule -> TreeElement.EMPTY_ARRAY
+            is CssSupportsRule -> nestedStatementsToTreeChildren(myElement.statements)
+            is CssFontFeatureValuesRule -> TreeElement.EMPTY_ARRAY
+            is CssAtRule -> TreeElement.EMPTY_ARRAY
+
             else -> TreeElement.EMPTY_ARRAY
         }
     }

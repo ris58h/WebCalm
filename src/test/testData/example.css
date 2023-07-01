@@ -38,3 +38,14 @@ body a[target="_blank"] {
         background: no-repeat url("../../media/examples/lizard.png");
     }
 }
+
+@supports (display: flex) {
+    .flex-container > * {
+        text-shadow: 0 0 2px blue;
+        float: none;
+    }
+
+    .flex-container {
+        display: flex;
+    }
+}
