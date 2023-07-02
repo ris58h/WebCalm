@@ -71,7 +71,6 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
     }
 
     override fun getChildAttributes(newChildIndex: Int): ChildAttributes {
-        // TODO: it's a hack to indent insertion after '{' and before '}'
         val subBlocks = subBlocks
         fun isBraceSubBlock(index: Int, braceElementType: TokenIElementType): Boolean {
             if (index >= 0 && index < subBlocks.size) {
@@ -85,9 +84,15 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
             }
             return false
         }
+        // Indent insertion after '{' and before '}'
         if (isBraceSubBlock(newChildIndex - 1, CssTypes.OPEN_BRACE) || isBraceSubBlock(newChildIndex, CssTypes.CLOSE_BRACE)) {
             return ChildAttributes(Indent.getNormalIndent(), null)
         }
+        // Indent insertion after '}' (most rules end with 'ws')
+        if (newChildIndex == subBlocks.size && isBraceSubBlock(newChildIndex - 1, CssTypes.CLOSE_BRACE)) {
+            return ChildAttributes(Indent.getNoneIndent(), null)
+        }
+
 
         return super.getChildAttributes(newChildIndex)
     }
