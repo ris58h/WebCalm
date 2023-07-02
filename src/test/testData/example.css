@@ -66,3 +66,8 @@ body a[target="_blank"] {
     }
 }
 
+@foo {
+    @bar {
+        .baz {}
+    }
+}

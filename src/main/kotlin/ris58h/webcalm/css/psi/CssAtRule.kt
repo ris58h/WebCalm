@@ -4,4 +4,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 
 // Other @ rules
-class CssAtRule(node: ASTNode) : ASTWrapperPsiElement(node), CssNestedStatement
+class CssAtRule(node: ASTNode) : ASTWrapperPsiElement(node), CssNestedStatement {
+    val block: CssBlock?
+        get() = this.findChildByClass(CssBlock::class.java)
+}

@@ -52,20 +52,20 @@ private class CssStructureViewElement(private val myElement: NavigatablePsiEleme
 
     override fun getChildren(): Array<TreeElement> {
         return when (myElement) {
-            is CssFile -> nestedStatementsToTreeChildren(myElement.statements)
-            // TODO: other statements that can have nested statements (@ rules)
+            is CssFile -> elementsToTreeChildren(myElement.statements)
+
             // CssNestedStatement cases
-            is CssMediaRule -> nestedStatementsToTreeChildren(myElement.statements)
-            is CssKeyframesRule -> myElement.keyframeBlocks.map(::CssStructureViewElement).toTypedArray()
-            is CssSupportsRule -> nestedStatementsToTreeChildren(myElement.statements)
-            is CssFontFeatureValuesRule -> myElement.featureValueBlocks.map(::CssStructureViewElement).toTypedArray()
-            is CssAtRule -> TreeElement.EMPTY_ARRAY
+            is CssMediaRule -> elementsToTreeChildren(myElement.statements)
+            is CssKeyframesRule -> elementsToTreeChildren(myElement.keyframeBlocks)
+            is CssSupportsRule -> elementsToTreeChildren(myElement.statements)
+            is CssFontFeatureValuesRule -> elementsToTreeChildren(myElement.featureValueBlocks)
+            is CssAtRule -> elementsToTreeChildren(myElement.block?.statements ?: emptyList())
 
             else -> TreeElement.EMPTY_ARRAY
         }
     }
 
-    private fun nestedStatementsToTreeChildren(elements: List<CssNestedStatement>): Array<TreeElement> {
+    private fun elementsToTreeChildren(elements: List<PsiElement>): Array<TreeElement> {
         return elements
             .map { CssStructureViewElement(it as NavigatablePsiElement) }
             .toTypedArray()

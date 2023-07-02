@@ -77,6 +77,7 @@ object CssTypes {
         private val FEATURE_VALUE_DEFINITION = RULES[css3Parser.RULE_featureValueDefinition]
         private val AT_RULE = RULES[css3Parser.RULE_atRule]
         private val AT_KEYWORD = RULES[css3Parser.RULE_atKeyword]
+        private val BLOCK = RULES[css3Parser.RULE_block]
         private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
         private val PROPERTY = RULES[css3Parser.RULE_property_]
@@ -106,6 +107,7 @@ object CssTypes {
                 FEATURE_VALUE_DEFINITION -> CssFeatureValueDefinition(node)
                 AT_RULE -> CssAtRule(node)
                 AT_KEYWORD -> CssAtKeyword(node)
+                BLOCK -> CssBlock(node)
                 RULE_SET -> CssRuleSet(node)
                 DECLARATION_LIST -> CssDeclarationList(node)
                 DECLARATION -> CssDeclaration(node)
