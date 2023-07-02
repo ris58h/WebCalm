@@ -45,6 +45,8 @@ object CssTypes {
     val TO_KEYWORD = TOKENS[css3Lexer.To]!!
     val PLUS_OP = TOKENS[css3Lexer.Plus]!!
     val MINUS_OP = TOKENS[css3Lexer.Minus]!!
+    val DIVIDE_OP = TOKENS[css3Lexer.Divide]!!
+    val MULTIPLY_OP = TOKENS[css3Lexer.Multiply]!!
     val OPEN_BRACE = TOKENS[css3Lexer.OpenBrace]!!
     val CLOSE_BRACE = TOKENS[css3Lexer.CloseBrace]!!
     val OPEN_BRACKET = TOKENS[css3Lexer.OpenBracket]!!

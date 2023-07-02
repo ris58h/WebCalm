@@ -31,5 +31,7 @@ object CssTokenSets {
     val OPERATIONS = TokenSet.create(
         CssTypes.PLUS_OP,
         CssTypes.MINUS_OP,
+        CssTypes.DIVIDE_OP,
+        CssTypes.MULTIPLY_OP,
     )
 }
