@@ -66,6 +66,7 @@ object CssTypes {
         private val PAGE_RULE = RULES[css3Parser.RULE_page]
         private val FONT_FACE_RULE = RULES[css3Parser.RULE_fontFaceRule]
         private val KEYFRAMES_RULE = RULES[css3Parser.RULE_keyframesRule]
+        private val KEYFRAME_BLOCK = RULES[css3Parser.RULE_keyframeBlock]
         private val SUPPORTS_RULE = RULES[css3Parser.RULE_supportsRule]
         private val VIEWPORT_RULE = RULES[css3Parser.RULE_viewport]
         private val COUNTER_STYLE_RULE = RULES[css3Parser.RULE_counterStyle]
@@ -93,6 +94,7 @@ object CssTypes {
                 PAGE_RULE -> CssPageRule(node)
                 FONT_FACE_RULE -> CssFontFaceRule(node)
                 KEYFRAMES_RULE -> CssKeyframesRule(node)
+                KEYFRAME_BLOCK -> CssKeyframeBlock(node)
                 SUPPORTS_RULE -> CssSupportsRule(node)
                 VIEWPORT_RULE -> CssViewportRule(node)
                 COUNTER_STYLE_RULE -> CssCounterStyleRule(node)

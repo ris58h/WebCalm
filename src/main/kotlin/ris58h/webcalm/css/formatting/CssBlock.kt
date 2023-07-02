@@ -27,6 +27,10 @@ class CssBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : AbstractBloc
             return Indent.getNormalIndent()
         }
 
+        if (element is CssKeyframeBlock) {
+            return Indent.getNormalIndent()
+        }
+
         if (CssTokenSets.BRACES.contains(elementType) ||
             CssTokenSets.BRACKETS.contains(elementType) ||
             CssTokenSets.PARENTHESES.contains(elementType)) {
