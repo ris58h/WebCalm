@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- [CSS] Show colors in completion.
+
 ## [0.9] - 2023-07-03
 
 ### Added
