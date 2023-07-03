@@ -215,6 +215,14 @@ object CssPropertyLookupElements {
     private val FLEX_GROW_VALUES = EMPTY_VALUES
     private val FLEX_SHRINK_VALUES = EMPTY_VALUES
 
+    private val FONT_FAMILY_VALUES = EMPTY_VALUES
+    private val FONT_SIZE_VALUES = values("medium", "xx-small", "x-small", "small", "large", "x-large", "xx-large", "smaller", "larger")
+    private val FONT_STYLE_VALUES = values("normal", "italic", "oblique")
+    private val FONT_VARIANT_VALUES = values("normal", "small-caps")
+    private val FONT_WEIGHT_VALUES = values("normal", "bold", "bolder", "lighter")
+
+    private val LINE_HEIGHT_VALUES = NORMAL_VALUE
+
     private val OVERFLOW_VALUES = values("visible", "hidden", "scroll", "auto")
     private val OVERSCROLL_BEHAVIOR_VALUES = values("auto", "contain", "none")
 
@@ -244,13 +252,13 @@ object CssPropertyLookupElements {
         "backdrop-filter" to NONE_VALUE,
         "backface-visibility" to values("visible", "hidden"),
         "background" to BACKGROUND_IMAGE_VALUES +
-            BACKGROUND_POSITION_VALUES +
-            BACKGROUND_SIZE_VALUES +
-            BACKGROUND_REPEAT_VALUES +
-            BACKGROUND_ORIGIN_VALUES +
-            BACKGROUND_CLIP_VALUES +
-            BACKGROUND_ATTACHMENT_VALUES +
-            BACKGROUND_COLOR_VALUES,
+                BACKGROUND_POSITION_VALUES +
+                BACKGROUND_SIZE_VALUES +
+                BACKGROUND_REPEAT_VALUES +
+                BACKGROUND_ORIGIN_VALUES +
+                BACKGROUND_CLIP_VALUES +
+                BACKGROUND_ATTACHMENT_VALUES +
+                BACKGROUND_COLOR_VALUES,
         "background-attachment" to BACKGROUND_ATTACHMENT_VALUES,
         "background-blend-mode" to values("normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "saturation", "color", "luminosity"),
         "background-clip" to BACKGROUND_CLIP_VALUES,
@@ -360,17 +368,22 @@ object CssPropertyLookupElements {
         "flex-shrink" to FLEX_SHRINK_VALUES,
         "flex-wrap" to values("nowrap", "wrap", "wrap-reverse"),
         "float" to values("none", "left", "right"),
-        "font" to values("caption", "icon", "menu", "message-box", "small-caption", "status-bar"),
-        "font-family" to EMPTY_VALUES,
+        "font" to values("caption", "icon", "menu", "message-box", "small-caption", "status-bar") +
+                FONT_STYLE_VALUES +
+                FONT_VARIANT_VALUES +
+                FONT_WEIGHT_VALUES +
+                FONT_SIZE_VALUES + LINE_HEIGHT_VALUES +
+                FONT_FAMILY_VALUES,
+        "font-family" to FONT_FAMILY_VALUES,
         "font-feature-settings" to NORMAL_VALUE,
         "font-kerning" to values("auto", "normal", "none"),
-        "font-size" to values("medium", "xx-small", "x-small", "small", "large", "x-large", "xx-large", "smaller", "larger"),
+        "font-size" to FONT_SIZE_VALUES,
         "font-size-adjust" to NONE_VALUE,
         "font-stretch" to values("ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded"),
-        "font-style" to values("normal", "italic", "oblique"),
-        "font-variant" to values("normal", "small-caps"),
+        "font-style" to FONT_STYLE_VALUES,
+        "font-variant" to FONT_VARIANT_VALUES,
         "font-variant-caps" to values("normal", "small-caps", "all-small-caps", "petite-caps", "all-petite-caps", "unicase", "titling-caps", "unset"),
-        "font-weight" to values("normal", "bold", "bolder", "lighter"),
+        "font-weight" to FONT_WEIGHT_VALUES,
         "gap" to EMPTY_VALUES,
         "grid" to NONE_VALUE,
         "grid-area" to EMPTY_VALUES,
@@ -408,7 +421,7 @@ object CssPropertyLookupElements {
         "justify-self" to values("auto", "normal", "stretch"),
         "left" to AUTO_VALUE,
         "letter-spacing" to NORMAL_VALUE,
-        "line-height" to NORMAL_VALUE,
+        "line-height" to LINE_HEIGHT_VALUES,
         "list-style" to EMPTY_VALUES,
         "list-style-image" to NONE_VALUE,
         "list-style-position" to values("inside", "outside"),
