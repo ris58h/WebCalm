@@ -183,10 +183,17 @@ object CssPropertyLookupElements {
     private val NONE = lookupElements("none")
     private val NORMAL = lookupElements("normal")
 
-    private val HORIZONTAL_POSITIONS = lookupElements("left", "right", "center")
-
     private val STYLE_VALUES = lookupElements("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")
     private val WIDTH_VALUES = lookupElements("medium", "thin", "thick")
+
+    private val BACKGROUND_ATTACHMENT_VALUES = lookupElements("scroll", "fixed", "local")
+    private val BACKGROUND_CLIP_VALUES = lookupElements("border-box", "padding-box", "content-box")
+    private val BACKGROUND_COLOR_VALUES = COLOR_VALUES
+    private val BACKGROUND_IMAGE_VALUES = NONE
+    private val BACKGROUND_ORIGIN_VALUES = lookupElements("padding-box", "border-box", "content-box")
+    private val BACKGROUND_POSITION_VALUES = lookupElements("left", "right", "center")
+    private val BACKGROUND_REPEAT_VALUES = lookupElements("repeat", "repeat-x", "repeat-y", "no-repeat")
+    private val BACKGROUND_SIZE_VALUES = lookupElements("auto", "cover", "contain")
 
     private val BREAK_VALUES = lookupElements("auto", "all", "always", "avoid", "avoid-column", "avoid-page", "avoid-region", "column", "left", "page", "recto", "region", "right", "verso")
 
@@ -211,18 +218,25 @@ object CssPropertyLookupElements {
         "aspect-ratio" to emptyList(),
         "backdrop-filter" to NONE,
         "backface-visibility" to lookupElements("visible", "hidden"),
-        "background" to emptyList(),
-        "background-attachment" to lookupElements("scroll", "fixed", "local"),
+        "background" to BACKGROUND_IMAGE_VALUES +
+            BACKGROUND_POSITION_VALUES +
+            BACKGROUND_SIZE_VALUES +
+            BACKGROUND_REPEAT_VALUES +
+            BACKGROUND_ORIGIN_VALUES +
+            BACKGROUND_CLIP_VALUES +
+            BACKGROUND_ATTACHMENT_VALUES +
+            BACKGROUND_COLOR_VALUES,
+        "background-attachment" to BACKGROUND_ATTACHMENT_VALUES,
         "background-blend-mode" to lookupElements("normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "saturation", "color", "luminosity"),
-        "background-clip" to lookupElements("border-box", "padding-box", "content-box"),
-        "background-color" to COLOR_VALUES,
-        "background-image" to NONE,
-        "background-origin" to lookupElements("padding-box", "border-box", "content-box"),
-        "background-position" to HORIZONTAL_POSITIONS,
-        "background-position-x" to HORIZONTAL_POSITIONS,
-        "background-position-y" to HORIZONTAL_POSITIONS,
-        "background-repeat" to lookupElements("repeat", "repeat-x", "repeat-y", "no-repeat"),
-        "background-size" to lookupElements("auto", "cover", "contain"),
+        "background-clip" to BACKGROUND_CLIP_VALUES,
+        "background-color" to BACKGROUND_COLOR_VALUES,
+        "background-image" to BACKGROUND_IMAGE_VALUES,
+        "background-origin" to BACKGROUND_ORIGIN_VALUES,
+        "background-position" to BACKGROUND_POSITION_VALUES,
+        "background-position-x" to BACKGROUND_POSITION_VALUES,
+        "background-position-y" to BACKGROUND_POSITION_VALUES,
+        "background-repeat" to BACKGROUND_REPEAT_VALUES,
+        "background-size" to BACKGROUND_SIZE_VALUES,
         "block-size" to AUTO,
         "border" to emptyList(),
         "border-block" to emptyList(),
