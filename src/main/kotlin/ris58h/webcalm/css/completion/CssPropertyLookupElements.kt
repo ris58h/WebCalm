@@ -186,6 +186,15 @@ object CssPropertyLookupElements {
     private val STYLE_VALUES = lookupElements("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")
     private val WIDTH_VALUES = lookupElements("medium", "thin", "thick")
 
+    private val ANIMATION_DELAY_VALUES = lookupElements()
+    private val ANIMATION_DIRECTION_VALUES = lookupElements()
+    private val ANIMATION_DURATION_VALUES = lookupElements()
+    private val ANIMATION_FILL_MODE_VALUES = lookupElements("none", "forwards", "backwards", "both")
+    private val ANIMATION_ITERATION_COUNT_VALUES = lookupElements("infinite")
+    private val ANIMATION_NAME_VALUES = NONE
+    private val ANIMATION_PLAY_STATE_VALUES = lookupElements("paused", "running")
+    private val ANIMATION_TIMING_FUNCTION_VALUES = lookupElements("linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end")
+
     private val BACKGROUND_ATTACHMENT_VALUES = lookupElements("scroll", "fixed", "local")
     private val BACKGROUND_CLIP_VALUES = lookupElements("border-box", "padding-box", "content-box")
     private val BACKGROUND_COLOR_VALUES = COLOR_VALUES
@@ -210,15 +219,22 @@ object CssPropertyLookupElements {
         "align-items" to lookupElements("normal", "stretch", "center", "flex-start", "flex-end", "baseline"),
         "align-self" to lookupElements("auto", "stretch", "center", "flex-start", "flex-end", "baseline"),
         "all" to lookupElements("unset"),
-        "animation" to emptyList(),
-        "animation-delay" to emptyList(),
-        "animation-direction" to emptyList(),
-        "animation-duration" to emptyList(),
-        "animation-fill-mode" to lookupElements("none", "forwards", "backwards", "both"),
-        "animation-iteration-count" to lookupElements("infinite"),
-        "animation-name" to NONE,
-        "animation-play-state" to lookupElements("paused", "running"),
-        "animation-timing-function" to lookupElements("linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
+        "animation" to ANIMATION_DELAY_VALUES +
+                ANIMATION_DIRECTION_VALUES +
+                ANIMATION_DURATION_VALUES +
+                ANIMATION_FILL_MODE_VALUES +
+                ANIMATION_ITERATION_COUNT_VALUES +
+                ANIMATION_NAME_VALUES +
+                ANIMATION_PLAY_STATE_VALUES +
+                ANIMATION_TIMING_FUNCTION_VALUES,
+        "animation-delay" to ANIMATION_DELAY_VALUES,
+        "animation-direction" to ANIMATION_DIRECTION_VALUES,
+        "animation-duration" to ANIMATION_DURATION_VALUES,
+        "animation-fill-mode" to ANIMATION_FILL_MODE_VALUES,
+        "animation-iteration-count" to ANIMATION_ITERATION_COUNT_VALUES,
+        "animation-name" to ANIMATION_NAME_VALUES,
+        "animation-play-state" to ANIMATION_PLAY_STATE_VALUES,
+        "animation-timing-function" to ANIMATION_TIMING_FUNCTION_VALUES,
         "aspect-ratio" to emptyList(),
         "backdrop-filter" to NONE,
         "backface-visibility" to lookupElements("visible", "hidden"),
