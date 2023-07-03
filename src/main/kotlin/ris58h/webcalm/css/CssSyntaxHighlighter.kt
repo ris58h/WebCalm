@@ -1,9 +1,7 @@
 package ris58h.webcalm.css
 
-import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project
@@ -14,11 +12,10 @@ import ris58h.webcalm.css.psi.CssTypes
 
 class CssSyntaxHighlighter : SyntaxHighlighterBase() {
     class Factory : SyntaxHighlighterFactory() {
-        override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter =
-            CssSyntaxHighlighter()
+        override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?) = CssSyntaxHighlighter()
     }
 
-    override fun getHighlightingLexer(): Lexer = CssLexer()
+    override fun getHighlightingLexer() = CssLexer()
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
         if (CssTokenSets.COMMENTS.contains(tokenType)) {

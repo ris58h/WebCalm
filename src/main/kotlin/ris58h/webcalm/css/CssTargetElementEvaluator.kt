@@ -9,8 +9,6 @@ class CssTargetElementEvaluator : TargetElementEvaluatorEx2() {
         return if (element is CssVariable && element.isDeclaration) element else null
     }
 
-    override fun isAcceptableNamedParent(parent: PsiElement): Boolean {
-        // We rely on getNamedElement method.
-        return false
-    }
+    // We rely on getNamedElement method.
+    override fun isAcceptableNamedParent(parent: PsiElement) = false
 }

@@ -23,9 +23,7 @@ class HtmlStyleAttributeCssInjector : MultiHostInjector {
         }
     }
 
-    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
-        return listOf(XmlAttributeValue::class.java)
-    }
+    override fun elementsToInjectIn() = listOf(XmlAttributeValue::class.java)
 
     private fun isStyleAttribute(attribute: XmlAttribute?): Boolean {
         return attribute != null && attribute.localName.equals(HtmlUtil.STYLE_ATTRIBUTE_NAME, ignoreCase = true)

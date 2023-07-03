@@ -22,9 +22,7 @@ class HtmlAttributeJavaScriptInjector : MultiHostInjector {
         }
     }
 
-    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
-        return listOf(XmlAttributeValue::class.java)
-    }
+    override fun elementsToInjectIn() = listOf(XmlAttributeValue::class.java)
 
     private fun isEventHandlerAttribute(attribute: XmlAttribute?): Boolean {
         return attribute != null && EVENT_HANDLER_ATTRIBUTE_NAMES.contains(attribute.localName.toLowerCase())

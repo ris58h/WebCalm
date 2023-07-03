@@ -28,9 +28,7 @@ class HtmlStyleTagCssInjector : MultiHostInjector {
         registrar.doneInjecting()
     }
 
-    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
-        return listOf(XmlText::class.java)
-    }
+    override fun elementsToInjectIn() = listOf(XmlText::class.java)
 
     private fun isStyleTag(tag: XmlTag?): Boolean {
         return tag != null && tag.localName.equals(HtmlUtil.STYLE_TAG_NAME, ignoreCase = true)

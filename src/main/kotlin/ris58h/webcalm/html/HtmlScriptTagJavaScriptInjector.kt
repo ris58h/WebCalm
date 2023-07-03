@@ -29,7 +29,5 @@ class HtmlScriptTagJavaScriptInjector : MultiHostInjector {
         }
     }
 
-    override fun elementsToInjectIn(): List<Class<out PsiElement>> {
-        return listOf(XmlText::class.java)
-    }
+    override fun elementsToInjectIn() = listOf(XmlText::class.java)
 }

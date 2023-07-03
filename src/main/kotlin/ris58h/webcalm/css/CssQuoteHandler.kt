@@ -27,11 +27,7 @@ class CssQuoteHandler : QuoteHandler {
         return false
     }
 
-    override fun hasNonClosedLiteral(editor: Editor, iterator: HighlighterIterator, offset: Int): Boolean {
-        return true
-    }
+    override fun hasNonClosedLiteral(editor: Editor, iterator: HighlighterIterator, offset: Int) = true
 
-    override fun isInsideLiteral(iterator: HighlighterIterator): Boolean {
-        return false
-    }
+    override fun isInsideLiteral(iterator: HighlighterIterator) = false
 }

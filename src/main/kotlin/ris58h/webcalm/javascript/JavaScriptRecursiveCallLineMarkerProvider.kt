@@ -15,7 +15,7 @@ import ris58h.webcalm.javascript.psi.JavaScriptIdentifierExpression
 import java.util.function.Supplier
 
 class JavaScriptRecursiveCallLineMarkerProvider : LineMarkerProvider, DumbAware {
-    override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? = null
+    override fun getLineMarkerInfo(element: PsiElement) = null
 
     override fun collectSlowLineMarkers(elements: List<PsiElement>, result: MutableCollection<in LineMarkerInfo<*>>) {
         val lines = HashSet<Int>()

@@ -33,8 +33,8 @@ private fun createModel(psiFile: PsiFile, editor: Editor?): StructureViewModel {
 private class CssStructureViewElement(private val myElement: NavigatablePsiElement) : StructureViewTreeElement {
     override fun getValue() = myElement
     override fun navigate(requestFocus: Boolean) = myElement.navigate(requestFocus)
-    override fun canNavigate(): Boolean = myElement.canNavigate()
-    override fun canNavigateToSource(): Boolean = myElement.canNavigateToSource()
+    override fun canNavigate() = myElement.canNavigate()
+    override fun canNavigateToSource() = myElement.canNavigateToSource()
 
     override fun getPresentation(): ItemPresentation {
         return when (myElement) {

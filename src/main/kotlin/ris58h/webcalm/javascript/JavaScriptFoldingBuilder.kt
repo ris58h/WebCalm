@@ -40,9 +40,9 @@ class JavaScriptFoldingBuilder : FoldingBuilderEx() {
         return descriptors.toTypedArray()
     }
 
-    override fun getPlaceholderText(node: ASTNode): String? = null
+    override fun getPlaceholderText(node: ASTNode) = null
 
-    override fun isCollapsedByDefault(node: ASTNode): Boolean = false
+    override fun isCollapsedByDefault(node: ASTNode) = false
 
     private fun isOnMultipleLines(textRange: TextRange, document: Document): Boolean {
         val startLineNumber = document.getLineNumber(textRange.startOffset)

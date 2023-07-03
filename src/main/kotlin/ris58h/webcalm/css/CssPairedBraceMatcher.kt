@@ -7,9 +7,9 @@ import com.intellij.psi.tree.IElementType
 import ris58h.webcalm.css.psi.CssTypes
 
 class CssPairedBraceMatcher : PairedBraceMatcher {
-    override fun getPairs(): Array<BracePair> = PAIRS
-    override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?): Boolean = true
-    override fun getCodeConstructStart(file: PsiFile?, openingBraceOffset: Int): Int = openingBraceOffset
+    override fun getPairs() = PAIRS
+    override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?) = true
+    override fun getCodeConstructStart(file: PsiFile?, openingBraceOffset: Int) = openingBraceOffset
 }
 
 private val PAIRS = arrayOf(

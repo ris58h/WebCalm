@@ -17,8 +17,6 @@ class JavaScriptTargetElementEvaluator : TargetElementEvaluatorEx2() {
         return null
     }
 
-    override fun isAcceptableNamedParent(parent: PsiElement): Boolean {
-        // We rely on getNamedElement method.
-        return false
-    }
+    // We rely on getNamedElement method.
+    override fun isAcceptableNamedParent(parent: PsiElement) = false
 }

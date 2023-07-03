@@ -1,14 +1,13 @@
 package ris58h.webcalm.javascript
 
 import com.intellij.codeInsight.daemon.RainbowVisitor
-import com.intellij.codeInsight.daemon.impl.HighlightVisitor
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import ris58h.webcalm.javascript.psi.*
 
 class JavaScriptRainbowVisitor : RainbowVisitor() {
-    override fun suitableForFile(file: PsiFile): Boolean = file is JavaScriptFile
+    override fun suitableForFile(file: PsiFile) = file is JavaScriptFile
 
     override fun visit(element: PsiElement) {
         if (element !is JavaScriptIdentifier) return
@@ -19,5 +18,5 @@ class JavaScriptRainbowVisitor : RainbowVisitor() {
         }
     }
 
-    override fun clone(): HighlightVisitor = JavaScriptRainbowVisitor()
+    override fun clone() = JavaScriptRainbowVisitor()
 }
