@@ -59,7 +59,7 @@ private class CssStructureViewElement(private val myElement: NavigatablePsiEleme
             is CssKeyframesRule -> elementsToTreeChildren(myElement.keyframeBlocks)
             is CssSupportsRule -> elementsToTreeChildren(myElement.statements)
             is CssFontFeatureValuesRule -> elementsToTreeChildren(myElement.featureValueBlocks)
-            is CssAtRule -> elementsToTreeChildren(myElement.block?.statements ?: emptyList())
+            is CssAtRule -> elementsToTreeChildren(myElement.block?.statements.orEmpty())
 
             else -> TreeElement.EMPTY_ARRAY
         }
