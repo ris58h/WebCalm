@@ -211,6 +211,10 @@ object CssPropertyLookupElements {
 
     private val BREAK_VALUES = values("auto", "all", "always", "avoid", "avoid-column", "avoid-page", "avoid-region", "column", "left", "page", "recto", "region", "right", "verso")
 
+    private val FLEX_BASIS_VALUES = AUTO_VALUE
+    private val FLEX_GROW_VALUES = EMPTY_VALUES
+    private val FLEX_SHRINK_VALUES = EMPTY_VALUES
+
     private val OVERFLOW_VALUES = values("visible", "hidden", "scroll", "auto")
     private val OVERSCROLL_BEHAVIOR_VALUES = values("auto", "contain", "none")
 
@@ -348,12 +352,12 @@ object CssPropertyLookupElements {
         "display" to values("inline", "block", "contents", "flex", "grid", "inline-block", "inline-flex", "inline-grid", "inline-table", "list-item", "run-in", "table", "table-caption", "table-column-group", "table-header-group", "table-footer-group", "table-row-group", "table-cell", "table-column", "table-row", "none"),
         "empty-cells" to values("show", "hide"),
         "filter" to NONE_VALUE,
-        "flex" to AUTO_VALUE,
-        "flex-basis" to AUTO_VALUE,
+        "flex" to FLEX_BASIS_VALUES + FLEX_GROW_VALUES + FLEX_SHRINK_VALUES,
+        "flex-basis" to FLEX_BASIS_VALUES,
         "flex-direction" to values("row", "row-reverse", "column", "column-reverse"),
         "flex-flow" to EMPTY_VALUES,
-        "flex-grow" to EMPTY_VALUES,
-        "flex-shrink" to EMPTY_VALUES,
+        "flex-grow" to FLEX_GROW_VALUES,
+        "flex-shrink" to FLEX_SHRINK_VALUES,
         "flex-wrap" to values("nowrap", "wrap", "wrap-reverse"),
         "float" to values("none", "left", "right"),
         "font" to values("caption", "icon", "menu", "message-box", "small-caption", "status-bar"),
