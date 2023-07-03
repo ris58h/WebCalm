@@ -3,8 +3,6 @@ package ris58h.webcalm.css.completion
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.completion.InsertHandler
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.ProcessingContext
@@ -26,18 +24,7 @@ class CssPropertyValueCompletionProvider : CompletionProvider<CompletionParamete
             result.addAllElements(lookupElements)
         }
 
-        result.addElement(keywordWithParentheses("calc"))
-        result.addElement(keywordWithParentheses("var"))
+        result.addElement(CssPropertyLookupElements.function("calc"))
+        result.addElement(CssPropertyLookupElements.function("var"))
     }
-}
-
-private fun keywordWithParentheses(keyword: String): LookupElement {
-    return LookupElementBuilder.create("$keyword()")
-        .withInsertHandler(moveCaretRelatively(-1, 0))
-        .withPresentableText(keyword).bold()
-        .withTailText("(...)")
-}
-
-private fun moveCaretRelatively(columnShift: Int, lineShift: Int): InsertHandler<LookupElement> {
-    return InsertHandler { context, _ -> context.editor.caretModel.moveCaretRelatively(columnShift, lineShift, false, false, true) }
 }

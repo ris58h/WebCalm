@@ -1,5 +1,6 @@
 package ris58h.webcalm.css.completion
 
+import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ui.ColorIcon
@@ -175,7 +176,7 @@ object CssPropertyLookupElements {
         "MarkText",
         "VisitedText",
     )
-    private val NAMED_COLOR_VALUES = COLORS_BY_NAME.entries.map { e -> colorValue(e.key, e.value) }
+    private val NAMED_COLOR_VALUES = COLORS_BY_NAME.entries.map { e -> color(e.key, e.value) }
     private val COLOR_BASE_VALUES = NAMED_COLOR_VALUES + values("transparent")
     private val COLOR_VALUES = COLOR_BASE_VALUES + values("currentcolor") + SYSTEM_COLOR_VALUES
 
@@ -229,6 +230,31 @@ object CssPropertyLookupElements {
     private val OVERSCROLL_BEHAVIOR_VALUES = values("auto", "contain", "none")
 
     private val ROW_GAP_VALUES = NORMAL_VALUE
+
+    private val TRANSFORM_FUNCTION_NAMES = listOf(
+        "matrix",
+        "matrix3d",
+        "translate",
+        "translate3d",
+        "translateX",
+        "translateY",
+        "translateZ",
+        "scale",
+        "scale3d",
+        "scaleX",
+        "scaleY",
+        "scaleZ",
+        "rotate",
+        "rotate3d",
+        "rotateX",
+        "rotateY",
+        "rotateZ",
+        "skew",
+        "skewX",
+        "skewY",
+        "perspective",
+    )
+    private val TRANSFORM_VALUES = NONE_VALUE + TRANSFORM_FUNCTION_NAMES.map { function(it) }
 
     val PROPERTY_VALUES_LOOKUP_ELEMENTS = mapOf(
         "accent-color" to COLOR_VALUES + AUTO_VALUE,
@@ -552,7 +578,7 @@ object CssPropertyLookupElements {
         "text-shadow" to NONE_VALUE,
         "text-transform" to values("none", "capitalize", "uppercase", "lowercase"),
         "top" to AUTO_VALUE,
-        "transform" to NONE_VALUE,
+        "transform" to TRANSFORM_VALUES,
         "transform-origin" to EMPTY_VALUES,
         "transform-style" to values("flat", "preserve-3d"),
         "transition" to EMPTY_VALUES,
@@ -581,8 +607,19 @@ object CssPropertyLookupElements {
         return names.map { LookupElementBuilder.create(it) }
     }
 
-    private fun colorValue(name: String, hexString: String): LookupElement {
+    private fun color(name: String, hexString: String): LookupElement {
         return LookupElementBuilder.create(name)
             .withIcon(ColorIcon(8, Color.decode(hexString)))
     }
+
+    fun function(name: String): LookupElement {
+        return LookupElementBuilder.create("$name()")
+            .withInsertHandler(moveCaretRelatively(-1, 0))
+            .withPresentableText(name).bold()
+            .withTailText("(...)")
+    }
+}
+
+private fun moveCaretRelatively(columnShift: Int, lineShift: Int): InsertHandler<LookupElement> {
+    return InsertHandler { context, _ -> context.editor.caretModel.moveCaretRelatively(columnShift, lineShift, false, false, true) }
 }
