@@ -6,6 +6,7 @@
 
 ### Added
 - [CSS] Show colors in completion.
+- [CSS] More suggestions in property values completion.
 
 ## [0.9] - 2023-07-03
 
