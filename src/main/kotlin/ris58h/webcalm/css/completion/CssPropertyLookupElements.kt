@@ -391,7 +391,18 @@ object CssPropertyLookupElements {
         "direction" to values("ltr", "rtl"),
         "display" to values("inline", "block", "contents", "flex", "grid", "inline-block", "inline-flex", "inline-grid", "inline-table", "list-item", "run-in", "table", "table-caption", "table-column-group", "table-header-group", "table-footer-group", "table-row-group", "table-cell", "table-column", "table-row", "none"),
         "empty-cells" to values("show", "hide"),
-        "filter" to NONE_VALUE,
+        "filter" to NONE_VALUE +
+                function("blur") +
+                function("brightness") +
+                function("contrast") +
+                function("drop-shadow") +
+                function("grayscale") +
+                function("hue-rotate") +
+                function("invert") +
+                function("opacity") +
+                function("saturate") +
+                function("sepia") +
+                function("url"),
         "flex" to FLEX_BASIS_VALUES + FLEX_GROW_VALUES + FLEX_SHRINK_VALUES,
         "flex-basis" to FLEX_BASIS_VALUES,
         "flex-direction" to values("row", "row-reverse", "column", "column-reverse"),
