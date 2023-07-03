@@ -211,6 +211,8 @@ object CssPropertyLookupElements {
 
     private val BREAK_VALUES = values("auto", "all", "always", "avoid", "avoid-column", "avoid-page", "avoid-region", "column", "left", "page", "recto", "region", "right", "verso")
 
+    private val COLUMN_GAP_VALUES = NORMAL_VALUE
+
     private val FLEX_BASIS_VALUES = AUTO_VALUE
     private val FLEX_GROW_VALUES = EMPTY_VALUES
     private val FLEX_SHRINK_VALUES = EMPTY_VALUES
@@ -225,6 +227,8 @@ object CssPropertyLookupElements {
 
     private val OVERFLOW_VALUES = values("visible", "hidden", "scroll", "auto")
     private val OVERSCROLL_BEHAVIOR_VALUES = values("auto", "contain", "none")
+
+    private val ROW_GAP_VALUES = NORMAL_VALUE
 
     val PROPERTY_VALUES_LOOKUP_ELEMENTS = mapOf(
         "accent-color" to COLOR_VALUES + AUTO_VALUE,
@@ -344,7 +348,7 @@ object CssPropertyLookupElements {
         "color" to COLOR_VALUES,
         "column-count" to AUTO_VALUE,
         "column-fill" to values("balance", "auto"),
-        "column-gap" to NORMAL_VALUE,
+        "column-gap" to COLUMN_GAP_VALUES,
         "column-rule" to EMPTY_VALUES,
         "column-rule-color" to COLOR_VALUES,
         "column-rule-style" to STYLE_VALUES,
@@ -384,7 +388,7 @@ object CssPropertyLookupElements {
         "font-variant" to FONT_VARIANT_VALUES,
         "font-variant-caps" to values("normal", "small-caps", "all-small-caps", "petite-caps", "all-petite-caps", "unicase", "titling-caps", "unset"),
         "font-weight" to FONT_WEIGHT_VALUES,
-        "gap" to EMPTY_VALUES,
+        "gap" to COLUMN_GAP_VALUES + ROW_GAP_VALUES,
         "grid" to NONE_VALUE,
         "grid-area" to EMPTY_VALUES,
         "grid-auto-columns" to values("auto", "max-content", "min-content"),
@@ -503,7 +507,7 @@ object CssPropertyLookupElements {
         "resize" to values("none", "both", "horizontal", "vertical"),
         "right" to AUTO_VALUE,
         "rotate" to EMPTY_VALUES,
-        "row-gap" to NORMAL_VALUE,
+        "row-gap" to ROW_GAP_VALUES,
         "scale" to EMPTY_VALUES,
         "scroll-behavior" to values("auto", "smooth"),
         "scroll-margin" to EMPTY_VALUES,
