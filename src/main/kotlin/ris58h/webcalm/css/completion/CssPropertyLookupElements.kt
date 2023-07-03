@@ -231,6 +231,8 @@ object CssPropertyLookupElements {
 
     private val ROW_GAP_VALUES = NORMAL_VALUE
 
+    private val TIMING_FUNCTION_VALUES = values("linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end") + function("steps") + function("cubic-bezier")
+
     private val TRANSFORM_FUNCTION_NAMES = listOf(
         "matrix",
         "matrix3d",
@@ -277,7 +279,7 @@ object CssPropertyLookupElements {
         "animation-iteration-count" to ANIMATION_ITERATION_COUNT_VALUES,
         "animation-name" to ANIMATION_NAME_VALUES,
         "animation-play-state" to ANIMATION_PLAY_STATE_VALUES,
-        "animation-timing-function" to ANIMATION_TIMING_FUNCTION_VALUES,
+        "animation-timing-function" to TIMING_FUNCTION_VALUES,
         "aspect-ratio" to EMPTY_VALUES,
         "backdrop-filter" to NONE_VALUE,
         "backface-visibility" to values("visible", "hidden"),
@@ -585,7 +587,7 @@ object CssPropertyLookupElements {
         "transition-delay" to EMPTY_VALUES,
         "transition-duration" to EMPTY_VALUES,
         "transition-property" to values("none", "all"),
-        "transition-timing-function" to values("linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end"),
+        "transition-timing-function" to TIMING_FUNCTION_VALUES,
         "translate" to EMPTY_VALUES,
         "unicode-bidi" to values("normal", "embed", "bidi-override"),
         "user-select" to values("auto", "none", "text", "all"),
