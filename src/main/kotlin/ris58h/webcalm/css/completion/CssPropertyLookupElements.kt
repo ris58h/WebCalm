@@ -195,6 +195,10 @@ object CssPropertyLookupElements {
     private val BACKGROUND_REPEAT_VALUES = lookupElements("repeat", "repeat-x", "repeat-y", "no-repeat")
     private val BACKGROUND_SIZE_VALUES = lookupElements("auto", "cover", "contain")
 
+    private val BORDER_COLOR_VALUES = WIDTH_VALUES
+    private val BORDER_STYLE_VALUES = STYLE_VALUES
+    private val BORDER_WIDTH_VALUES = COLOR_VALUES
+
     private val BREAK_VALUES = lookupElements("auto", "all", "always", "avoid", "avoid-column", "avoid-page", "avoid-region", "column", "left", "page", "recto", "region", "right", "verso")
 
     private val OVERFLOW_VALUES = lookupElements("visible", "hidden", "scroll", "auto")
@@ -238,25 +242,25 @@ object CssPropertyLookupElements {
         "background-repeat" to BACKGROUND_REPEAT_VALUES,
         "background-size" to BACKGROUND_SIZE_VALUES,
         "block-size" to AUTO,
-        "border" to emptyList(),
+        "border" to BORDER_COLOR_VALUES + BORDER_STYLE_VALUES + BORDER_WIDTH_VALUES,
         "border-block" to emptyList(),
-        "border-block-color" to COLOR_VALUES,
-        "border-block-end-color" to COLOR_VALUES,
-        "border-block-end-style" to STYLE_VALUES,
-        "border-block-end-width" to WIDTH_VALUES,
-        "border-block-start-color" to COLOR_VALUES,
-        "border-block-start-style" to STYLE_VALUES,
-        "border-block-start-width" to WIDTH_VALUES,
-        "border-block-style" to STYLE_VALUES,
-        "border-block-width" to WIDTH_VALUES,
+        "border-block-color" to BORDER_COLOR_VALUES,
+        "border-block-end-color" to BORDER_COLOR_VALUES,
+        "border-block-end-style" to BORDER_STYLE_VALUES,
+        "border-block-end-width" to BORDER_WIDTH_VALUES,
+        "border-block-start-color" to BORDER_COLOR_VALUES,
+        "border-block-start-style" to BORDER_STYLE_VALUES,
+        "border-block-start-width" to BORDER_WIDTH_VALUES,
+        "border-block-style" to BORDER_STYLE_VALUES,
+        "border-block-width" to BORDER_WIDTH_VALUES,
         "border-bottom" to emptyList(),
-        "border-bottom-color" to COLOR_VALUES,
+        "border-bottom-color" to BORDER_COLOR_VALUES,
         "border-bottom-left-radius" to emptyList(),
         "border-bottom-right-radius" to emptyList(),
-        "border-bottom-style" to STYLE_VALUES,
-        "border-bottom-width" to WIDTH_VALUES,
+        "border-bottom-style" to BORDER_STYLE_VALUES,
+        "border-bottom-width" to BORDER_WIDTH_VALUES,
         "border-collapse" to lookupElements("separate", "collapse"),
-        "border-color" to COLOR_VALUES,
+        "border-color" to BORDER_COLOR_VALUES,
         "border-end-end-radius" to emptyList(),
         "border-end-start-radius" to emptyList(),
         "border-image" to emptyList(),
