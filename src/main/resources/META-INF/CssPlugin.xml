@@ -1,0 +1,65 @@
+<idea-plugin>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="CssPlugin-xml.xml">com.intellij.modules.xml</depends>
+
+    <incompatible-with>com.intellij.modules.css</incompatible-with>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="CSS"
+                implementationClass="ris58h.webcalm.css.CssFileType"
+                language="CSS"
+                extensions="css"/>
+        <lang.parserDefinition
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssSyntaxHighlighter$Factory"/>
+        <lang.braceMatcher
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssPairedBraceMatcher"/>
+        <lang.commenter
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssCommenter"/>
+        <lang.foldingBuilder
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssFoldingBuilder"/>
+        <lang.psiStructureViewFactory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssStructureViewFactory"/>
+        <annotator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssHighlightingAnnotator"/>
+        <lang.ast.factory
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssASTFactory"/>
+        <lang.findUsagesProvider
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssFindUsagesProvider"/>
+        <completion.contributor
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.completion.CssCompletionContributor"/>
+        <lang.quoteHandler
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssQuoteHandler"/>
+        <targetElementEvaluator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssTargetElementEvaluator"/>
+        <lang.refactoringSupport
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssRefactoringSupportProvider"/>
+        <renameInputValidator implementation="ris58h.webcalm.css.CssRenameInputValidator"/>
+        <lang.namesValidator
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssNamesValidator"/>
+        <highlightVisitor implementation="ris58h.webcalm.css.CssRainbowVisitor"/>
+        <lang.formatter
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.formatting.CssFormattingModelBuilder"/>
+        <codeInsight.lineMarkerProvider
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssColorLineMarkerProvider"/>
+    </extensions>
+</idea-plugin>
