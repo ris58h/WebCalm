@@ -3,6 +3,8 @@ IntelliJ IDEA plugin that adds support for JavaScript and CSS.
 
 Available on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21826-webcalm).
 
+![Plugin icon](docs/icons/icon-128.png)
+
 ## Description
 <!-- Plugin description -->
 Adds support for JavaScript and CSS.
