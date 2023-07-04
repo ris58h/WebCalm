@@ -8,10 +8,21 @@ import ris58h.webcalm.css.CssColors
 import java.awt.Color
 
 object CssPropertyLookupElements {
+    // See https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#formal_syntax
     private val NAMED_COLOR_VALUES = CssColors.COLORS_BY_NAME.entries.map { e -> color(e.key, e.value) }
     private val SYSTEM_COLOR_VALUES = CssColors.SYSTEM_COLORS.map(::value)
-    private val COLOR_BASE_VALUES = NAMED_COLOR_VALUES + values("transparent")
-    private val COLOR_VALUES = COLOR_BASE_VALUES + values("currentcolor") + SYSTEM_COLOR_VALUES
+    private val ABSOLUTE_COLOR_FUNCTION_VALUES = listOf(
+        function("rgb"), function("rgba"),
+        function("hsl"), function("hsla"),
+        function("hwb"),
+        function("lab"),
+        function("lch"),
+        function("oklab"),
+        function("oklch"),
+        function("color"),
+    )
+    private val ABSOLUTE_COLOR_BASE_VALUES = ABSOLUTE_COLOR_FUNCTION_VALUES + NAMED_COLOR_VALUES + values("transparent")
+    private val COLOR_VALUES = ABSOLUTE_COLOR_BASE_VALUES + values("currentcolor") + SYSTEM_COLOR_VALUES
 
     private val EMPTY_VALUES = values()
     private val AUTO_VALUE = values("auto")
