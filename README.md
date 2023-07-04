@@ -18,7 +18,7 @@ Features:
 - Go to declaration.
 - Find usages.
 - Renaming.
-- Language injections in 'script' tags and event handler attributes.
+- Language injections in tags and attributes.
 - Formatting.
 
 Not planned features:
