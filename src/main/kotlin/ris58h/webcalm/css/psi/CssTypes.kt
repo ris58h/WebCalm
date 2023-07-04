@@ -54,6 +54,9 @@ object CssTypes {
     val OPEN_PAREN = TOKENS[css3Lexer.OpenParen]!!
     val CLOSE_PAREN = TOKENS[css3Lexer.CloseParen]!!
     val IDENTIFIER = TOKENS[css3Lexer.Ident]!!
+    val VAR = TOKENS[css3Lexer.Var]!!
+    val CALC = TOKENS[css3Lexer.Calc]!!
+    val FUNCTION = TOKENS[css3Lexer.Function_]!!
 
     object Factory {
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(CssLanguage)

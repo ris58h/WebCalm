@@ -42,6 +42,9 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         if (CssTokenSets.OPERATIONS.contains(tokenType)) {
             return OPERATION_SIGN
         }
+        if (CssTokenSets.FUNCTIONS.contains(tokenType)) {
+            return FUNCTION_CALL
+        }
         //TODO: other token types
         return when (tokenType) {
             CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> NUMBER
@@ -63,5 +66,6 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
         private val CONSTANT = arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
         private val LOCAL_VARIABLE = arrayOf(DefaultLanguageHighlighterColors.LOCAL_VARIABLE)
+        private val FUNCTION_CALL = arrayOf(DefaultLanguageHighlighterColors.FUNCTION_CALL)
     }
 }
