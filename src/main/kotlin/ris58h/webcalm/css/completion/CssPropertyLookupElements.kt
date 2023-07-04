@@ -225,6 +225,13 @@ object CssPropertyLookupElements {
     private val FONT_VARIANT_VALUES = values("normal", "small-caps")
     private val FONT_WEIGHT_VALUES = values("normal", "bold", "bolder", "lighter")
 
+    private val GRID_AUTO_COLUMNS_VALUES = values("auto", "max-content", "min-content")
+    private val GRID_AUTO_FLOW_VALUES = values("row", "column", "dense", "row dense", "column dense")
+    private val GRID_AUTO_ROWS_VALUES = values("auto", "max-content", "min-content")
+    private val GRID_TEMPLATE_AREAS_VALUES = NONE_VALUE
+    private val GRID_TEMPLATE_COLUMNS_VALUES = values("none", "auto", "max-content", "min-content")
+    private val GRID_TEMPLATE_ROWS_VALUES = values("none", "auto", "max-content", "min-content")
+
     private val LINE_HEIGHT_VALUES = NORMAL_VALUE
 
     private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE + URL_FUNCTION
@@ -433,11 +440,11 @@ object CssPropertyLookupElements {
         "font-variant-caps" to values("normal", "small-caps", "all-small-caps", "petite-caps", "all-petite-caps", "unicase", "titling-caps", "unset"),
         "font-weight" to FONT_WEIGHT_VALUES,
         "gap" to COLUMN_GAP_VALUES + ROW_GAP_VALUES,
-        "grid" to NONE_VALUE,
+        "grid" to GRID_AUTO_COLUMNS_VALUES + GRID_AUTO_FLOW_VALUES + GRID_AUTO_ROWS_VALUES + GRID_TEMPLATE_AREAS_VALUES + GRID_TEMPLATE_COLUMNS_VALUES + GRID_TEMPLATE_ROWS_VALUES,
         "grid-area" to EMPTY_VALUES,
-        "grid-auto-columns" to values("auto", "max-content", "min-content"),
-        "grid-auto-flow" to values("row", "column", "dense", "row dense", "column dense"),
-        "grid-auto-rows" to values("auto", "max-content", "min-content"),
+        "grid-auto-columns" to GRID_AUTO_COLUMNS_VALUES,
+        "grid-auto-flow" to GRID_AUTO_FLOW_VALUES,
+        "grid-auto-rows" to GRID_AUTO_ROWS_VALUES,
         "grid-column" to AUTO_VALUE,
         "grid-column-end" to EMPTY_VALUES,
         "grid-column-gap" to EMPTY_VALUES,
@@ -448,9 +455,9 @@ object CssPropertyLookupElements {
         "grid-row-gap" to EMPTY_VALUES,
         "grid-row-start" to AUTO_VALUE,
         "grid-template" to NONE_VALUE,
-        "grid-template-areas" to NONE_VALUE,
-        "grid-template-columns" to values("none", "auto", "max-content", "min-content"),
-        "grid-template-rows" to values("none", "auto", "max-content", "min-content"),
+        "grid-template-areas" to GRID_TEMPLATE_AREAS_VALUES,
+        "grid-template-columns" to GRID_TEMPLATE_COLUMNS_VALUES,
+        "grid-template-rows" to GRID_TEMPLATE_ROWS_VALUES,
         "hanging-punctuation" to values("none", "first", "last", "allow-end", "force-end"),
         "height" to AUTO_VALUE,
         "hyphens" to values("none", "manual", "auto"),
