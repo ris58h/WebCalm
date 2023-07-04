@@ -479,7 +479,7 @@ object CssPropertyLookupElements {
 
     val PROPERTY_NAME_LOOKUP_ELEMENTS = PROPERTY_VALUES_LOOKUP_ELEMENTS.keys.map { LookupElementBuilder.create(it) }
 
-    private fun value(name: String) = LookupElementBuilder.create(name)
+    fun value(name: String) = LookupElementBuilder.create(name)
 
     private fun values(vararg names: String) = names.map(::value)
 

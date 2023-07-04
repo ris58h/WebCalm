@@ -3,7 +3,6 @@ package ris58h.webcalm.css.completion
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.ProcessingContext
 import ris58h.webcalm.css.psi.CssDeclaration
@@ -14,8 +13,9 @@ class CssPropertyValueCompletionProvider : CompletionProvider<CompletionParamete
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
-        result.addElement(LookupElementBuilder.create("initial"))
-        result.addElement(LookupElementBuilder.create("inherit"))
+        result.addElement(CssPropertyLookupElements.value("initial"))
+        result.addElement(CssPropertyLookupElements.value("inherit"))
+        result.addElement(CssPropertyLookupElements.value("unset"))
 
         val declaration = PsiTreeUtil.getParentOfType(parameters.position, CssDeclaration::class.java)
         val propertyName = declaration?.property?.text
