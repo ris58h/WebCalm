@@ -113,6 +113,9 @@
         <lang.formatter
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.formatting.CssFormattingModelBuilder"/>
+        <codeInsight.lineMarkerProvider
+                language="CSS"
+                implementationClass="ris58h.webcalm.css.CssColorLineMarkerProvider"/>
     </extensions>
 
     <extensionPoints>
