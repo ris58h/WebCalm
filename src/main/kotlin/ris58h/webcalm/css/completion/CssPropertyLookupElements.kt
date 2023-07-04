@@ -226,6 +226,10 @@ object CssPropertyLookupElements {
 
     private val LINE_HEIGHT_VALUES = NORMAL_VALUE
 
+    private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE
+    private val LIST_STYLE_POSITION_VALUES = values("inside", "outside")
+    private val LIST_STYLE_TYPE_VALUES = values("disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian", "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek", "lower-latin", "lower-roman", "none", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman")
+
     private val OVERFLOW_VALUES = values("visible", "hidden", "scroll", "auto")
     private val OVERSCROLL_BEHAVIOR_VALUES = values("auto", "contain", "none")
 
@@ -465,10 +469,10 @@ object CssPropertyLookupElements {
         "left" to AUTO_VALUE,
         "letter-spacing" to NORMAL_VALUE,
         "line-height" to LINE_HEIGHT_VALUES,
-        "list-style" to EMPTY_VALUES,
-        "list-style-image" to NONE_VALUE,
-        "list-style-position" to values("inside", "outside"),
-        "list-style-type" to values("disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian", "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek", "lower-latin", "lower-roman", "none", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman"),
+        "list-style" to LIST_STYLE_IMAGE_VALUES + LIST_STYLE_POSITION_VALUES + LIST_STYLE_TYPE_VALUES,
+        "list-style-image" to LIST_STYLE_IMAGE_VALUES,
+        "list-style-position" to LIST_STYLE_POSITION_VALUES,
+        "list-style-type" to LIST_STYLE_TYPE_VALUES,
         "margin" to AUTO_VALUE,
         "margin-block" to AUTO_VALUE,
         "margin-block-end" to AUTO_VALUE,
