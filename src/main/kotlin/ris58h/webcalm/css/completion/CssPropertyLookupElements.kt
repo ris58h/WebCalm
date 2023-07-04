@@ -184,6 +184,7 @@ object CssPropertyLookupElements {
     private val AUTO_VALUE = values("auto")
     private val NONE_VALUE = values("none")
     private val NORMAL_VALUE = values("normal")
+    private val URL_FUNCTION = function("url")
 
     private val STYLE_VALUES = values("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")
     private val WIDTH_VALUES = values("medium", "thin", "thick")
@@ -200,7 +201,7 @@ object CssPropertyLookupElements {
     private val BACKGROUND_ATTACHMENT_VALUES = values("scroll", "fixed", "local")
     private val BACKGROUND_CLIP_VALUES = values("border-box", "padding-box", "content-box")
     private val BACKGROUND_COLOR_VALUES = COLOR_VALUES
-    private val BACKGROUND_IMAGE_VALUES = NONE_VALUE
+    private val BACKGROUND_IMAGE_VALUES = NONE_VALUE + URL_FUNCTION
     private val BACKGROUND_ORIGIN_VALUES = values("padding-box", "border-box", "content-box")
     private val BACKGROUND_POSITION_VALUES = values("left", "right", "center")
     private val BACKGROUND_REPEAT_VALUES = values("repeat", "repeat-x", "repeat-y", "no-repeat")
@@ -226,7 +227,7 @@ object CssPropertyLookupElements {
 
     private val LINE_HEIGHT_VALUES = NORMAL_VALUE
 
-    private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE
+    private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE + URL_FUNCTION
     private val LIST_STYLE_POSITION_VALUES = values("inside", "outside")
     private val LIST_STYLE_TYPE_VALUES = values("disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian", "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek", "lower-latin", "lower-roman", "none", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman")
 
@@ -388,10 +389,10 @@ object CssPropertyLookupElements {
         "column-span" to values("none", "all"),
         "column-width" to AUTO_VALUE,
         "columns" to EMPTY_VALUES,
-        "content" to values("normal", "none", "counter", "attr", "open-quote", "close-quote", "no-open-quote", "no-close-quote"),
+        "content" to values("normal", "none", "counter", "attr", "open-quote", "close-quote", "no-open-quote", "no-close-quote") + URL_FUNCTION,
         "counter-increment" to NONE_VALUE,
         "counter-reset" to NONE_VALUE,
-        "cursor" to values("alias", "all-scroll", "auto", "cell", "context-menu", "col-resize", "copy", "crosshair", "default", "e-resize", "ew-resize", "help", "move", "n-resize", "ne-resize", "nesw-resize", "ns-resize", "nw-resize", "nwse-resize", "no-drop", "none", "not-allowed", "pointer", "progress", "row-resize", "s-resize", "se-resize", "sw-resize", "text", "vertical-text", "w-resize", "wait", "zoom-in", "zoom-out"),
+        "cursor" to values("alias", "all-scroll", "auto", "cell", "context-menu", "col-resize", "copy", "crosshair", "default", "e-resize", "ew-resize", "help", "move", "n-resize", "ne-resize", "nesw-resize", "ns-resize", "nw-resize", "nwse-resize", "no-drop", "none", "not-allowed", "pointer", "progress", "row-resize", "s-resize", "se-resize", "sw-resize", "text", "vertical-text", "w-resize", "wait", "zoom-in", "zoom-out") + URL_FUNCTION,
         "direction" to values("ltr", "rtl"),
         "display" to values("inline", "block", "contents", "flex", "grid", "inline-block", "inline-flex", "inline-grid", "inline-table", "list-item", "run-in", "table", "table-caption", "table-column-group", "table-header-group", "table-footer-group", "table-row-group", "table-cell", "table-column", "table-row", "none"),
         "empty-cells" to values("show", "hide"),
@@ -406,7 +407,7 @@ object CssPropertyLookupElements {
                 function("opacity") +
                 function("saturate") +
                 function("sepia") +
-                function("url"),
+                URL_FUNCTION,
         "flex" to FLEX_BASIS_VALUES + FLEX_GROW_VALUES + FLEX_SHRINK_VALUES,
         "flex-basis" to FLEX_BASIS_VALUES,
         "flex-direction" to values("row", "row-reverse", "column", "column-reverse"),
