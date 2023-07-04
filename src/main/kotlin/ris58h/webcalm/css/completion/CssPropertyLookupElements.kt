@@ -29,6 +29,13 @@ object CssPropertyLookupElements {
     private val NONE_VALUE = values("none")
     private val NORMAL_VALUE = values("normal")
     private val URL_FUNCTION = function("url")
+    private val GRADIENT_VALUES = listOf(
+        function("linear-gradient"),
+        function("repeating-linear-gradient"),
+        function("radial-gradient"),
+        function("repeating-radial-gradient"),
+    )
+    private val IMAGE_VALUES = GRADIENT_VALUES + URL_FUNCTION
 
     private val STYLE_VALUES = values("none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")
     private val WIDTH_VALUES = values("medium", "thin", "thick")
@@ -45,7 +52,7 @@ object CssPropertyLookupElements {
     private val BACKGROUND_ATTACHMENT_VALUES = values("scroll", "fixed", "local")
     private val BACKGROUND_CLIP_VALUES = values("border-box", "padding-box", "content-box")
     private val BACKGROUND_COLOR_VALUES = COLOR_VALUES
-    private val BACKGROUND_IMAGE_VALUES = NONE_VALUE + URL_FUNCTION
+    private val BACKGROUND_IMAGE_VALUES = NONE_VALUE + IMAGE_VALUES
     private val BACKGROUND_ORIGIN_VALUES = values("padding-box", "border-box", "content-box")
     private val BACKGROUND_POSITION_VALUES = values("left", "right", "center")
     private val BACKGROUND_REPEAT_VALUES = values("repeat", "repeat-x", "repeat-y", "no-repeat")
@@ -78,7 +85,7 @@ object CssPropertyLookupElements {
 
     private val LINE_HEIGHT_VALUES = NORMAL_VALUE
 
-    private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE + URL_FUNCTION
+    private val LIST_STYLE_IMAGE_VALUES = NONE_VALUE + IMAGE_VALUES
     private val LIST_STYLE_POSITION_VALUES = values("inside", "outside")
     private val LIST_STYLE_TYPE_VALUES = values("disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian", "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek", "lower-latin", "lower-roman", "none", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman")
 
@@ -184,7 +191,7 @@ object CssPropertyLookupElements {
         "border-image-outset" to EMPTY_VALUES,
         "border-image-repeat" to EMPTY_VALUES,
         "border-image-slice" to EMPTY_VALUES,
-        "border-image-source" to EMPTY_VALUES,
+        "border-image-source" to NONE_VALUE + IMAGE_VALUES,
         "border-image-width" to AUTO_VALUE,
         "border-inline" to EMPTY_VALUES,
         "border-inline-color" to COLOR_VALUES,
@@ -240,7 +247,7 @@ object CssPropertyLookupElements {
         "column-span" to values("none", "all"),
         "column-width" to AUTO_VALUE,
         "columns" to EMPTY_VALUES,
-        "content" to values("normal", "none", "counter", "attr", "open-quote", "close-quote", "no-open-quote", "no-close-quote") + URL_FUNCTION,
+        "content" to values("normal", "none", "counter", "attr", "open-quote", "close-quote", "no-open-quote", "no-close-quote") + IMAGE_VALUES,
         "counter-increment" to NONE_VALUE,
         "counter-reset" to NONE_VALUE,
         "cursor" to values("alias", "all-scroll", "auto", "cell", "context-menu", "col-resize", "copy", "crosshair", "default", "e-resize", "ew-resize", "help", "move", "n-resize", "ne-resize", "nesw-resize", "ns-resize", "nw-resize", "nwse-resize", "no-drop", "none", "not-allowed", "pointer", "progress", "row-resize", "s-resize", "se-resize", "sw-resize", "text", "vertical-text", "w-resize", "wait", "zoom-in", "zoom-out") + URL_FUNCTION,
@@ -336,7 +343,7 @@ object CssPropertyLookupElements {
         "margin-left" to AUTO_VALUE,
         "margin-right" to AUTO_VALUE,
         "margin-top" to AUTO_VALUE,
-        "mask-image" to NONE_VALUE,
+        "mask-image" to NONE_VALUE + IMAGE_VALUES,
         "mask-mode" to values("match-source", "luminance", "alpha"),
         "mask-origin" to values("border-box", "content-box", "padding-box", "margin-box", "fill-box", "stroke-box", "view-box"),
         "mask-position" to values("left", "right", "center", "top", "bottom"),
