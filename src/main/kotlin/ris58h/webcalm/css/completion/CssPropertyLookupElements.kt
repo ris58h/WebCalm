@@ -9,7 +9,7 @@ import java.awt.Color
 
 object CssPropertyLookupElements {
     // See https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#formal_syntax
-    private val NAMED_COLOR_VALUES = CssColors.COLORS_BY_NAME.entries.map { e -> color(e.key, e.value) }
+    private val NAMED_COLOR_VALUES = CssColors.COLORS_BY_NAME.entries.map { e -> namedColor(e.key, e.value) }
     private val SYSTEM_COLOR_VALUES = CssColors.SYSTEM_COLORS.map(::value)
     private val ABSOLUTE_COLOR_FUNCTION_VALUES = listOf(
         function("rgb"), function("rgba"),
@@ -483,9 +483,10 @@ object CssPropertyLookupElements {
 
     private fun values(vararg names: String) = names.map(::value)
 
-    private fun color(name: String, color: Color): LookupElement {
+    private fun namedColor(name: String, color: Color): LookupElement {
         return LookupElementBuilder.create(name)
             .withIcon(ColorIcon(8, color))
+            .withTypeText(CssColors.toHexColor(color))
     }
 
     fun function(name: String): LookupElement {
