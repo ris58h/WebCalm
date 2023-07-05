@@ -19,6 +19,10 @@
     color: rgb(255 0 153);
     color: rgb(255 0 153 / 80%);
 }
+.rgba {
+    color: rgba(255 0 153);
+    color: rgba(255 0 153 / 80%);
+}
 
 .hsl {
     color: hsl(150 30% 60%);
