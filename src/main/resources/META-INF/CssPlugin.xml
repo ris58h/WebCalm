@@ -58,6 +58,8 @@
         <lang.formatter
                 language="CSS"
                 implementationClass="ris58h.webcalm.css.formatting.CssFormattingModelBuilder"/>
-        <colorProvider implementation="ris58h.webcalm.css.CssColorProvider" />
+        <colorProvider implementation="ris58h.webcalm.css.colorProvider.HexCssColorProvider" />
+        <colorProvider implementation="ris58h.webcalm.css.colorProvider.NamedCssColorProvider" />
+        <colorProvider implementation="ris58h.webcalm.css.colorProvider.RgbCssColorProvider" />
     </extensions>
 </idea-plugin>

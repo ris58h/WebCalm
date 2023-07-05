@@ -44,19 +44,13 @@ object CssColors {
         return Color(r, g, b, a)
     }
 
-    private fun parseHex(hex: String): Int? {
-        return try {
-            Integer.valueOf(hex, 16)
-        } catch (e: NumberFormatException) {
-            null
-        }
-    }
+    private fun parseHex(hex: String) = hex.toIntOrNull(16)
 
     fun toHexColor(color: Color): String {
         val rgb = color.rgb and 0x00ffffff
         val alpha = color.alpha
-        return if (alpha == 255) String.format("#%06x", rgb)
-        else String.format("#%06x%02x", rgb, alpha)
+        return if (alpha == 255) "#%06x".format(rgb)
+        else "#%06x%02x".format(rgb, alpha)
     }
 
     private val HEX_COLORS_BY_NAME = mapOf(

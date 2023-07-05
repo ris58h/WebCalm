@@ -86,6 +86,7 @@ object CssTypes {
         private val PROPERTY = RULES[css3Parser.RULE_property_]
         private val VALUE = RULES[css3Parser.RULE_value]
         private val TERM = RULES[css3Parser.RULE_term]
+        private val OPERATOR = RULES[css3Parser.RULE_operator_]
         private val VAR_FUNCTION = RULES[css3Parser.RULE_var_]
         private val CALC_FUNCTION = RULES[css3Parser.RULE_calc]
         private val FUNCTION = RULES[css3Parser.RULE_function_]
@@ -118,6 +119,7 @@ object CssTypes {
                 PROPERTY -> CssProperty(node)
                 VALUE -> CssValue(node)
                 TERM -> CssTerm(node)
+                OPERATOR -> CssOperator(node)
                 VAR_FUNCTION -> CssVarFunction(node)
                 CALC_FUNCTION -> CssCalcFunction(node)
                 FUNCTION -> CssFunction(node)
