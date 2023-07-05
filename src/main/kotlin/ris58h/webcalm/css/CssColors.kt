@@ -3,6 +3,62 @@ package ris58h.webcalm.css
 import java.awt.Color
 
 object CssColors {
+    fun parseHexColor(hexColor: String): Color? {
+        if (hexColor.isEmpty()) return null
+        if (hexColor[0] != '#') return null
+
+        val hex = hexColor.substring(1)
+        return when (hex.length) {
+            3 -> parse3(hex)
+            4 -> parse4(hex)
+            6 -> parse6(hex)
+            8 -> parse8(hex)
+            else -> null
+        }
+    }
+
+    private fun parse3(hex: String): Color? {
+        return parse6(duplicateEveryChar(hex))
+    }
+
+    private fun parse4(hex: String): Color? {
+        return parse8(duplicateEveryChar(hex))
+    }
+
+    private fun duplicateEveryChar(string: String): String {
+        return buildString(string.length * 2) { string.forEach { append(it); append(it) } }
+    }
+
+    private fun parse6(hex: String): Color? {
+        val r = parseHex(hex.substring(0, 2)) ?: return null
+        val g = parseHex(hex.substring(2, 4)) ?: return null
+        val b = parseHex(hex.substring(4, 6)) ?: return null
+        return Color(r, g, b)
+    }
+
+    private fun parse8(hex: String): Color? {
+        val r = parseHex(hex.substring(0, 2)) ?: return null
+        val g = parseHex(hex.substring(2, 4)) ?: return null
+        val b = parseHex(hex.substring(4, 6)) ?: return null
+        val a = parseHex(hex.substring(6, 8)) ?: return null
+        return Color(r, g, b, a)
+    }
+
+    private fun parseHex(hex: String): Int? {
+        return try {
+            Integer.valueOf(hex, 16)
+        } catch (e: NumberFormatException) {
+            null
+        }
+    }
+
+    fun toHexColor(color: Color): String {
+        val rgb = color.rgb and 0x00ffffff
+        val alpha = color.alpha
+        return if (alpha == 255) String.format("#%06x", rgb)
+        else String.format("#%06x%02x", rgb, alpha)
+    }
+
     private val HEX_COLORS_BY_NAME = mapOf(
         "aliceblue" to "#f0f8ff",
         "antiquewhite" to "#faebd7",
@@ -153,7 +209,7 @@ object CssColors {
         "yellow" to "#ffff00",
         "yellowgreen" to "#9acd32"
     )
-    val COLORS_BY_NAME = HEX_COLORS_BY_NAME.mapValues { e -> Color.decode(e.value) }
+    val COLORS_BY_NAME = HEX_COLORS_BY_NAME.mapValues { e -> parseHexColor(e.value)!! }
     val SYSTEM_COLORS = listOf(
         "AccentColor",
         "AccentColorText",
