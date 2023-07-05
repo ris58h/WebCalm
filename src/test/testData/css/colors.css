@@ -1,0 +1,51 @@
+.keywords {
+    color: transparent;
+    color: currentcolor;
+}
+
+.named-colors {
+    color: rebeccapurple;
+    color: aliceblue;
+}
+
+.rgb-hexadecimal {
+    color: #f09;
+    color: #f098;
+    color: #ff0099;
+    color: #ff009988;
+}
+
+.rgb {
+    color: rgb(255 0 153);
+    color: rgb(255 0 153 / 80%);
+}
+
+.hsl {
+    color: hsl(150 30% 60%);
+    color: hsl(150 30% 60% / 0.8);
+}
+
+.hwb {
+    color: hwb(12 50% 0%);
+    color: hwb(194 0% 0% / 0.5);
+}
+
+.lab {
+    color: lab(50% 40 59.5);
+    color: lab(50% 40 59.5 / 0.5);
+}
+
+.lch {
+    color: lch(52.2% 72.2 50);
+    color: lch(52.2% 72.2 50 / 0.5);
+}
+
+.oklab {
+    color: oklab(59% 0.1 0.1);
+    color: oklab(59% 0.1 0.1 / 0.5);
+}
+
+.oklch {
+    color: oklch(60% 0.15 50);
+    color: oklch(60% 0.15 50 / 0.5);
+}
