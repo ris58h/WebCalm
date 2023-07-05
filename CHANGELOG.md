@@ -5,8 +5,8 @@
 ## [Unreleased]
 
 ### Added
-- [CSS] Show colors in completion.
-- [CSS] Show colors in gutter.
+- [CSS] Show named colors in completion.
+- [CSS] Show colors with color-picker in gutter.
 - [CSS] More suggestions in property values completion.
 
 ## [0.9] - 2023-07-03
