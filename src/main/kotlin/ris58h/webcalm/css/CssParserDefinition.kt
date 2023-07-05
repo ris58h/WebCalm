@@ -38,6 +38,7 @@ class CssParserDefinition : ParserDefinition {
                     css3Parser.RULE_nestedStatement,
                     css3Parser.RULE_groupRuleBody,
                     css3Parser.RULE_hexcolor,
+                    css3Parser.RULE_expr,
                 )
                 return DropRuleNodeParseTreeToPsiConverter(rulesToDrop, language, parser, builder)
             }
