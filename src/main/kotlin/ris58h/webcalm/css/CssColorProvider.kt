@@ -25,9 +25,10 @@ class CssColorProvider : ReplaceableElementColorProvider {
         if (color == getColorFrom(element)) return null
         val term = PsiTreeUtil.getParentOfType(element, CssTerm::class.java) ?: return null
         val hexColor = CssColors.toHexColor(color)
-        var newTerm = CssElementFactory.createTermFromText(element.project, hexColor)
-        newTerm = term.replace(newTerm) as CssTerm
-        return getLeaf(newTerm)
+        val newTerm = CssElementFactory.createTermFromText(element.project, hexColor)
+        // We have to replace the first child instead of the term because the term may contain Space leaf as the second child.
+        val firstChild = term.firstChild.replace(newTerm.firstChild)
+        return getLeaf(firstChild)
     }
 }
 
