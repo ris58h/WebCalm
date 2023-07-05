@@ -14,7 +14,7 @@ import org.antlr.intellij.adaptor.parser.ANTLRParseTreeToPSIConverter
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import ris58h.webcalm.antlr.DropRuleNodeParseTreeToPsiConverter
+import ris58h.webcalm.antlr.CustomParseTreeToPsiConverter
 import ris58h.webcalm.css.psi.CssFile
 import ris58h.webcalm.css.psi.CssTokenSets
 import ris58h.webcalm.css.psi.CssTypes
@@ -40,7 +40,8 @@ class CssParserDefinition : ParserDefinition {
                     css3Parser.RULE_hexcolor,
                     css3Parser.RULE_expr,
                 )
-                return DropRuleNodeParseTreeToPsiConverter(rulesToDrop, language, parser, builder)
+                return CustomParseTreeToPsiConverter(language, parser, builder)
+                    .withRulesToDrop(rulesToDrop)
             }
         }
     }
