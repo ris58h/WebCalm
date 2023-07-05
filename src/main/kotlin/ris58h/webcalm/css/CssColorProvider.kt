@@ -15,7 +15,7 @@ class CssColorProvider : ReplaceableElementColorProvider {
         if (CssCompletionContributor.IDENTIFIER_TERM_PATTERN.accepts(element)) {
             return CssColors.COLORS_BY_NAME[element.text]
         }
-        if (HASH_TERM.accepts(element)) {
+        if (HASH_TERM_PATTERN.accepts(element)) {
             return CssColors.parseHexColor(element.text)
         }
         return null
@@ -31,7 +31,7 @@ class CssColorProvider : ReplaceableElementColorProvider {
     }
 }
 
-private val HASH_TERM = PlatformPatterns.psiElement(CssTypes.HASH)
+private val HASH_TERM_PATTERN = PlatformPatterns.psiElement(CssTypes.HASH)
     .inside(PlatformPatterns.psiElement(CssTerm::class.java))
 
 private fun getLeaf(element: PsiElement): PsiElement {
