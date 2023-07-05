@@ -33,7 +33,7 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         if (CssTokenSets.PARENTHESES.contains(tokenType)) {
             return PARENTHESES
         }
-        if (CssTokenSets.AT.contains(tokenType)) {
+        if (CssTokenSets.AT_KEYWORDS.contains(tokenType)) {
             return KEYWORD
         }
         if (CssTokenSets.KEYWORDS.contains(tokenType)) {

@@ -24,7 +24,6 @@ class CssHighlightingAnnotator : Annotator, DumbAware {
                 if (element.firstChild is CssIdentifier) DefaultLanguageHighlighterColors.MARKUP_ENTITY
                 else null
             }
-            is CssAtKeyword -> DefaultLanguageHighlighterColors.KEYWORD
             else -> {
                 if (element.node.elementType == CssTypes.STRING) DefaultLanguageHighlighterColors.STRING
                 else null

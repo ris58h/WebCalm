@@ -178,7 +178,7 @@ prio
     ;
 
 value
-    : ( any_ | block | atKeyword ws )+
+    : ( any_ | block | AtKeyword ws )+
     ;
 
 expr
@@ -250,23 +250,19 @@ any_
     ;
 
 atRule
-    : atKeyword ws any_* ( block | ';' ws )    # unknownAtRule
-    ;
-
-atKeyword
-    : '@' ident
+    : AtKeyword ws any_* ( block | ';' ws )    # unknownAtRule
     ;
 
 unused
     : block
-    | atKeyword ws
+    | AtKeyword ws
     | ';' ws
     | Cdo ws
     | Cdc ws
     ;
 
 block
-    : '{' ws (  declarationList | nestedStatement | any_ | block | atKeyword ws | ';' ws )* '}' ws
+    : '{' ws (  declarationList | nestedStatement | any_ | block | AtKeyword ws | ';' ws )* '}' ws
     ;
 
 // Conditional
@@ -410,7 +406,7 @@ featureValueBlock
     ;
 
 featureType
-    : atKeyword
+    : AtKeyword
     ;
 
 featureValueDefinition

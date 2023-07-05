@@ -38,6 +38,7 @@ object CssTypes {
     val AT_VIEWPORT = TOKENS[css3Lexer.Viewport]!!
     val AT_COUNTER_STYLE = TOKENS[css3Lexer.CounterStyle]!!
     val AT_FONT_FEATURE_VALUES = TOKENS[css3Lexer.FontFeatureValues]!!
+    val AT_KEYWORD = TOKENS[css3Lexer.AtKeyword]!!
     val IMPORTANT_KEYWORD = TOKENS[css3Lexer.Important]!!
     val AND_KEYWORD = TOKENS[css3Lexer.And]!!
     val OR_KEYWORD = TOKENS[css3Lexer.Or]!!
@@ -79,7 +80,6 @@ object CssTypes {
         private val FEATURE_VALUE_BLOCK = RULES[css3Parser.RULE_featureValueBlock]
         private val FEATURE_VALUE_DEFINITION = RULES[css3Parser.RULE_featureValueDefinition]
         private val AT_RULE = RULES[css3Parser.RULE_atRule]
-        private val AT_KEYWORD = RULES[css3Parser.RULE_atKeyword]
         private val BLOCK = RULES[css3Parser.RULE_block]
         private val DECLARATION_LIST = RULES[css3Parser.RULE_declarationList]
         private val DECLARATION = RULES[css3Parser.RULE_declaration]
@@ -111,7 +111,6 @@ object CssTypes {
                 FEATURE_VALUE_BLOCK -> CssFeatureValueBlock(node)
                 FEATURE_VALUE_DEFINITION -> CssFeatureValueDefinition(node)
                 AT_RULE -> CssAtRule(node)
-                AT_KEYWORD -> CssAtKeyword(node)
                 BLOCK -> CssBlock(node)
                 RULE_SET -> CssRuleSet(node)
                 DECLARATION_LIST -> CssDeclarationList(node)

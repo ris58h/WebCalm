@@ -8,7 +8,7 @@ object CssTokenSets {
     val BRACES = TokenSet.create(CssTypes.OPEN_BRACE, CssTypes.CLOSE_BRACE)
     val BRACKETS = TokenSet.create(CssTypes.OPEN_BRACKET, CssTypes.CLOSE_BRACKET)
     val PARENTHESES = TokenSet.create(CssTypes.OPEN_PAREN, CssTypes.CLOSE_PAREN)
-    val AT = TokenSet.create(
+    val AT_KEYWORDS = TokenSet.create(
         CssTypes.AT_IMPORT,
         CssTypes.AT_PAGE,
         CssTypes.AT_MEDIA,
@@ -20,6 +20,7 @@ object CssTokenSets {
         CssTypes.AT_VIEWPORT,
         CssTypes.AT_COUNTER_STYLE,
         CssTypes.AT_FONT_FEATURE_VALUES,
+        CssTypes.AT_KEYWORD,
     )
     val KEYWORDS = TokenSet.create(
         CssTypes.IMPORTANT_KEYWORD,
