@@ -6,8 +6,9 @@
 
 ### Added
 - [CSS] Show named colors in completion.
-- [CSS] Show colors with color-picker in gutter.
+- [CSS] Show colors with color-picker in gutter for named-colors, hex-colors and `rgb`.
 - [CSS] More suggestions in property values completion.
+- [CSS] At-keyword completion.
 
 ## [0.9] - 2023-07-03
 
