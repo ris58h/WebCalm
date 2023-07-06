@@ -18,6 +18,11 @@ class CssCompletionContributor : CompletionContributor() {
             or(IDENTIFIER_TERM_PATTERN, ANY_VALUE_IDENTIFIER_PATTERN),
             CssPropertyValueCompletionProvider()
         )
+        extend(
+            CompletionType.BASIC,
+            or(AT_KEYWORD_PATTERN),
+            CssAtKeywordCompletionProvider()
+        )
     }
 
     companion object {
@@ -54,5 +59,7 @@ class CssCompletionContributor : CompletionContributor() {
                 psiElement(CssIdentifier::class.java)
                     .inside(psiElement(CssValue::class.java))
             )
+
+        private val AT_KEYWORD_PATTERN = psiElement(CssTypes.AT_KEYWORD)
     }
 }
