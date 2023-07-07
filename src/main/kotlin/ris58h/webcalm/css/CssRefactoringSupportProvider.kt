@@ -6,7 +6,6 @@ import ris58h.webcalm.css.psi.CssVariable
 
 class CssRefactoringSupportProvider : RefactoringSupportProvider() {
     override fun isInplaceRenameAvailable(element: PsiElement, context: PsiElement?): Boolean {
-        //TODO: inplace rename fails in InplaceRefactoring
         return element is CssVariable
     }
 }
