@@ -58,6 +58,7 @@
 
     <extensionPoints>
         <extensionPoint
+                dynamic="true"
                 name="javascript.relatedScriptsProcessor"
                 interface="ris58h.webcalm.javascript.RelatedScriptsProcessor"/>
     </extensionPoints>
