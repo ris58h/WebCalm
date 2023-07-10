@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.10] - 2023-07-10
+
 ### Added
 - [CSS] Show named colors in completion.
 - [CSS] Show colors with color-picker in gutter for named-colors, hex-colors and `rgb`.
