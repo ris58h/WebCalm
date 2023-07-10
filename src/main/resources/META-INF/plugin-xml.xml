@@ -1,0 +1,4 @@
+<idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="/META-INF/JavaScriptPlugin-xml.xml"/>
+    <xi:include href="/META-INF/CssPlugin-xml.xml"/>
+</idea-plugin>

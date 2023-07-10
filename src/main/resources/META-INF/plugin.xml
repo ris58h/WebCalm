@@ -3,6 +3,11 @@
     <name>WebCalm: JavaScript and CSS</name>
     <vendor email="ris58h@gmail.com" url="https://github.com/ris58h">Ilya Rodionov</vendor>
 
+    <!--  We could place it in JS and CSS xml files, but it leads to Plugin Verifier's  'Duplicated dependency' warning.  -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="plugin-xml.xml">com.intellij.modules.xml</depends>
+
     <xi:include href="/META-INF/JavaScriptPlugin.xml"/>
     <xi:include href="/META-INF/CssPlugin.xml"/>
 </idea-plugin>

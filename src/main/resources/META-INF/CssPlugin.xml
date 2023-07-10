@@ -1,7 +1,8 @@
 <idea-plugin>
-    <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.lang</depends>
-    <depends optional="true" config-file="CssPlugin-xml.xml">com.intellij.modules.xml</depends>
+    <!--  Disabled due to 'Duplicated dependency' warning. See plugin.xml file.  -->
+    <!--    <depends>com.intellij.modules.platform</depends>-->
+    <!--    <depends>com.intellij.modules.lang</depends>-->
+    <!--    <depends optional="true" config-file="CssPlugin-xml.xml">com.intellij.modules.xml</depends>-->
 
     <incompatible-with>com.intellij.modules.css</incompatible-with>
 
