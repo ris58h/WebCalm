@@ -25,7 +25,7 @@ class CssHighlightingAnnotator : Annotator, DumbAware {
                 else null
             }
             else -> {
-                if (element.node.elementType == CssTypes.STRING) DefaultLanguageHighlighterColors.STRING
+                if (element.node.elementType == CssTypes.STRING) CssSyntaxHighlighterColors.STRING
                 else null
             }
         }

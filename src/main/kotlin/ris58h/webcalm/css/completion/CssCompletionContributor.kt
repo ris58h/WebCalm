@@ -24,42 +24,40 @@ class CssCompletionContributor : CompletionContributor() {
             CssAtKeywordCompletionProvider()
         )
     }
+}
 
-    companion object {
-        private val PROPERTY_NAME_PATTERN = psiElement(CssTypes.IDENTIFIER)
+private val PROPERTY_NAME_PATTERN = psiElement(CssTypes.IDENTIFIER)
+    .withParent(
+        psiElement(CssIdentifier::class.java)
+            .withParent(psiElement(CssProperty::class.java))
+    )
+private val INCOMPLETE_PROPERTY_NAME_PATTERN = psiElement(CssTypes.IDENTIFIER)
+    .withParent(
+        psiElement(PsiErrorElement::class.java)
             .withParent(
-                psiElement(CssIdentifier::class.java)
-                    .withParent(psiElement(CssProperty::class.java))
+                psiElement(CssRuleSet::class.java)
             )
-        private val INCOMPLETE_PROPERTY_NAME_PATTERN = psiElement(CssTypes.IDENTIFIER)
+    )
+private val INCOMPLETE_PROPERTY_NAME_PATTERN2 = psiElement(CssTypes.IDENTIFIER)
+    .withParent(
+        psiElement(CssIdentifier::class.java)
             .withParent(
-                psiElement(PsiErrorElement::class.java)
+                psiElement()
                     .withParent(
                         psiElement(CssRuleSet::class.java)
                     )
             )
-        private val INCOMPLETE_PROPERTY_NAME_PATTERN2 = psiElement(CssTypes.IDENTIFIER)
-            .withParent(
-                psiElement(CssIdentifier::class.java)
-                    .withParent(
-                        psiElement()
-                            .withParent(
-                                psiElement(CssRuleSet::class.java)
-                            )
-                    )
-            )
+    )
 
-        val IDENTIFIER_TERM_PATTERN = psiElement(CssTypes.IDENTIFIER)
-            .withParent(
-                psiElement(CssIdentifier::class.java)
-                    .withParent(psiElement(CssTerm::class.java))
-            )
-        private val ANY_VALUE_IDENTIFIER_PATTERN = psiElement(CssTypes.IDENTIFIER)
-            .withParent(
-                psiElement(CssIdentifier::class.java)
-                    .inside(psiElement(CssValue::class.java))
-            )
+private val IDENTIFIER_TERM_PATTERN = psiElement(CssTypes.IDENTIFIER)
+    .withParent(
+        psiElement(CssIdentifier::class.java)
+            .withParent(psiElement(CssTerm::class.java))
+    )
+private val ANY_VALUE_IDENTIFIER_PATTERN = psiElement(CssTypes.IDENTIFIER)
+    .withParent(
+        psiElement(CssIdentifier::class.java)
+            .inside(psiElement(CssValue::class.java))
+    )
 
-        private val AT_KEYWORD_PATTERN = psiElement(CssTypes.AT_KEYWORD)
-    }
-}
+private val AT_KEYWORD_PATTERN = psiElement(CssTypes.AT_KEYWORD)

@@ -1,6 +1,5 @@
 package ris58h.webcalm.css
 
-import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
@@ -17,55 +16,46 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getHighlightingLexer() = CssLexer()
 
-    override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
+    override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> {
+        val tokenColor = tokenColor(tokenType)
+        return if (tokenColor == null) TextAttributesKey.EMPTY_ARRAY else arrayOf(tokenColor)
+    }
+
+    private fun tokenColor(tokenType: IElementType): TextAttributesKey? {
         if (CssTokenSets.COMMENTS.contains(tokenType)) {
-            return COMMENT
+            return CssSyntaxHighlighterColors.COMMENT
         }
         if (CssTokenSets.STRINGS.contains(tokenType)) {
-            return STRING
+            return CssSyntaxHighlighterColors.STRING
         }
         if (CssTokenSets.BRACES.contains(tokenType)) {
-            return BRACES
+            return CssSyntaxHighlighterColors.BRACES
         }
         if (CssTokenSets.BRACKETS.contains(tokenType)) {
-            return BRACKETS
+            return CssSyntaxHighlighterColors.BRACKETS
         }
         if (CssTokenSets.PARENTHESES.contains(tokenType)) {
-            return PARENTHESES
+            return CssSyntaxHighlighterColors.PARENTHESES
         }
         if (CssTokenSets.AT_KEYWORDS.contains(tokenType)) {
-            return KEYWORD
+            return CssSyntaxHighlighterColors.KEYWORD
         }
         if (CssTokenSets.KEYWORDS.contains(tokenType)) {
-            return KEYWORD
+            return CssSyntaxHighlighterColors.KEYWORD
         }
         if (CssTokenSets.OPERATIONS.contains(tokenType)) {
-            return OPERATION_SIGN
+            return CssSyntaxHighlighterColors.OPERATION_SIGN
         }
         if (CssTokenSets.FUNCTIONS.contains(tokenType)) {
-            return FUNCTION_CALL
+            return CssSyntaxHighlighterColors.FUNCTION_CALL
         }
         //TODO: other token types
         return when (tokenType) {
-            CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> NUMBER
-            CssTypes.HASH -> CONSTANT
-            CssTypes.URI -> STRING
-            CssTypes.VARIABLE -> LOCAL_VARIABLE
-            else -> TextAttributesKey.EMPTY_ARRAY
+            CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> CssSyntaxHighlighterColors.NUMBER
+            CssTypes.HASH -> CssSyntaxHighlighterColors.CONSTANT
+            CssTypes.URI -> CssSyntaxHighlighterColors.STRING
+            CssTypes.VARIABLE -> CssSyntaxHighlighterColors.LOCAL_VARIABLE
+            else -> null
         }
-    }
-
-    companion object {
-        private val COMMENT = arrayOf(DefaultLanguageHighlighterColors.LINE_COMMENT)
-        private val STRING = arrayOf(DefaultLanguageHighlighterColors.STRING)
-        private val BRACES = arrayOf(DefaultLanguageHighlighterColors.BRACES)
-        private val BRACKETS = arrayOf(DefaultLanguageHighlighterColors.BRACKETS)
-        private val PARENTHESES = arrayOf(DefaultLanguageHighlighterColors.PARENTHESES)
-        private val KEYWORD = arrayOf(DefaultLanguageHighlighterColors.KEYWORD)
-        private val OPERATION_SIGN = arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN)
-        private val NUMBER = arrayOf(DefaultLanguageHighlighterColors.NUMBER)
-        private val CONSTANT = arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
-        private val LOCAL_VARIABLE = arrayOf(DefaultLanguageHighlighterColors.LOCAL_VARIABLE)
-        private val FUNCTION_CALL = arrayOf(DefaultLanguageHighlighterColors.FUNCTION_CALL)
     }
 }
