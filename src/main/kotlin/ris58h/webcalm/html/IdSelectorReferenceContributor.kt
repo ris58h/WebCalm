@@ -73,7 +73,7 @@ private class ElementReference(val id: String, element: PsiElement, rangeInEleme
         val declarations = SmartList<PsiElement>()
         injectionContext(element)?.containingFile?.accept(object : XmlRecursiveElementVisitor() {
             override fun visitXmlAttribute(attribute: XmlAttribute) {
-                if (attribute.name == id) {
+                if (attribute.name == "id" && attribute.value == id) {
                     val valueElement = attribute.valueElement
                     if (valueElement != null) {
                         declarations.add(valueElement)
