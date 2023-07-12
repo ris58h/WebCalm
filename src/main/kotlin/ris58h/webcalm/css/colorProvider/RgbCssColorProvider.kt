@@ -84,7 +84,7 @@ class RgbCssColorProvider : ElementColorProvider {
     }
 
     private fun parsePercent(value: String): Int? {
-        val floatValue = value.substring(0, value.length - 1).toFloatOrNull() ?: return null
+        val floatValue = value.substring(0, value.lastIndex).toFloatOrNull() ?: return null
         return from0to255((255F / 100F * floatValue).toInt())
     }
 
