@@ -274,6 +274,9 @@ object JavaScriptTypes {
             if (children.size == 3 && JavaScriptTokenSets.ASSIGNMENTS.contains(children[1].elementType)) {
                 return JavaScriptAssignmentExpression(node)
             }
+            if (children.size >= 3 && children.last().elementType == IDENTIFIER_NAME) {
+                return JavaScriptMemberDotExpression(node)
+            }
             return JavaScriptExpression.Other(node)
         }
     }
