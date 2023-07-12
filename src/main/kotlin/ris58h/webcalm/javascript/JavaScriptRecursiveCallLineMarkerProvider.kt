@@ -21,11 +21,10 @@ class JavaScriptRecursiveCallLineMarkerProvider : LineMarkerProvider, DumbAware 
         val lines = HashSet<Int>()
         for (element in elements) {
             if (element is JavaScriptIdentifierExpression) {
-                val name = element.identifier?.name ?: continue
                 val parent = element.parent
                 if (parent is JavaScriptCallExpression) {
                     val functionDeclaration = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java) ?: continue
-                    if (name == functionDeclaration.name) {
+                    if (element.identifier.name == functionDeclaration.name) {
                         val document = PsiDocumentManager.getInstance(element.getProject()).getDocument(element.getContainingFile()) ?: continue
                         val lineNumber = document.getLineNumber(element.getTextOffset())
                         if (!lines.contains(lineNumber)) {

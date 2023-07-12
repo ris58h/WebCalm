@@ -52,7 +52,7 @@ private fun isQuerySelectorCall(callExpression: JavaScriptCallExpression): Boole
 
 private fun functionName(callExpression: JavaScriptCallExpression): String? {
     return when (val firstChild = callExpression.firstChild) {
-        is JavaScriptIdentifierExpression -> firstChild.identifier?.name
+        is JavaScriptIdentifierExpression -> firstChild.identifier.name
         is JavaScriptMemberDotExpression -> firstChild.member?.text
         else -> null
     }

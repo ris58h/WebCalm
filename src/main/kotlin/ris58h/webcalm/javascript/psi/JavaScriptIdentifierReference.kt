@@ -135,11 +135,8 @@ class JavaScriptIdentifierReference(element: JavaScriptIdentifier, rangeInElemen
         assignable.doWhen(
             { identifier -> callback(identifier) },
             { array ->
-                array.elements.forEach {
-                    if (it is JavaScriptIdentifierExpression) {
-                        val identifier = it.identifier
-                        if (identifier != null) callback(identifier)
-                    }
+                array.elements.filterIsInstance<JavaScriptIdentifierExpression>().forEach {
+                    callback(it.identifier)
                 }
             },
             { obj ->
