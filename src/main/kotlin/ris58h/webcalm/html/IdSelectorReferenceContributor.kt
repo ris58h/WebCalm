@@ -22,7 +22,7 @@ class IdSelectorReferenceContributor : PsiReferenceContributor() {
 
                 val callExpression = PsiTreeUtil.getParentOfType(element, JavaScriptCallExpression::class.java)
                 if (callExpression != null) {
-                    if (isQuerySelectorCall(callExpression)) {
+                    if (isSelectorFunctionCall(callExpression)) {
                         return findHashRanges(value).map {
                             val startOffset = it.startOffset
                             val endOffset = it.endOffset
@@ -53,9 +53,15 @@ private val CALL_EXPRESSION_STRING_ARG_PATTERN = psiElement(JavaScriptLiteral::c
 
 private fun injectionContext(element: PsiElement): XmlElement? = element.containingFile?.context as? XmlElement
 
-private fun isQuerySelectorCall(callExpression: JavaScriptCallExpression): Boolean {
-    val name = functionName(callExpression)
-    return name == "querySelector" || name == "querySelectorAll"
+private val SELECTOR_FUNCTION_NAMES = setOf(
+    "querySelector",
+    "querySelectorAll",
+    "closest",
+    "matches",
+)
+
+private fun isSelectorFunctionCall(callExpression: JavaScriptCallExpression): Boolean {
+    return SELECTOR_FUNCTION_NAMES.contains(functionName(callExpression))
 }
 
 private fun isGetElementByIdCall(callExpression: JavaScriptCallExpression): Boolean {
