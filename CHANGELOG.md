@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- [JavaScript] References from `querySelector`, `querySelectorAll`, `closest`, `matches` and `getElementById` on elements with id. 
+
 ## [0.10] - 2023-07-10
 
 ### Added
