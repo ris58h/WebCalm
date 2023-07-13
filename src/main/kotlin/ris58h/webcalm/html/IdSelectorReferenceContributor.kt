@@ -21,15 +21,23 @@ class IdSelectorReferenceContributor : PsiReferenceContributor() {
                 if (injectionContext(element) == null) return PsiReference.EMPTY_ARRAY
 
                 val callExpression = PsiTreeUtil.getParentOfType(element, JavaScriptCallExpression::class.java)
-                if (callExpression != null && isQuerySelectorCall(callExpression)) {
-                    return findHashRanges(value).map {
-                        val startOffset = it.startOffset
-                        val endOffset = it.endOffset
-                        val id = value.substring(startOffset + 1, endOffset)
-                        // We adjust text range because of quotes.
-                        val textRange = TextRange(startOffset + 1, endOffset + 1)
-                        ElementReference(id, element, textRange)
-                    }.toTypedArray()
+                if (callExpression != null) {
+                    if (isQuerySelectorCall(callExpression)) {
+                        return findHashRanges(value).map {
+                            val startOffset = it.startOffset
+                            val endOffset = it.endOffset
+                            val id = value.substring(startOffset + 1, endOffset)
+                            // We adjust text range because of quotes.
+                            val rangeInElement = TextRange(startOffset + 1, endOffset + 1)
+                            ElementReference(id, element, rangeInElement)
+                        }.toTypedArray()
+                    }
+                    // TODO move to separate class
+                    if (isGetElementByIdCall(callExpression)) {
+                        val textRangeInParent = element.textRangeInParent
+                        val rangeInElement = TextRange(textRangeInParent.startOffset + 1, textRangeInParent.endOffset - 1)
+                        return arrayOf(ElementReference(value, element, rangeInElement))
+                    }
                 }
                 return PsiReference.EMPTY_ARRAY
             }
@@ -48,6 +56,11 @@ private fun injectionContext(element: PsiElement): XmlElement? = element.contain
 private fun isQuerySelectorCall(callExpression: JavaScriptCallExpression): Boolean {
     val name = functionName(callExpression)
     return name == "querySelector" || name == "querySelectorAll"
+}
+
+private fun isGetElementByIdCall(callExpression: JavaScriptCallExpression): Boolean {
+    val name = functionName(callExpression)
+    return name == "getElementById"
 }
 
 private fun functionName(callExpression: JavaScriptCallExpression): String? {
