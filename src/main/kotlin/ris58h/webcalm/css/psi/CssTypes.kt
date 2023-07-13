@@ -25,7 +25,7 @@ object CssTypes {
     val DIMENSION = TOKENS[css3Lexer.Dimension]!!
     val PERCENTAGE = TOKENS[css3Lexer.Percentage]!!
     val HASH = TOKENS[css3Lexer.Hash]!!
-    val URI = TOKENS[css3Lexer.Uri]!!
+    val URL = TOKENS[css3Lexer.Url]!!
     val VARIABLE = TOKENS[css3Lexer.Variable]!!
     val AT_IMPORT = TOKENS[css3Lexer.Import]!!
     val AT_PAGE = TOKENS[css3Lexer.Page]!!

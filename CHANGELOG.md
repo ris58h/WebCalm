@@ -7,6 +7,9 @@
 ### Added
 - [JavaScript] References from `querySelector`, `querySelectorAll`, `closest`, `matches` and `getElementById` on elements with id. 
 
+### Fixed
+- [CSS] Separate URL token and URL function. See https://github.com/antlr/grammars-v4/issues/3583
+
 ## [0.10] - 2023-07-10
 
 ### Added
