@@ -92,6 +92,7 @@ private class ElementReference(val id: String, element: PsiElement, rangeInEleme
         val declarations = SmartList<PsiElement>()
         injectionContext(element)?.containingFile?.accept(object : XmlRecursiveElementVisitor() {
             override fun visitXmlAttribute(attribute: XmlAttribute) {
+                // TODO: support escaping. See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id
                 if (attribute.name == "id" && attribute.value == id) {
                     val valueElement = attribute.valueElement
                     if (valueElement != null) {
