@@ -36,8 +36,9 @@ object CssTokenSets {
         CssTypes.MULTIPLY_OP,
     )
     val FUNCTIONS = TokenSet.create(
-        CssTypes.VAR,
-        CssTypes.CALC,
-        CssTypes.FUNCTION,
+        CssTypes.VAR_,
+        CssTypes.CALC_,
+        CssTypes.URL_,
+        CssTypes.FUNCTION_,
     )
 }

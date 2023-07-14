@@ -8,7 +8,7 @@ import java.awt.Color
 
 class RgbCssColorProvider : ElementColorProvider {
     override fun getColorFrom(element: PsiElement): Color? {
-        if (element.node.elementType == CssTypes.FUNCTION &&
+        if (element.node.elementType == CssTypes.FUNCTION_ &&
             (element.text == "rgb(" || element.text == "rgba(")
         ) {
             val parent = element.parent
