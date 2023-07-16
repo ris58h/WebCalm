@@ -9,6 +9,7 @@ import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
 import ris58h.webcalm.antlr.CustomParseTreeToPsiConverter
+import ris58h.webcalm.javascript.psi.JavaScriptTypes
 
 class JavaScriptParser : ANTLRParserAdaptor(JavaScriptLanguage, JavaScriptANTLRParser(null)) {
     override fun parse(parser: Parser, root: IElementType): ParseTree {
@@ -41,5 +42,6 @@ class JavaScriptParser : ANTLRParserAdaptor(JavaScriptLanguage, JavaScriptANTLRP
         )
         return CustomParseTreeToPsiConverter(language, parser, builder)
             .withRulesToDrop(rulesToDrop)
+            .withLabeledRules(JavaScriptTypes.Factory.getLabeledRuleElementTypes())
     }
 }

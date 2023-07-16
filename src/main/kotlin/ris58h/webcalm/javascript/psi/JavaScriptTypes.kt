@@ -3,9 +3,11 @@ package ris58h.webcalm.javascript.psi
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import com.intellij.psi.tree.TokenSet
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
+import org.antlr.intellij.adaptor.lexer.RuleIElementType
+import ris58h.webcalm.antlr.LabeledRuleIElementType
 import ris58h.webcalm.javascript.JavaScriptLanguage
 
 object JavaScriptTypes {
@@ -141,6 +143,16 @@ object JavaScriptTypes {
     val IDENTIFIER = TOKENS[JavaScriptLexer.Identifier]!!
 
     object Factory {
+        private val labeledRuleElementTypes: MutableMap<String, IElementType> = mutableMapOf()
+
+        fun getLabeledRuleElementTypes(): Map<String, IElementType> = labeledRuleElementTypes
+
+        private fun createLabeledRuleElement(labelName: String, prototype: RuleIElementType): LabeledRuleIElementType {
+            val ruleElementType = LabeledRuleIElementType.create(labelName, prototype)
+            labeledRuleElementTypes[labelName] = ruleElementType
+            return ruleElementType
+        }
+
         private val RULES = PSIElementTypeFactory.getRuleIElementTypes(JavaScriptLanguage)
         private val IDENTIFIER = RULES[JavaScriptParser.RULE_identifier]
         private val IDENTIFIER_NAME = RULES[JavaScriptParser.RULE_identifierName]
@@ -165,6 +177,14 @@ object JavaScriptTypes {
         private val REST_PARAMETER = RULES[JavaScriptParser.RULE_lastFormalParameterArg]
         private val EXPRESSION_SEQUENCE = RULES[JavaScriptParser.RULE_expressionSequence]
         private val EXPRESSION = RULES[JavaScriptParser.RULE_singleExpression]
+        private val ARGUMENTS_EXPRESSION = createLabeledRuleElement("ArgumentsExpression", EXPRESSION)
+        private val POST_INCREMENT_EXPRESSION = createLabeledRuleElement("PostIncrementExpression", EXPRESSION)
+        private val POST_DECREASE_EXPRESSION = createLabeledRuleElement("PostDecreaseExpression", EXPRESSION)
+        private val PRE_INCREMENT_EXPRESSION = createLabeledRuleElement("PreIncrementExpression", EXPRESSION)
+        private val PRE_DECREASE_EXPRESSION = createLabeledRuleElement("PreDecreaseExpression", EXPRESSION)
+        private val IDENTIFIER_EXPRESSION = createLabeledRuleElement("IdentifierExpression", EXPRESSION)
+        private val ASSIGNMENT_EXPRESSION = createLabeledRuleElement("AssignmentExpression", EXPRESSION)
+        private val MEMBER_DOT_EXPRESSION = createLabeledRuleElement("MemberDotExpression", EXPRESSION)
         private val ARGUMENTS = RULES[JavaScriptParser.RULE_arguments]
         private val ARGUMENT = RULES[JavaScriptParser.RULE_argument]
         private val OBJECT = RULES[JavaScriptParser.RULE_objectLiteral]
@@ -214,7 +234,15 @@ object JavaScriptTypes {
                 PARAMETER -> JavaScriptFormalParameter(node)
                 REST_PARAMETER -> JavaScriptFormalRestParameter(node)
                 EXPRESSION_SEQUENCE -> JavaScriptExpressionSequence(node)
-                EXPRESSION -> createExpression(node)
+                EXPRESSION -> JavaScriptExpression.Other(node)
+                ARGUMENTS_EXPRESSION -> JavaScriptCallExpression(node)
+                POST_INCREMENT_EXPRESSION -> JavaScriptUpdateExpression(node)
+                POST_DECREASE_EXPRESSION -> JavaScriptUpdateExpression(node)
+                PRE_INCREMENT_EXPRESSION -> JavaScriptUpdateExpression(node)
+                PRE_DECREASE_EXPRESSION -> JavaScriptUpdateExpression(node)
+                IDENTIFIER_EXPRESSION -> JavaScriptIdentifierExpression(node)
+                ASSIGNMENT_EXPRESSION -> JavaScriptAssignmentExpression(node)
+                MEMBER_DOT_EXPRESSION -> JavaScriptMemberDotExpression(node)
                 ARGUMENTS -> JavaScriptArguments(node)
                 ARGUMENT -> JavaScriptArgument(node)
                 OBJECT -> JavaScriptObject(node)
@@ -251,33 +279,6 @@ object JavaScriptTypes {
                 is JavaScriptBlock -> JavaScriptClassStaticBlock(node)
                 else -> ASTWrapperPsiElement(node)
             }
-        }
-
-        private fun createExpression(node: ASTNode): PsiElement {
-            val children = node.getChildren(TokenSet.andNot(TokenSet.ANY, TokenSet.WHITE_SPACE))
-            if (children.size == 1 && children[0].elementType == IDENTIFIER) {
-                return JavaScriptIdentifierExpression(node)
-            }
-            if (children.size == 2) {
-                val firstType = children[0].elementType
-                val secondType = children[1].elementType
-                if (firstType == EXPRESSION && secondType == ARGUMENTS) {
-                    return JavaScriptCallExpression(node)
-                }
-                if (firstType == EXPRESSION && (secondType == PLUS_PLUS_OP || secondType == MINUS_MINUS_OP)) {
-                    return JavaScriptUpdateExpression(node)
-                }
-                if ((firstType == PLUS_PLUS_OP || firstType == MINUS_MINUS_OP) && secondType == EXPRESSION) {
-                    return JavaScriptUpdateExpression(node)
-                }
-            }
-            if (children.size == 3 && JavaScriptTokenSets.ASSIGNMENTS.contains(children[1].elementType)) {
-                return JavaScriptAssignmentExpression(node)
-            }
-            if (children.size >= 3 && children.last().elementType == IDENTIFIER_NAME) {
-                return JavaScriptMemberDotExpression(node)
-            }
-            return JavaScriptExpression.Other(node)
         }
     }
 }
