@@ -60,7 +60,13 @@ class JavaScriptIdentifierReference(element: JavaScriptIdentifier, rangeInElemen
                 if (assignable != null) processDeclarationsInAssignable(assignable, callback)
             }
             is JavaScriptIterationStatement -> {
-                val variableDeclarationList = current.variableDeclarationList
+                val variableDeclarationList = when (current) {
+                    is JavaScriptDoWhileStatement -> null
+                    is JavaScriptWhileStatement -> null
+                    is JavaScriptForStatement -> current.variableDeclarationList
+                    is JavaScriptForInStatement -> current.variableDeclarationList
+                    is JavaScriptForOfStatement -> current.variableDeclarationList
+                }
                 if (variableDeclarationList != null) processDeclarationsInVariableDeclarationList(variableDeclarationList, callback)
             }
         }

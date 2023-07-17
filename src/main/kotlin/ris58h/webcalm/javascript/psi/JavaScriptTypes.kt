@@ -1,7 +1,10 @@
 package ris58h.webcalm.javascript.psi
 
+import JavaScriptLexer
+import JavaScriptParser
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
@@ -143,6 +146,8 @@ object JavaScriptTypes {
     val IDENTIFIER = TOKENS[JavaScriptLexer.Identifier]!!
 
     object Factory {
+        private val LOGGER: Logger = Logger.getInstance(Factory::class.java)
+
         private val labeledRuleElementTypes: MutableMap<String, IElementType> = mutableMapOf()
 
         fun getLabeledRuleElementTypes(): Map<String, IElementType> = labeledRuleElementTypes
@@ -170,6 +175,11 @@ object JavaScriptTypes {
         private val YIELD_STATEMENT = RULES[JavaScriptParser.RULE_yieldStatement]
         private val IF_STATEMENT = RULES[JavaScriptParser.RULE_ifStatement]
         private val ITERATION_STATEMENT = RULES[JavaScriptParser.RULE_iterationStatement]
+        private val DO_STATEMENT = createLabeledRuleElement("DoStatement", ITERATION_STATEMENT)
+        private val WHILE_STATEMENT = createLabeledRuleElement("WhileStatement", ITERATION_STATEMENT)
+        private val FOR_STATEMENT = createLabeledRuleElement("ForStatement", ITERATION_STATEMENT)
+        private val FOR_IN_STATEMENT = createLabeledRuleElement("ForInStatement", ITERATION_STATEMENT)
+        private val FOR_OF_STATEMENT = createLabeledRuleElement("ForOfStatement", ITERATION_STATEMENT)
         private val WITH_STATEMENT = RULES[JavaScriptParser.RULE_withStatement]
         private val DEBUGGER_STATEMENT = RULES[JavaScriptParser.RULE_debuggerStatement]
         private val PARAMETERS = RULES[JavaScriptParser.RULE_formalParameterList]
@@ -227,7 +237,12 @@ object JavaScriptTypes {
                 RETURN_STATEMENT -> JavaScriptReturnStatement(node)
                 YIELD_STATEMENT -> JavaScriptYieldStatement(node)
                 IF_STATEMENT -> JavaScriptIfStatement(node)
-                ITERATION_STATEMENT -> JavaScriptIterationStatement(node)
+                ITERATION_STATEMENT -> unexpectedNode(node)
+                DO_STATEMENT -> JavaScriptDoWhileStatement(node)
+                WHILE_STATEMENT -> JavaScriptWhileStatement(node)
+                FOR_STATEMENT -> JavaScriptForStatement(node)
+                FOR_IN_STATEMENT -> JavaScriptForInStatement(node)
+                FOR_OF_STATEMENT -> JavaScriptForOfStatement(node)
                 WITH_STATEMENT -> JavaScriptWithStatement(node)
                 DEBUGGER_STATEMENT -> JavaScriptDebuggerStatement(node)
                 PARAMETERS -> JavaScriptParameters(node)
@@ -270,6 +285,11 @@ object JavaScriptTypes {
                 //TODO: other rules
                 else -> ASTWrapperPsiElement(node)
             }
+        }
+
+        private fun unexpectedNode(node: ASTNode): PsiElement {
+            LOGGER.warn("Unexpected node $node")
+            return ASTWrapperPsiElement(node)
         }
 
         private fun createClassElement(node: ASTNode): PsiElement {
