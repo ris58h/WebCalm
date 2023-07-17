@@ -147,9 +147,9 @@ object JavaScriptTypes {
 
         fun getLabeledRuleElementTypes(): Map<String, IElementType> = labeledRuleElementTypes
 
-        private fun createLabeledRuleElement(labelName: String, prototype: RuleIElementType): LabeledRuleIElementType {
-            val ruleElementType = LabeledRuleIElementType.create(labelName, prototype)
-            labeledRuleElementTypes[labelName] = ruleElementType
+        private fun createLabeledRuleElement(label: String, prototype: RuleIElementType): LabeledRuleIElementType {
+            val ruleElementType = LabeledRuleIElementType.create(label, prototype)
+            labeledRuleElementTypes[label] = ruleElementType
             return ruleElementType
         }
 

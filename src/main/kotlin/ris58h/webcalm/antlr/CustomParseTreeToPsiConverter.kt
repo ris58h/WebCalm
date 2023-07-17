@@ -24,8 +24,8 @@ class CustomParseTreeToPsiConverter(language: Language, parser: Parser, builder:
             marker.collapse(rulesToCollapse[ruleIndex]!!)
         } else {
             val marker = markers.pop()
-            val labelName = labelName(ctx)
-            val ruleIElementType = labeledRules[labelName] ?: getRuleElementTypes()[ctx.ruleIndex]
+            val label = label(ctx)
+            val ruleIElementType = labeledRules[label] ?: getRuleElementTypes()[ctx.ruleIndex]
             marker.done(ruleIElementType)
         }
     }
@@ -45,7 +45,7 @@ class CustomParseTreeToPsiConverter(language: Language, parser: Parser, builder:
         return this
     }
 
-    private fun labelName(ctx: ParserRuleContext): String? {
+    private fun label(ctx: ParserRuleContext): String? {
         val javaClass = ctx.javaClass
         val isLabeled = javaClass.superclass.canonicalName != "org.antlr.v4.runtime.ParserRuleContext"
         return if (isLabeled) {
