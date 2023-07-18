@@ -1,10 +1,5 @@
 package ris58h.webcalm.javascript.psi
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 
-class JavaScriptPropertyAssignment(node: ASTNode) : ASTWrapperPsiElement(node) {
-    //TODO: support other types of assignment
-    val propertyShorthand: JavaScriptIdentifierExpression?
-        get() = this.findChildByClass(JavaScriptIdentifierExpression::class.java)
-}
+sealed interface JavaScriptPropertyAssignment : PsiElement

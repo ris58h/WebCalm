@@ -141,16 +141,36 @@ class JavaScriptIdentifierReference(element: JavaScriptIdentifier, rangeInElemen
         assignable.doWhen(
             { identifier -> callback(identifier) },
             { array ->
-                array.elements.filterIsInstance<JavaScriptIdentifierExpression>().forEach {
-                    callback(it.identifier)
+                array.elements.forEach {
+                    processDeclarationsInExpression(it, callback)
                 }
             },
             { obj ->
                 obj.propertyAssignments.forEach {
-                    val identifier = it.propertyShorthand?.identifier
-                    if (identifier != null) callback(identifier)
+                    when (it) {
+                        is JavaScriptPropertyShorthand -> {
+                            val expression = it.expression
+                            if (expression != null) processDeclarationsInExpression(expression, callback)
+                        }
+                        else -> {
+                            // TODO: other property assignments
+                        }
+                    }
                 }
             }
         )
+    }
+
+    private fun processDeclarationsInExpression(expression: JavaScriptExpression, callback: (PsiNamedElement) -> Unit) {
+        when (expression) {
+            is JavaScriptAssignmentExpression -> {
+                val left = expression.left
+                if (left != null) processDeclarationsInExpression(left, callback)
+            }
+            is JavaScriptIdentifierExpression -> callback(expression.identifier)
+            else -> {
+                // TODO: other expressions
+            }
+        }
     }
 }

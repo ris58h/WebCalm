@@ -200,6 +200,12 @@ object JavaScriptTypes {
         private val OBJECT = RULES[JavaScriptParser.RULE_objectLiteral]
         private val ARRAY = RULES[JavaScriptParser.RULE_arrayLiteral]
         private val PROPERTY_ASSIGNMENT = RULES[JavaScriptParser.RULE_propertyAssignment]
+        private val PROPERTY_EXPRESSION_ASSIGNMENT = createLabeledRuleElement("PropertyExpressionAssignment", PROPERTY_ASSIGNMENT)
+        private val COMPUTED_PROPERTY_EXPRESSION_ASSIGNMENT = createLabeledRuleElement("ComputedPropertyExpressionAssignment", PROPERTY_ASSIGNMENT)
+        private val FUNCTION_PROPERTY = createLabeledRuleElement("FunctionProperty", PROPERTY_ASSIGNMENT)
+        private val PROPERTY_GETTER = createLabeledRuleElement("PropertyGetter", PROPERTY_ASSIGNMENT)
+        private val PROPERTY_SETTER = createLabeledRuleElement("PropertySetter", PROPERTY_ASSIGNMENT)
+        private val PROPERTY_SHORTHAND = createLabeledRuleElement("PropertyShorthand", PROPERTY_ASSIGNMENT)
         private val TEMPLATE_STRING = RULES[JavaScriptParser.RULE_templateStringLiteral]
         private val ANONYMOUS_FUNCTION = RULES[JavaScriptParser.RULE_anonymousFunction]
         private val CLASS_DECLARATION = RULES[JavaScriptParser.RULE_classDeclaration]
@@ -262,7 +268,13 @@ object JavaScriptTypes {
                 ARGUMENT -> JavaScriptArgument(node)
                 OBJECT -> JavaScriptObject(node)
                 ARRAY -> JavaScriptArray(node)
-                PROPERTY_ASSIGNMENT -> JavaScriptPropertyAssignment(node)
+                PROPERTY_ASSIGNMENT -> unexpectedNode(node)
+                PROPERTY_EXPRESSION_ASSIGNMENT -> JavaScriptPropertyExpressionAssignment(node)
+                COMPUTED_PROPERTY_EXPRESSION_ASSIGNMENT -> JavaScriptComputedPropertyExpressionAssignment(node)
+                FUNCTION_PROPERTY -> JavaScriptFunctionProperty(node)
+                PROPERTY_GETTER -> JavaScriptPropertyGetter(node)
+                PROPERTY_SETTER -> JavaScriptPropertySetter(node)
+                PROPERTY_SHORTHAND -> JavaScriptPropertyShorthand(node)
                 TEMPLATE_STRING -> JavaScriptTemplateString(node)
                 ANONYMOUS_FUNCTION -> JavaScriptAnonymousFunction(node)
                 CLASS_DECLARATION -> JavaScriptClassDeclaration(node)
