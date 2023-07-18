@@ -25,11 +25,11 @@ class JavaScriptIdentifier(node: ASTNode) : ASTWrapperPsiElement(node), PsiNameI
 
     override fun setName(name: String): PsiElement {
         val idLeaf = nameIdentifier
-        val newIdLeaf: PsiElement = JavaScriptElementFactory.createIdentifierTokenFromText(project, name)
+        val newIdLeaf = JavaScriptElementFactory.createIdentifierTokenFromText(project, name)
         return idLeaf.replace(newIdLeaf)
     }
 
-    override fun getTextOffset(): Int = nameIdentifier.textOffset
+    override fun getTextOffset() = nameIdentifier.textOffset
 
     override fun getNameIdentifier(): PsiElement = firstChild
 
