@@ -114,4 +114,7 @@ tasks {
         dependsOn(patchChangelog)
         token.set(environment("PUBLISH_TOKEN"))
     }
+
+    // TODO
+    task<ris58h.antlrkit.gradle.AntlrKitTask>("generateParser")
 }
