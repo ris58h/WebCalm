@@ -21,8 +21,8 @@ class JavaScriptStructureViewFactory : PsiStructureViewFactory {
 private fun createModel(psiFile: PsiFile, editor: Editor?): StructureViewModel {
     return object : StructureViewModelBase(psiFile, editor, JavaScriptStructureViewElement(psiFile)),
         StructureViewModel.ElementInfoProvider {
-        override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
-        override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
+        override fun isAlwaysShowsPlus(element: StructureViewTreeElement?) = false
+        override fun isAlwaysLeaf(element: StructureViewTreeElement) = false
     }.withSuitableClasses(
         JavaScriptFunctionDeclaration::class.java,
         JavaScriptClassDeclaration::class.java,

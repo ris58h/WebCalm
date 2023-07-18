@@ -21,8 +21,8 @@ class CssStructureViewFactory : PsiStructureViewFactory {
 private fun createModel(psiFile: PsiFile, editor: Editor?): StructureViewModel {
     return object : StructureViewModelBase(psiFile, editor, CssStructureViewElement(psiFile)),
         StructureViewModel.ElementInfoProvider {
-        override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
-        override fun isAlwaysLeaf(element: StructureViewTreeElement): Boolean = false
+        override fun isAlwaysShowsPlus(element: StructureViewTreeElement?) = false
+        override fun isAlwaysLeaf(element: StructureViewTreeElement) = false
     }.withSuitableClasses(
         CssNestedStatement::class.java,
         CssKeyframeBlock::class.java,

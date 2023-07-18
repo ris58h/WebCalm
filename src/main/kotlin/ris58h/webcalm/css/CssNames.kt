@@ -26,7 +26,7 @@ class CssRenameInputValidator : RenameInputValidator {
 }
 
 class CssNamesValidator : NamesValidator {
-    override fun isKeyword(name: String, project: Project?): Boolean = false
+    override fun isKeyword(name: String, project: Project?) = false
 
-    override fun isIdentifier(name: String, project: Project?): Boolean = isVariableName(name)
+    override fun isIdentifier(name: String, project: Project?) = isVariableName(name)
 }
