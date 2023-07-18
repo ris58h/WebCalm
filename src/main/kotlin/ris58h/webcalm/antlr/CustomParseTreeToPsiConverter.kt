@@ -10,7 +10,6 @@ import org.antlr.v4.runtime.ParserRuleContext
 
 class CustomParseTreeToPsiConverter(language: Language, parser: Parser, builder: PsiBuilder) : ANTLRParseTreeToPSIConverter(language, parser, builder) {
     private var rulesToDrop: Set<Int> = emptySet()
-    private var rulesToCollapse: Map<Int, IElementType> = emptyMap()
     private var labeledRules: Map<String, IElementType> = emptyMap()
 
     override fun exitEveryRule(ctx: ParserRuleContext) {
@@ -19,9 +18,6 @@ class CustomParseTreeToPsiConverter(language: Language, parser: Parser, builder:
         if (rulesToDrop.contains(ruleIndex)) {
             val marker = markers.pop()
             marker.drop()
-        } else if (rulesToCollapse.containsKey(ruleIndex)) {
-            val marker = markers.pop()
-            marker.collapse(rulesToCollapse[ruleIndex]!!)
         } else {
             val marker = markers.pop()
             val label = label(ctx)
@@ -32,11 +28,6 @@ class CustomParseTreeToPsiConverter(language: Language, parser: Parser, builder:
 
     fun withRulesToDrop(rulesToDrop: Set<Int>): CustomParseTreeToPsiConverter {
         this.rulesToDrop = rulesToDrop
-        return this
-    }
-
-    fun withRulesToCollapse(rulesToCollapse: Map<Int, IElementType>): CustomParseTreeToPsiConverter {
-        this.rulesToCollapse = rulesToCollapse
         return this
     }
 
