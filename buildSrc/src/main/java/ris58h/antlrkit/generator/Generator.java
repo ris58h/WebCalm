@@ -172,19 +172,28 @@ public class Generator {
         );
 
         if (!ruleInfo.isPrototype) {
+            String simpleName = interfaceName + "Impl";
             generateClass(
                     psiImplPackage,
-                    interfaceName + "Impl",
+                    simpleName,
                     false,
                     List.of(
                             "java.util.List",
                             "org.jetbrains.annotations.*",
-                            "com.intellij.psi.PsiElement"
+                            "com.intellij.psi.PsiElement",
+                            "com.intellij.extapi.psi.ASTWrapperPsiElement"
                     ),
                     List.of(interfaceName),
-                    List.of(),
+                    List.of("ASTWrapperPsiElement"),
                     writer -> {
-                        //TODO getters
+                        try {
+                            writer.write("    public " + simpleName + "(@NotNull ASTNode node) {\n");
+                            writer.write("        super(node);\n");
+                            writer.write("    }\n");
+                            //TODO getters
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
             );
         }
