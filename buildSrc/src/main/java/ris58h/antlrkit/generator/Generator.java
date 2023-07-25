@@ -75,7 +75,8 @@ public class Generator {
                         "com.intellij.psi.tree.IElementType",
                         "com.intellij.psi.PsiElement",
                         "com.intellij.lang.ASTNode",
-                        psiImplPackage + ".*"
+                        psiImplPackage + ".*",
+                        elementTypeClass
                 ),
                 List.of(),
                 List.of(),
@@ -222,8 +223,11 @@ public class Generator {
             writer.write("package " + packageName + ";\n\n");
         }
 
-        for (String anImport : importList) {
-            writer.write("import " + anImport + ";\n");
+        for (String classToImport : importList) {
+            String packageToImport = packageName(classToImport);
+            if (!Objects.equals(packageName, packageToImport)) {
+                writer.write("import " + classToImport + ";\n");
+            }
         }
         writer.write("\n");
 
