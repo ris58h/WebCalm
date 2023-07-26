@@ -3,29 +3,26 @@ package ris58h.antlrkit.generator;
 import ris58h.antlrkit.grammar.GrammarInfo;
 import ris58h.antlrkit.grammar.RuleInfo;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class Generator {
     //TODO
-    private String outputDir = "/Users/ris/projects/WebCalm/build/generated-src/grammar/";
+    private final String outputDir = "/Users/ris/projects/WebCalm/build/generated-src/grammar/";
 
     //TODO
-    private String parserClass = "ris58h.webcalm.javascript.JavaScriptParser";
-    private String psiPackage = "ris58h.webcalm.javascript.psi";
-    private String psiImplPackage = "ris58h.webcalm.javascript.psi.impl";
-    private String psiImplUtilClass = "ris58h.webcalm.javascript.psi.impl.JavaScriptPsiImplUtil";
-    private String psiClassPrefix = "JavaScript";
-    private String elementTypeHolderClass = "ris58h.webcalm.javascript.psi.JavaScriptTypes";
-    private String elementTypeClass = "ris58h.webcalm.javascript.psi.JavaScriptElementType";
-    private String tokenTypeClass = "ris58h.webcalm.javascript.psi.JavaScriptTokenType";
+    private final String parserClass = "ris58h.webcalm.javascript.JavaScriptParser";
+    private final String psiPackage = "ris58h.webcalm.javascript.psi";
+    private final String psiImplPackage = "ris58h.webcalm.javascript.psi.impl";
+    private final String psiImplUtilClass = "ris58h.webcalm.javascript.psi.impl.JavaScriptPsiImplUtil";
+    private final String psiClassPrefix = "JavaScript";
+    private final String elementTypeHolderClass = "ris58h.webcalm.javascript.psi.JavaScriptTypes";
+    private final String elementTypeClass = "ris58h.webcalm.javascript.psi.JavaScriptElementType";
+    private final String tokenTypeClass = "ris58h.webcalm.javascript.psi.JavaScriptTokenType";
 
     // TODO
-    private Set<String> rulesToDrop = Set.of(
+    private final Set<String> rulesToDrop = Set.of(
             "program",
             "sourceElements",
             "sourceElement",
@@ -46,6 +43,8 @@ public class Generator {
             "caseClauses"
     );
 
+    private final JavaFileGenerator javaFileGenerator = new JavaFileGenerator(outputDir);
+
     public void generate(GrammarInfo grammarInfo) throws IOException {
         generateParser(grammarInfo);
         generateTypes(grammarInfo);
@@ -53,13 +52,11 @@ public class Generator {
     }
 
     private void generateParser(GrammarInfo grammarInfo) throws IOException {
-        generateClass(
-                packageName(parserClass),
-                simpleName(parserClass),
-                false,
+        javaFileGenerator.generateClass(
+                parserClass,
                 List.of("com.intellij.lang.PsiParser"),
+                null,
                 List.of("PsiParser"),
-                List.of(),
                 writer -> {
                     //TODO
                 }
@@ -67,10 +64,8 @@ public class Generator {
     }
 
     private void generateTypes(GrammarInfo grammarInfo) throws IOException {
-        generateClass(
-                packageName(elementTypeHolderClass),
-                simpleName(elementTypeHolderClass),
-                true,
+        javaFileGenerator.generateInterface(
+                elementTypeHolderClass,
                 List.of(
                         "com.intellij.psi.tree.IElementType",
                         "com.intellij.psi.PsiElement",
@@ -78,7 +73,6 @@ public class Generator {
                         psiImplPackage + ".*",
                         elementTypeClass
                 ),
-                List.of(),
                 List.of(),
                 writer -> {
                     try {
@@ -92,7 +86,7 @@ public class Generator {
 
     private void writeTypesBody(GrammarInfo grammarInfo, Writer writer) throws IOException {
         // Tokens
-        String tokenClassName = simpleName(tokenTypeClass);
+        String tokenClassName = JavaFileGenerator.simpleName(tokenTypeClass);
         for (String tokenName : grammarInfo.tokenNames) {
             writer.write("    IElementType " + tokenName + " = new " + tokenClassName + "(\"" + tokenName + "\");\n");
         }
@@ -111,7 +105,7 @@ public class Generator {
 
         // Rules
         List<RuleInfo> ruleInfos = grammarInfo.ruleInfos;
-        String elementClassName = simpleName(elementTypeClass);
+        String elementClassName = JavaFileGenerator.simpleName(elementTypeClass);
         for (RuleInfo ruleInfo : ruleInfos) {
             String ruleName = ruleInfo.name;
             if (!rulesToDrop.contains(ruleName)) {
@@ -124,7 +118,7 @@ public class Generator {
         writer.write("    class Factory {\n");
         writer.write("        public static PsiElement createElement(ASTNode node) {\n");
         writer.write("            IElementType type = node.getElementType();\n");
-        String className = simpleName(elementTypeHolderClass);
+        String className = JavaFileGenerator.simpleName(elementTypeHolderClass);
         for (RuleInfo ruleInfo : ruleInfos) {
             String ruleName = ruleInfo.name;
             if (!rulesToDrop.contains(ruleName)) {
@@ -155,16 +149,14 @@ public class Generator {
         if (ruleInfo.prototypeName != null) {
             extendsList.add(psiClassName(ruleInfo.prototypeName));
         }
-        generateClass(
+        javaFileGenerator.generateInterface(
                 psiPackage,
                 interfaceName,
-                true,
                 List.of(
                         "java.util.List",
                         "org.jetbrains.annotations.*",
                         "com.intellij.psi.PsiElement"
                 ),
-                List.of(),
                 extendsList,
                 writer -> {
                     // TODO getters
@@ -173,18 +165,17 @@ public class Generator {
 
         if (!ruleInfo.isPrototype) {
             String simpleName = interfaceName + "Impl";
-            generateClass(
+            javaFileGenerator.generateClass(
                     psiImplPackage,
                     simpleName,
-                    false,
                     List.of(
                             "java.util.List",
                             "org.jetbrains.annotations.*",
                             "com.intellij.psi.PsiElement",
                             "com.intellij.extapi.psi.ASTWrapperPsiElement"
                     ),
+                    "ASTWrapperPsiElement",
                     List.of(interfaceName),
-                    List.of("ASTWrapperPsiElement"),
                     writer -> {
                         try {
                             writer.write("    public " + simpleName + "(@NotNull ASTNode node) {\n");
@@ -199,82 +190,9 @@ public class Generator {
         }
     }
 
-    private void generateClass(
-            String packageName,
-            String simpleName,
-            boolean isInterface,
-            List<String> importList,
-            List<String> implementsList,
-            List<String> extendsList,
-            Consumer<Writer> bodyWriterCallback
-    ) throws IOException {
-        File outputFile = new File(outputFilePath(packageName, simpleName));
-        if (!outputFile.exists()) {
-            outputFile.getParentFile().mkdirs();
-            outputFile.createNewFile();
-        }
-        try (Writer writer = new FileWriter(outputFile)) {
-            writeClass(packageName, simpleName, isInterface, importList, implementsList, extendsList, writer, bodyWriterCallback);
-        }
-    }
-
-    private static void writeClass(
-            String packageName,
-            String simpleName,
-            boolean isInterface,
-            List<String> importList,
-            List<String> implementsList,
-            List<String> extendsList,
-            Writer writer,
-            Consumer<Writer> bodyWriterCallback
-    ) throws IOException {
-        if (packageName != null && !packageName.isBlank()) {
-            writer.write("package " + packageName + ";\n\n");
-        }
-
-        for (String classToImport : importList) {
-            String packageToImport = packageName(classToImport);
-            if (!Objects.equals(packageName, packageToImport)) {
-                writer.write("import " + classToImport + ";\n");
-            }
-        }
-        writer.write("\n");
-
-        writer.write(
-                "public " +
-                        (isInterface ? "interface " : "class ") +
-                        simpleName
-        );
-        if (!extendsList.isEmpty()) {
-            writer.write(" extends " + String.join(", ", extendsList));
-        }
-        if (!implementsList.isEmpty()) {
-            writer.write(" implements " + String.join(", ", implementsList));
-        }
-        writer.write(" {\n");
-        bodyWriterCallback.accept(writer);
-        writer.write("}\n");
-    }
-
     private String psiClassName(String ruleName) {
         // TODO: skip _
         char firstChar = ruleName.charAt(0);
         return psiClassPrefix + Character.toUpperCase(firstChar) + ruleName.substring(1);
-    }
-
-    private static String simpleName(String fqn) {
-        int i = fqn.lastIndexOf('.');
-        return i < 0 ? fqn : fqn.substring(i + 1);
-    }
-
-    private static String packageName(String fqn) {
-        int i = fqn.lastIndexOf('.');
-        return i < 0 ? null : fqn.substring(0, i);
-    }
-
-    private String outputFilePath(String packageName, String simpleName) {
-        String fileName = packageName.replace('.', '/') + '/' + simpleName + ".java";
-        // TODO trailing '/'
-        return outputDir + fileName;
     }
 }
