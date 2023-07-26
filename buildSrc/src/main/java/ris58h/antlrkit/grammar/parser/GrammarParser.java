@@ -28,16 +28,12 @@ public class GrammarParser {
     }
 
     private static GrammarInfo.GrammarType grammarType(int type) {
-        if (type == ANTLRParser.LEXER) {
-            return GrammarInfo.GrammarType.LEXER;
+        switch (type) {
+            case ANTLRParser.LEXER: return GrammarInfo.GrammarType.LEXER;
+            case ANTLRParser.PARSER: return GrammarInfo.GrammarType.PARSER;
+            case ANTLRParser.COMBINED: return GrammarInfo.GrammarType.COMBINED;
+            default: throw new IllegalStateException("Unknown grammar type " + type);
         }
-        if (type == ANTLRParser.PARSER) {
-            return GrammarInfo.GrammarType.PARSER;
-        }
-        if (type == ANTLRParser.COMBINED) {
-            return GrammarInfo.GrammarType.COMBINED;
-        }
-        throw new IllegalStateException("Unknown grammar type " + type);
     }
 
     private static void collectInfos(
@@ -58,7 +54,6 @@ public class GrammarParser {
                 Tree ruleRef = node.getFirstChildWithType(ANTLRParser.RULE_REF);
                 if (ruleRef != null) {
                     String ruleName = ruleRef.getText();
-//                    System.out.println(ruleName);//TODO
                     RuleInfo ruleInfo = new RuleInfo(ruleName);
                     ruleInfos.add(ruleInfo);
                     prototype = ruleInfo;
@@ -71,7 +66,6 @@ public class GrammarParser {
                 GrammarAST altLabel = node.altLabel;
                 if (altLabel != null) {
                     String label = altLabel.getText();
-//                    System.out.println("  | # " + label);//TODO
                     ruleInfos.add(new RuleInfo(label, prototype.name));
                     prototype.isPrototype = true;
                 }
