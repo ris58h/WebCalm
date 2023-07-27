@@ -1,7 +1,8 @@
 package ris58h.antlrkit.generator;
 
-import ris58h.antlrkit.grammar.GrammarInfo;
-import ris58h.antlrkit.grammar.RuleInfo;
+import ris58h.antlrkit.grammar.Grammar;
+import ris58h.antlrkit.generator.GrammarInfo;
+import ris58h.antlrkit.generator.RuleInfo;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -45,7 +46,8 @@ public class Generator {
 
     private final JavaFileGenerator javaFileGenerator = new JavaFileGenerator(outputDir);
 
-    public void generate(GrammarInfo grammarInfo) throws IOException {
+    public void generate(Grammar grammar) throws IOException {
+        GrammarInfo grammarInfo = GrammarInfo.from(grammar);
         generateParser(grammarInfo);
         generateTypes(grammarInfo);
         generatePsiElements(grammarInfo);

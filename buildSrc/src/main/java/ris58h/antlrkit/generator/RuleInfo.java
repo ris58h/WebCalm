@@ -1,9 +1,9 @@
-package ris58h.antlrkit.grammar;
+package ris58h.antlrkit.generator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RuleInfo {
+class RuleInfo {
     public final String name;
     public final String prototypeName;
     public boolean isPrototype;
