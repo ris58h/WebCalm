@@ -9,8 +9,6 @@ Available on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21826-
 <!-- Plugin description -->
 Adds support for JavaScript and CSS.
 
-WARNING: The plugin is still in development so something may not work properly.
-
 Features:
 - Syntax highlighting.
 - Code folding.
