@@ -76,13 +76,7 @@ public class Generator {
                         elementTypeClass
                 ),
                 List.of(),
-                writer -> {
-                    try {
-                        writeTypesBody(grammarInfo, writer);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+                writer -> writeTypesBody(grammarInfo, writer)
         );
     }
 
@@ -179,14 +173,10 @@ public class Generator {
                     "ASTWrapperPsiElement",
                     List.of(interfaceName),
                     writer -> {
-                        try {
-                            writer.write("    public " + simpleName + "(@NotNull ASTNode node) {\n");
-                            writer.write("        super(node);\n");
-                            writer.write("    }\n");
-                            //TODO getters
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        writer.write("    public " + simpleName + "(@NotNull ASTNode node) {\n");
+                        writer.write("        super(node);\n");
+                        writer.write("    }\n");
+                        //TODO getters
                     }
             );
         }

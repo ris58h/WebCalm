@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class JavaFileGenerator {
     private final String outputDir;
@@ -19,7 +18,7 @@ public class JavaFileGenerator {
             String fqn,
             List<String> importList,
             List<String> extendsList,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         generateInterface(packageName(fqn), simpleName(fqn), importList, extendsList, bodyWriterCallback);
     }
@@ -29,7 +28,7 @@ public class JavaFileGenerator {
             String simpleName,
             List<String> importList,
             List<String> extendsList,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         generateFile(packageName, simpleName, "interface", importList, List.of(), extendsList, bodyWriterCallback);
     }
@@ -39,7 +38,7 @@ public class JavaFileGenerator {
             List<String> importList,
             String superClass,
             List<String> implementsList,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         generateClass(packageName(fqn), simpleName(fqn), importList, superClass, implementsList, bodyWriterCallback);
     }
@@ -50,7 +49,7 @@ public class JavaFileGenerator {
             List<String> importList,
             String superClass,
             List<String> implementsList,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         List<String> extendsList = superClass == null ? List.of() : List.of(superClass);
         generateFile(packageName, simpleName, "class", importList, implementsList, extendsList, bodyWriterCallback);
@@ -63,7 +62,7 @@ public class JavaFileGenerator {
             List<String> importList,
             List<String> implementsList,
             List<String> extendsList,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         File outputFile = new File(outputFilePath(packageName, simpleName));
         if (!outputFile.exists()) {
@@ -83,7 +82,7 @@ public class JavaFileGenerator {
             List<String> implementsList,
             List<String> extendsList,
             Writer writer,
-            Consumer<Writer> bodyWriterCallback
+            IOCallback<Writer> bodyWriterCallback
     ) throws IOException {
         if (packageName != null && !packageName.isBlank()) {
             writer.write("package " + packageName + ";\n\n");
