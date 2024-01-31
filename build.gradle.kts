@@ -114,4 +114,9 @@ tasks {
         dependsOn(patchChangelog)
         token.set(environment("PUBLISH_TOKEN"))
     }
+
+    // TODO: a hack for an JBR issue. See https://youtrack.jetbrains.com/issue/IJSDK-1592
+    runIde {
+        jbrArch.set("x64")
+    }
 }
