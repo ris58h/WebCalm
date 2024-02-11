@@ -63,5 +63,5 @@ class HtmlRelatedScriptsProcessor : RelatedScriptsProcessor {
 
 fun isJavaScriptScriptTag(scriptTag: XmlTag): Boolean {
     val type = scriptTag.getAttributeValue("type")
-    return type.isNullOrEmpty() || type == "text/javascript"
+    return type.isNullOrEmpty() || type == "text/javascript" || type == "module"
 }
