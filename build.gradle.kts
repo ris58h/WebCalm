@@ -104,6 +104,20 @@ tasks {
         })
     }
 
+    val shrinkListProductsReleasesFile = register("shrinkListProductsReleasesFile") {
+        doLast {
+            val file = listProductsReleases.get().outputs.files.singleFile
+            val lines = file.readLines()
+            if (lines.size > 2) {
+                val shrunkLines = listOf(lines.first(), lines.last())
+                file.writeText(shrunkLines.joinToString("\n"))
+            }
+        }
+    }
+    listProductsReleases {
+        finalizedBy(shrinkListProductsReleasesFile)
+    }
+
     signPlugin {
         certificateChain.set(environment("CERTIFICATE_CHAIN"))
         privateKey.set(environment("PRIVATE_KEY"))
