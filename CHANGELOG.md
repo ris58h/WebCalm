@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [0.11.1] - 2024-02-12
+
+### Fixed
+- Highlight injected JS in `script` tag with type `module`.
+
 ## [0.11] - 2023-07-17
 
 ### Added
