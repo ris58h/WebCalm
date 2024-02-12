@@ -104,7 +104,7 @@ tasks {
         })
     }
 
-    val shrinkListProductsReleasesFile = register("shrinkListProductsReleasesFile") {
+    val shrinkProductsReleases = register("shrinkProductsReleases") {
         doLast {
             val file = listProductsReleases.get().outputs.files.singleFile
             val lines = file.readLines()
@@ -115,7 +115,7 @@ tasks {
         }
     }
     listProductsReleases {
-        finalizedBy(shrinkListProductsReleasesFile)
+        finalizedBy(shrinkProductsReleases)
     }
 
     signPlugin {
