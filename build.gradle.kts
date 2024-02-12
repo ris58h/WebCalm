@@ -104,6 +104,8 @@ tasks {
         })
     }
 
+    // A long releases list leads to `No space left on device` error while performing `build` GitHub action.
+    // So we shrink the list to verify just against the since and the latest versions.
     val shrinkProductsReleases = register("shrinkProductsReleases") {
         doLast {
             val file = listProductsReleases.get().outputs.files.singleFile
