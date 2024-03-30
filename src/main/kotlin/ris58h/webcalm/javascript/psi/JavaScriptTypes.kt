@@ -43,6 +43,7 @@ object JavaScriptTypes {
     val QUESTION_MARK_DOT = TOKENS[JavaScriptLexer.QuestionMarkDot]!!
     val SEMICOLON = TOKENS[JavaScriptLexer.SemiColon]!!
     val COMMA = TOKENS[JavaScriptLexer.Comma]!!
+    val QUESTION_MARK = TOKENS[JavaScriptLexer.QuestionMark]!!
     val COLON = TOKENS[JavaScriptLexer.Colon]!!
     val PLUS_PLUS_OP = TOKENS[JavaScriptLexer.PlusPlus]!!
     val MINUS_MINUS_OP = TOKENS[JavaScriptLexer.MinusMinus]!!

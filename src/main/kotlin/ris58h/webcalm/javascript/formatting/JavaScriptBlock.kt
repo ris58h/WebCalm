@@ -17,6 +17,10 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
         if (elementType == JavaScriptTypes.DOT || elementType == JavaScriptTypes.QUESTION_MARK_DOT) {
             return Indent.getNormalIndent()
         }
+        //TODO: the same hack as above
+        if (elementType == JavaScriptTypes.QUESTION_MARK || elementType == JavaScriptTypes.COLON) {
+            return Indent.getNormalIndent()
+        }
 
         if (parentElement is JavaScriptFile) {
             return Indent.getNoneIndent()
@@ -24,7 +28,8 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
 
         if (JavaScriptTokenSets.BRACES.contains(elementType) ||
             JavaScriptTokenSets.BRACKETS.contains(elementType) ||
-            JavaScriptTokenSets.PARENTHESES.contains(elementType)) {
+            JavaScriptTokenSets.PARENTHESES.contains(elementType)
+        ) {
             return Indent.getNoneIndent()
         }
 
@@ -32,7 +37,8 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
             parentElement is JavaScriptObject ||
             parentElement is JavaScriptArray ||
             parentElement is JavaScriptArguments ||
-            parentElement is JavaScriptCaseBlock) {
+            parentElement is JavaScriptCaseBlock
+        ) {
             return Indent.getNormalIndent()
         }
 
@@ -52,7 +58,8 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
         if (element is JavaScriptIdentifier ||
             element is JavaScriptIdentifierName ||
             element is JavaScriptIdentifierExpression ||
-            element is JavaScriptLiteral) return true
+            element is JavaScriptLiteral
+        ) return true
         return myNode.firstChildNode == null
     }
 
@@ -86,7 +93,8 @@ class JavaScriptBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?) : Abstr
             element is JavaScriptObject ||
             element is JavaScriptArray ||
             element is JavaScriptArguments ||
-            element is JavaScriptCaseBlock) {
+            element is JavaScriptCaseBlock
+        ) {
             return Indent.getNormalIndent()
         }
 
