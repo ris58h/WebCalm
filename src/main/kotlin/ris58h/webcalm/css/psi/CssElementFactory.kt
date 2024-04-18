@@ -23,6 +23,6 @@ object CssElementFactory {
 
     fun createFileFromText(project: Project, text: String) : CssFile {
         return PsiFileFactory.getInstance(project)
-            .createFileFromText("dummy.css", CssFileType.INSTANCE, text) as CssFile;
+            .createFileFromText("dummy.css", CssFileType.INSTANCE, text) as CssFile
     }
 }
