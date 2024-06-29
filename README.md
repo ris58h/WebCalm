@@ -1,13 +1,13 @@
 # WebCalm
 ![Plugin icon](docs/icons/icon-128.png)
 
-IntelliJ IDEA plugin that adds support for JavaScript and CSS.
+Free plugin that adds JavaScript and CSS support in IntelliJ-based IDEs (IntelliJ IDEA, PyCharm, Android Studio and others).
 
 Available on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21826-webcalm).
 
 ## Description
 <!-- Plugin description -->
-Adds support for JavaScript and CSS.
+Free JavaScript and CSS support.
 
 Features:
 - Syntax highlighting.
@@ -19,8 +19,8 @@ Features:
 - Language injections in tags and attributes.
 - Formatting.
 
-Not planned features:
+Not to be implemented:
 - Template engines support.
 - Frameworks support.
-- Other JavaScript based languages support.
+- Other JavaScript-based languages support.
 <!-- Plugin description end -->
