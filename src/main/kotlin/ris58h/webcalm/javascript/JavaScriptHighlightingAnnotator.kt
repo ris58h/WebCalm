@@ -32,6 +32,10 @@ class JavaScriptHighlightingAnnotator : Annotator, DumbAware {
                 if (text == "get" || text == "set") DefaultLanguageHighlighterColors.KEYWORD
                 else null
             }
+            is JavaScriptForOfStatement -> {
+                if (element.text == "of") DefaultLanguageHighlighterColors.KEYWORD
+                else null
+            }
             else -> null
         }
 
