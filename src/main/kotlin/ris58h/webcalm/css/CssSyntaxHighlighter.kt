@@ -22,6 +22,16 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     private fun tokenColor(tokenType: IElementType): TextAttributesKey? {
+        //TODO: other token types
+        return when (tokenType) {
+            CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> CssSyntaxHighlighterColors.NUMBER
+            CssTypes.HASH -> CssSyntaxHighlighterColors.CONSTANT
+            CssTypes.VARIABLE -> CssSyntaxHighlighterColors.VARIABLE
+            else -> tokenColorFromTokenSets(tokenType)
+        }
+    }
+
+    private fun tokenColorFromTokenSets(tokenType: IElementType): TextAttributesKey? {
         if (CssTokenSets.COMMENTS.contains(tokenType)) {
             return CssSyntaxHighlighterColors.COMMENT
         }
@@ -49,12 +59,6 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         if (CssTokenSets.FUNCTIONS.contains(tokenType)) {
             return CssSyntaxHighlighterColors.FUNCTION_CALL
         }
-        //TODO: other token types
-        return when (tokenType) {
-            CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> CssSyntaxHighlighterColors.NUMBER
-            CssTypes.HASH -> CssSyntaxHighlighterColors.CONSTANT
-            CssTypes.VARIABLE -> CssSyntaxHighlighterColors.VARIABLE
-            else -> null
-        }
+        return null
     }
 }

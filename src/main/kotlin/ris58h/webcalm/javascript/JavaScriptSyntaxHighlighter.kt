@@ -22,6 +22,20 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     private fun tokenColor(tokenType: IElementType): TextAttributesKey? {
+        //TODO: other token types
+        return when (tokenType) {
+            JavaScriptTypes.NULL_LITERAL -> JavaScriptHighlighterColors.KEYWORD
+            JavaScriptTypes.BOOLEAN_LITERAL -> JavaScriptHighlighterColors.KEYWORD
+            JavaScriptTypes.IDENTIFIER -> JavaScriptHighlighterColors.IDENTIFIER
+            JavaScriptTypes.DOT, JavaScriptTypes.QUESTION_MARK_DOT -> JavaScriptHighlighterColors.DOT
+            JavaScriptTypes.SEMICOLON -> JavaScriptHighlighterColors.SEMICOLON
+            JavaScriptTypes.COMMA -> JavaScriptHighlighterColors.COMMA
+            JavaScriptTypes.REGEX_LITERAL -> JavaScriptHighlighterColors.STRING
+            else -> tokenColorFromTokenSets(tokenType)
+        }
+    }
+
+    private fun tokenColorFromTokenSets(tokenType: IElementType): TextAttributesKey? {
         if (JavaScriptTokenSets.COMMENTS.contains(tokenType)) {
             return JavaScriptHighlighterColors.COMMENT
         }
@@ -49,16 +63,6 @@ class JavaScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         if (JavaScriptTokenSets.NUMBERS.contains(tokenType)) {
             return JavaScriptHighlighterColors.NUMBER
         }
-        //TODO: other token types
-        return when (tokenType) {
-            JavaScriptTypes.NULL_LITERAL -> JavaScriptHighlighterColors.KEYWORD
-            JavaScriptTypes.BOOLEAN_LITERAL -> JavaScriptHighlighterColors.KEYWORD
-            JavaScriptTypes.IDENTIFIER -> JavaScriptHighlighterColors.IDENTIFIER
-            JavaScriptTypes.DOT, JavaScriptTypes.QUESTION_MARK_DOT -> JavaScriptHighlighterColors.DOT
-            JavaScriptTypes.SEMICOLON -> JavaScriptHighlighterColors.SEMICOLON
-            JavaScriptTypes.COMMA -> JavaScriptHighlighterColors.COMMA
-            JavaScriptTypes.REGEX_LITERAL -> JavaScriptHighlighterColors.STRING
-            else -> null
-        }
+        return null
     }
 }
