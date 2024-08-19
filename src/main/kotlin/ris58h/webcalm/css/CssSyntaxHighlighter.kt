@@ -53,7 +53,7 @@ class CssSyntaxHighlighter : SyntaxHighlighterBase() {
         return when (tokenType) {
             CssTypes.NUMBER, CssTypes.DIMENSION, CssTypes.PERCENTAGE -> CssSyntaxHighlighterColors.NUMBER
             CssTypes.HASH -> CssSyntaxHighlighterColors.CONSTANT
-            CssTypes.VARIABLE -> CssSyntaxHighlighterColors.LOCAL_VARIABLE
+            CssTypes.VARIABLE -> CssSyntaxHighlighterColors.VARIABLE
             else -> null
         }
     }

@@ -13,6 +13,6 @@ object CssSyntaxHighlighterColors {
     val OPERATION_SIGN: TextAttributesKey = DefaultLanguageHighlighterColors.OPERATION_SIGN
     val NUMBER: TextAttributesKey = DefaultLanguageHighlighterColors.NUMBER
     val CONSTANT: TextAttributesKey = DefaultLanguageHighlighterColors.CONSTANT
-    val LOCAL_VARIABLE: TextAttributesKey = DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+    val VARIABLE: TextAttributesKey = DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     val FUNCTION_CALL: TextAttributesKey = DefaultLanguageHighlighterColors.FUNCTION_CALL
 }
