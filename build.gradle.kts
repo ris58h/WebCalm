@@ -64,10 +64,15 @@ intellijPlatform {
 
     pluginVerification {
         ides {
-            recommended()
+            val productReleases = ProductReleasesValueSource().get()
+            val reducedProductReleases =
+                if (productReleases.size > 2) listOf(productReleases.first(), productReleases.last())
+                else productReleases
+            ides(reducedProductReleases)
         }
     }
 }
+
 
 changelog {
     groups.empty()
@@ -88,7 +93,7 @@ tasks {
             val start = "<!-- Plugin description -->"
             val end = "<!-- Plugin description end -->"
 
-            with (it.lines()) {
+            with(it.lines()) {
                 if (!containsAll(listOf(start, end))) {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
@@ -112,22 +117,6 @@ tasks {
                 )
             }
         })
-    }
-
-    // A long releases list leads to `No space left on device` error while performing `build` GitHub action.
-    // So we shrink the list to verify just against the since and the latest versions.
-    val shrinkProductsReleases = register("shrinkProductsReleases") {
-        doLast {
-            val file = printProductsReleases.get().outputs.files.singleFile
-            val lines = file.readLines()
-            if (lines.size > 2) {
-                val shrunkLines = listOf(lines.first(), lines.last())
-                file.writeText(shrunkLines.joinToString("\n"))
-            }
-        }
-    }
-    printProductsReleases {
-        finalizedBy(shrinkProductsReleases)
     }
 
     signPlugin {
