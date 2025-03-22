@@ -26,6 +26,8 @@ val antlrVersion = "4.12.0"
 dependencies {
     intellijPlatform {
         create(properties("platformType"), properties("platformVersion"))
+
+        pluginVerifier()
     }
 
     implementation("org.antlr:antlr4-intellij-adaptor:0.1") {
@@ -59,6 +61,12 @@ intellijPlatform {
         }
     }
     buildSearchableOptions = false
+
+    pluginVerification {
+        ides {
+            recommended()
+        }
+    }
 }
 
 changelog {
