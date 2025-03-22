@@ -6,7 +6,7 @@ fun environment(key: String) = providers.environmentVariable(key)
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij") version "1.17.0"
+    id("org.jetbrains.intellij.platform") version "2.3.0"
     id("org.jetbrains.changelog") version "2.1.0"
     id("antlr")
 }
@@ -16,11 +16,18 @@ version = properties("pluginVersion").get()
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 val antlrVersion = "4.12.0"
 
 dependencies {
+    intellijPlatform {
+        create(properties("platformType"), properties("platformVersion"))
+    }
+
     implementation("org.antlr:antlr4-intellij-adaptor:0.1") {
         constraints {
             implementation("org.antlr", "antlr4-runtime", antlrVersion) {
@@ -40,15 +47,18 @@ configurations[JavaPlugin.API_CONFIGURATION_NAME].let { apiConfiguration ->
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
-intellij {
-    pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
-    type.set(properties("platformType"))
-
-    updateSinceUntilBuild.set(false)
+intellijPlatform {
+    pluginConfiguration {
+        name = properties("pluginName")
+        ideaVersion {
+            sinceBuild = properties("pluginSinceBuild")
+            untilBuild = provider { null }
+        }
+    }
+    buildSearchableOptions = false
 }
 
 changelog {
@@ -64,15 +74,7 @@ tasks {
         dependsOn(generateGrammarSource)
     }
 
-    buildSearchableOptions {
-        enabled = false
-    }
-
     patchPluginXml {
-        version.set(properties("pluginVersion"))
-        sinceBuild.set(properties("pluginSinceBuild"))
-//        untilBuild = properties("pluginUntilBuild")
-
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         pluginDescription.set(providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
             val start = "<!-- Plugin description -->"
@@ -104,22 +106,6 @@ tasks {
         })
     }
 
-    // A long releases list leads to `No space left on device` error while performing `build` GitHub action.
-    // So we shrink the list to verify just against the since and the latest versions.
-    val shrinkProductsReleases = register("shrinkProductsReleases") {
-        doLast {
-            val file = listProductsReleases.get().outputs.files.singleFile
-            val lines = file.readLines()
-            if (lines.size > 2) {
-                val shrunkLines = listOf(lines.first(), lines.last())
-                file.writeText(shrunkLines.joinToString("\n"))
-            }
-        }
-    }
-    listProductsReleases {
-        finalizedBy(shrinkProductsReleases)
-    }
-
     signPlugin {
         certificateChain.set(environment("CERTIFICATE_CHAIN"))
         privateKey.set(environment("PRIVATE_KEY"))
@@ -129,10 +115,5 @@ tasks {
     publishPlugin {
         dependsOn(patchChangelog)
         token.set(environment("PUBLISH_TOKEN"))
-    }
-
-    // TODO: a hack for an JBR issue. See https://youtrack.jetbrains.com/issue/IJSDK-1592
-    runIde {
-        jbrArch.set("x64")
     }
 }
