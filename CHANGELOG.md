@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [0.12] - 2025-03-23
+
+Minimum Intellij supported version is `2023.3`.
+
+### Added
+- JetBrains Marketplace Error Report Submitter.
+
 ## [0.11.1] - 2024-02-12
 
 ### Fixed
