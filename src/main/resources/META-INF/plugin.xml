@@ -10,4 +10,8 @@
 
     <xi:include href="/META-INF/JavaScriptPlugin.xml"/>
     <xi:include href="/META-INF/CssPlugin.xml"/>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+    </extensions>
 </idea-plugin>
