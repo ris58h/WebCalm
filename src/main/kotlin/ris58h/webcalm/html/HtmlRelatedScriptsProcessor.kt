@@ -56,7 +56,7 @@ class HtmlRelatedScriptsProcessor : RelatedScriptsProcessor {
     }
 
     private fun resolveFile(file: PsiFile, path: String): PsiFile? {
-        val resolvedVirtualFile = file.virtualFile.parent.findFileByRelativePath(path) ?: return null
+        val resolvedVirtualFile = file.virtualFile?.parent?.findFileByRelativePath(path) ?: return null
         return PsiManager.getInstance(file.project).findFile(resolvedVirtualFile)
     }
 }
