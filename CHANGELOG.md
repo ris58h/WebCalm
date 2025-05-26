@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [0.12.1] - 2025-05-26
+
+### Fixed
+- NPE and initialization errors.
+
 ## [0.12] - 2025-03-23
 
 Minimum Intellij supported version is `2023.3`.
