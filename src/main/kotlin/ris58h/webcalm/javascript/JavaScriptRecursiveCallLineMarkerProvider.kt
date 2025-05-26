@@ -25,8 +25,8 @@ class JavaScriptRecursiveCallLineMarkerProvider : LineMarkerProvider, DumbAware 
                 if (parent is JavaScriptCallExpression) {
                     val functionDeclaration = PsiTreeUtil.getParentOfType(parent, JavaScriptFunctionDeclaration::class.java) ?: continue
                     if (element.identifier.name == functionDeclaration.name) {
-                        val document = PsiDocumentManager.getInstance(element.getProject()).getDocument(element.getContainingFile()) ?: continue
-                        val lineNumber = document.getLineNumber(element.getTextOffset())
+                        val document = PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile) ?: continue
+                        val lineNumber = document.getLineNumber(element.textOffset)
                         if (!lines.contains(lineNumber)) {
                             lines.add(lineNumber)
                             result.add(RecursiveMethodCallMarkerInfo(element))

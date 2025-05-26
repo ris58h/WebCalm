@@ -19,7 +19,7 @@ class HtmlStyleTagCssInjector : MultiHostInjector {
         if (!isStyleTag(host.parentTag)) {
             return
         }
-        val elements: List<PsiElement> = ContainerUtil.filter(host.getChildren()) { it !is OuterLanguageElement }
+        val elements: List<PsiElement> = ContainerUtil.filter(host.children) { it !is OuterLanguageElement }
         if (elements.isEmpty()) return
         registrar.startInjecting(CssLanguage)
         for (child in elements) {
